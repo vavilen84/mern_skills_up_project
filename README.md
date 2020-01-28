@@ -1,1 +1,0 @@
-Tutorial: https://code.tutsplus.com/ru/tutorials/creating-a-blogging-app-using-react-user-sign-in--cms-28568
