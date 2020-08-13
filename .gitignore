@@ -1,3 +1,5 @@
 .idea
 server/node_modules
 .env
+server_combined.log
+server_error.log
