@@ -1,11 +1,9 @@
-// app.get('/api/articles', function(req, res) {
-//     res.send('This is not implemented now');
-// });
+let utils = require('./../libs/utils');
 
 module.exports = function(app) {
 
     app.get('/api/v1/posts', function(req, res) {
-        res.send('This is not implemented now');
+        utils.sendOK(res, {"data":1}, "message");
     });
 
 
