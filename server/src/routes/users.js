@@ -1,11 +1,20 @@
-// app.get('/api/articles', function(req, res) {
-//     res.send('This is not implemented now');
-// });
+var User = require('./../models/user').User;
 
 module.exports = function(app) {
+    app.get('/api/v1/users', function(req, res){
 
-    app.get('/api/v1/posts', function(req, res) {
-        res.send('This is not implemented now');
+    });
+
+    app.post('/api/v1/users', function(req, res) {
+        let user = new User({
+            username: "Test"
+        });
+        user.set('password','test');
+        user.save(function(err, user, affected){
+            if (err) throw err;
+            res.send('User created!');
+        });
+        res.send('...');
     });
 
 

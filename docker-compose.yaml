@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+
+  mongoexpress:
+    image: 'mongo-express'
+    ports:
+      - "8081:8081"
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    environment:
+      - ME_CONFIG_OPTIONS_EDITORTHEME=${ME_CONFIG_OPTIONS_EDITORTHEME}
+      - ME_CONFIG_BASICAUTH_USERNAME=${BASIC_AUTH_USERNAME}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${BASIC_AUTH_PASSWORD}
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+    networks:
+      - local
+
+  mongodb:
+    image: 'bitnami/mongodb:latest'
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./docker/bitnami:/tmp/bitnami
+    environment:
+      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - MONGODB_DATABASE=${MONGODB_DATABASE}
+    networks:
+      - local
+
+  server:
+    tty: true
+    build:
+      context: ./
+      dockerfile: ./docker/server/Dockerfile
+    networks:
+      - local
+    volumes:
+      - "./server:${WORKING_DIR}/server"
+    working_dir: ${WORKING_DIR}/server
+    environment:
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - MONGODB_DATABASE=${MONGODB_DATABASE}
+    expose:
+      - "8000"
+    ports:
+      - 8000:8000
+
+#  frontend:
+#    build:
+#      context: ./web
+#      dockerfile: Dockerfile
+#    ports:
+#      - '3000:3000'
+#    environment:
+#      - HTTPS=${USE_SSL}
+#      - REACT_APP_FILE_STORAGE_HOST=${FILE_STORAGE_HOST}
+#    volumes:
+#      - "./:${WORKING_DIR}"
+#    depends_on:
+#      - server
+#      - mongodb
+#    networks:
+#      - local
+
+networks:
+  local:

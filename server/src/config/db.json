@@ -1,0 +1,10 @@
+{
+  "mongoose": {
+    "options": {
+      "keepAlive": 1,
+      "useNewUrlParser": true,
+      "useCreateIndex": true,
+      "useUnifiedTopology": true
+    }
+  }
+}
