@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 let config = require('./../config/db');
-let log = require('logger');
+let log = require('./logger')(module);
 
 mongoose.connect(process.env.MONGODB_CONN_STRING, config.mongoose.options);
 let db = mongoose.connection;
