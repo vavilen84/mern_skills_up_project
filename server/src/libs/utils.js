@@ -14,3 +14,9 @@ module.exports.sendOK = function (res, data, message) {
     res.statusCode = 200;
     res.send(new Response(200, message, data));
 }
+
+module.exports.send = function (res, code, data, message) {
+    setDefaultRespHeaders(res);
+    res.statusCode = code;
+    res.send(new Response(code, message, data));
+}
