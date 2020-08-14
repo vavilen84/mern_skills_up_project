@@ -1,6 +1,6 @@
-let crypto = require('crypto');
 let enums = require('./../enum/enum')
 let log = require('./../../src/libs/logger')(module);
+let security = require('./../../src/libs/security');
 
 let mongoose = require('./../libs/mongoose'),
     Schema = mongoose.Schema;
@@ -32,10 +32,6 @@ let schema = new Schema({
     },
 });
 
-schema.methods.encryptPassword = function (password) {
-    return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
-}
-
 schema.virtual('scenario')
     .set(function (scenario) {
         this._scenario = scenario;
@@ -46,22 +42,14 @@ schema.virtual('scenario')
 
 schema.virtual('password')
     .set(function (password) {
-        if (password) {
+        if (password && (this._scenario === enums.Models.SCENARIO_CREATE)) {
             this._plainPassword = password;
-            this.salt = Math.random() + '';
-            this.hashedPassword = this.encryptPassword(password)
+            this.salt = Math.random() + 'secret';
+            this.hashedPassword = security.encryptPassword(password, this.salt)
         }
     })
     .get(function () {
         return this._plainPassword;
     });
 
-schema.methods.checkPassword = function (password) {
-    return this.encryptPassword(password) === this.hashedPassword;
-}
-
 exports.User = mongoose.model('User', schema);
-
-exports.validateUserOnCreate = function (user) {
-    return user.validateSync();
-}
