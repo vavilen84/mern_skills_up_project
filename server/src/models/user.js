@@ -1,11 +1,15 @@
-let enums = require('./../enum/enum')
-let log = require('./../../src/libs/logger')(module);
-let security = require('./../../src/libs/security');
-
-let mongoose = require('./../libs/mongoose'),
+const enums = require('./../enum/enum')
+const log = require('./../../src/libs/logger')(module);
+const security = require('./../../src/libs/security');
+const mongoose = require('./../libs/mongoose').Mongoose,
     Schema = mongoose.Schema;
 
-let schema = new Schema({
+const modelName = 'User';
+const secret = 'secret';
+const scenarioVirtualProp = 'scenario';
+const passwordVirtualProp = 'password';
+
+const schema = new Schema({
     username: {
         type: String,
         unique: true,
@@ -32,7 +36,7 @@ let schema = new Schema({
     },
 });
 
-schema.virtual('scenario')
+schema.virtual(scenarioVirtualProp)
     .set(function (scenario) {
         this._scenario = scenario;
     })
@@ -40,11 +44,11 @@ schema.virtual('scenario')
         return this._scenario;
     });
 
-schema.virtual('password')
+schema.virtual(passwordVirtualProp)
     .set(function (password) {
         if (password && (this._scenario === enums.Models.SCENARIO_CREATE)) {
             this._plainPassword = password;
-            this.salt = Math.random() + 'secret';
+            this.salt = Math.random() + secret;
             this.hashedPassword = security.encryptPassword(password, this.salt)
         }
     })
@@ -52,4 +56,4 @@ schema.virtual('password')
         return this._plainPassword;
     });
 
-exports.User = mongoose.model('User', schema);
+exports.User = mongoose.model(modelName, schema);
