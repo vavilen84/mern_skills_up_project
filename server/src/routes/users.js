@@ -1,32 +1,30 @@
-let log = require('./../libs/logger')(module);
-let utils = require('./../libs/utils');
-let User = require('./../models/user').User;
-let validateUserOnCreate = require('./../models/user').validateUserOnCreate;
+const log = require('./../libs/logger')(module);
+const response = require('./../libs/response');
+const User = require('./../models/user').User;
+const baseUrl = '/api/v1/users';
+const constants = require('./../../src/constants/constants');
 
 module.exports = function (app) {
 
-    app.get('/api/v1/users', function(req, res) {
-        utils.sendOK(res, {"data":1}, "message");
+    app.get(baseUrl, function (req, res) {
+        response.sendOK(res, {"data": 1}, "message");
     });
 
-
-    app.post('/api/v1/users', function (req, res) {
+    app.post(baseUrl, function (req, res) {
         let user = new User(req.body);
-        let errors = user.validate(user, ['username']);
+        let errors = user.validateSync();
         if (errors) {
-            utils.send(res, 422, errors, "Validation failed")
+            response.sendUnprocessableEntity(res, errors);
         } else {
             user.save(function (err, user, affected) {
                 if (!err) {
                     log.info("user created");
-                    return res.send({status: 'OK', user: user});
+                    response.sendCreated(res, user, baseUrl + '/'.user._id)
                 } else {
-                    if (err.name === 'ValidationError') {
-                        res.statusCode = 400;
-                        res.send({error: 'Validation error'});
+                    if (err.name === constants.MONGOOSE_VALIDATION_ERR_KEY) {
+                        response.sendValidationError(res, err);
                     } else {
-                        res.statusCode = 500;
-                        res.send({error: 'Server error'});
+                        response.sendServerError(res);
                     }
                     log.error('Internal error(%d): %s', res.statusCode, err.message);
                 }
