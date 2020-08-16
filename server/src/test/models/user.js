@@ -1,8 +1,13 @@
-require('dotenv').config();
-let assert = require('assert');
-let log = require('./../../src/libs/logger')(module);
-let User = require('./../../src/models/user').User;
-let enums = require('./../../src/enum/enum');
+require('dotenv').config({ path: '.env.test' });
+const assert = require('assert');
+const log = require('../../libs/logger')(module);
+const User = require('../../models/user').User;
+const User = require('../../models/user').ResponseErrHandler;
+const enums = require('../../enum/enum');
+
+describe('ResponseErrHandler', function () {
+    //err
+});
 
 describe('User model validation', function () {
 
