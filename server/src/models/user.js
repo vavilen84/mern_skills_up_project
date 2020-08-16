@@ -13,18 +13,18 @@ const schema = new Schema({
     username: {
         type: String,
         unique: true,
-        required: true
+        required: [true, 'username is required']
     },
     hashedPassword: {
         type: String,
-        required: function () {
+        required: [function () {
             switch (this._scenario) {
                 case enums.Models.SCENARIO_CREATE:
                     return true;
                 default:
                     return false;
             }
-        }
+        }, 'password is required']
     },
     salt: {
         type: String,
@@ -57,3 +57,14 @@ schema.virtual(passwordVirtualProp)
     });
 
 exports.User = mongoose.model(modelName, schema);
+
+exports.ValidationErrorSerializer = function (err) {
+    let data = {};
+    if (err.errors.username) {
+        data.username = err.errors.username.message;
+    }
+    if (err.errors.hashedPassword) {
+        data.password = err.errors.hashedPassword.message;
+    }
+    return {"errors": data};
+}
