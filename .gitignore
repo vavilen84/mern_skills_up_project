@@ -1,5 +1,6 @@
 .idea
 server/node_modules
 .env
+.env.test
 server_combined.log
 server_error.log
