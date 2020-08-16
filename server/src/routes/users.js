@@ -1,32 +1,35 @@
 const log = require('./../libs/logger')(module);
 const response = require('./../libs/response');
 const User = require('./../models/user').User;
-const baseUrl = '/api/v1/users';
+const ValidationErrorSerializer = require('./../models/user').ValidationErrorSerializer;
 const constants = require('./../../src/constants/constants');
+const path = require('path');
+const enums = require('./../enum/enum');
 
 module.exports = function (app) {
 
-    app.get(baseUrl, function (req, res) {
+    app.get(constants.USERS_BASE_URL, function (req, res) {
         response.sendOK(res, {"data": 1}, "message");
     });
 
-    app.post(baseUrl, function (req, res) {
+    app.post(constants.USERS_BASE_URL, function (req, res) {
         let user = new User(req.body);
+        user.set('scenario', enums.Models.SCENARIO_CREATE);
         let errors = user.validateSync();
         if (errors) {
-            response.sendUnprocessableEntity(res, errors);
+            response.sendUnprocessableEntity(res, ValidationErrorSerializer(errors));
         } else {
             user.save(function (err, user, affected) {
                 if (!err) {
-                    log.info("user created");
-                    response.sendCreated(res, user, baseUrl + '/'.user._id)
+                    //log.info("user created");
+                    response.sendCreated(res, user, path.join(constants.USERS_BASE_URL, user._id))
                 } else {
                     if (err.name === constants.MONGOOSE_VALIDATION_ERR_KEY) {
-                        response.sendValidationError(res, err);
+                        response.sendValidationError(res, ValidationErrorSerializer(err));
                     } else {
                         response.sendServerError(res);
                     }
-                    log.error('Internal error(%d): %s', res.statusCode, err.message);
+                    //log.error('Internal error(%d): %s', res.statusCode, err.message);
                 }
             });
         }

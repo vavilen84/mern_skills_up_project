@@ -1,9 +1,9 @@
-let utils = require('./../libs/utils');
+let response = require('./../libs/response');
 
 module.exports = function(app) {
 
     app.get('/api/v1/posts', function(req, res) {
-        utils.sendOK(res, {"data":1}, "message");
+        response.sendOK(res, {"data":1}, "message");
     });
 
 
