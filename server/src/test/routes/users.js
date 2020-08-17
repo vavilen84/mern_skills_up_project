@@ -61,7 +61,7 @@ describe(constants.USERS_BASE_URL, function () {
         });
     });
 
-    describe('GET ' + constants.USERS_BASE_URL, function () {
+    describe('GET list' + constants.USERS_BASE_URL, function () {
         it('get 200', function (done) {
             request(app)
                 .get(constants.USERS_BASE_URL)
@@ -75,6 +75,38 @@ describe(constants.USERS_BASE_URL, function () {
 
                     let user = resp.data[0];
                     assert.strictEqual(user.username, 'username1');
+                    done();
+                });
+        });
+    });
+
+    describe('GET entity' + constants.USERS_BASE_URL, function () {
+        it('get 200', function (done) {
+            request(app)
+                .get(constants.USERS_BASE_URL+"/username1")
+                .expect('Content-Type', /json/)
+                .expect(constants.RESPONSE_CODE.OK)
+                .end(function (err, res) {
+                    const resp = JSON.parse(res.text);
+                    log.info(resp);
+                    assert.strictEqual(resp.code, constants.RESPONSE_CODE.OK);
+                    assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.OK);
+
+                    let user = resp.data;
+                    assert.strictEqual(user.username, 'username1');
+                    done();
+                });
+        });
+        it('get 404', function (done) {
+            request(app)
+                .get(constants.USERS_BASE_URL+"/not_existing_username")
+                .expect('Content-Type', /json/)
+                .expect(constants.RESPONSE_CODE.NOT_FOUND)
+                .end(function (err, res) {
+                    const resp = JSON.parse(res.text);
+                    log.info(resp);
+                    assert.strictEqual(resp.code, constants.RESPONSE_CODE.NOT_FOUND);
+                    assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.NOT_FOUND);
                     done();
                 });
         });

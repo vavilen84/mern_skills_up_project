@@ -15,7 +15,20 @@ module.exports = function (app) {
             if (err) {
                 response.sendServerError(res);
             }
-            response.sendOK(res, UserResponseSerializer(docs), "OK")
+            response.sendOK(res, UserResponseSerializer(docs), "OK");
+        });
+    });
+
+    app.get(constants.USERS_BASE_URL+"/:username", function (req, res) {
+        User.findOne({username:req.params.username}, function (err, doc){
+            if (err) {
+                response.sendServerError(res);
+            }
+            if (!doc) {
+                response.sendNotFound(res)
+            } else {
+                response.sendOK(res, UserResponseSerializer([doc])[0], "OK")
+            }
         });
     });
 
@@ -40,7 +53,7 @@ module.exports = function (app) {
             } else if (!doc) {
                 user.save(function (err, user, affected) {
                     if (!err) {
-                        response.sendCreated(res, UserResponseSerializer([user]), constants.USERS_BASE_URL+'/'+ user._id)
+                        response.sendCreated(res, UserResponseSerializer([user]), constants.USERS_BASE_URL+'/'+ user.username);
                     } else {
                         if (err.name === constants.MONGOOSE_VALIDATION_ERR_KEY) {
                             response.sendValidationError(res, ValidationErrorResponseSerializer(err));
@@ -53,38 +66,5 @@ module.exports = function (app) {
                 response.sendValidationError(res, {"message": "user already exists"});
             }
         });
-
-
     });
-
-
-    // let posts = {
-    //     list: function (req, res) {
-    //         res.send('user list');
-    //     },
-    //
-    //     get: function (req, res) {
-    //         res.send('user ' + escapeHtml(req.params.uid))
-    //     },
-    //
-    //
-    //     post: function (req, res) {
-    //         res.send('user ' + escapeHtml(req.params.uid))
-    //     },
-    //
-    //     delete: function (req, res) {
-    //         res.send('delete users');
-    //     }
-    // };
-    //
-    // app.map({
-    //     '/posts': {
-    //         get: posts.list,
-    //         '/:uid': {
-    //             get: posts.get,
-    //             post: posts.post,
-    //             delete: posts.delete,
-    //         },
-    //     }
-    // });
 };
