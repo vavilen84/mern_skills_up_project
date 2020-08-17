@@ -1,11 +1,9 @@
-const mongoose = require('mongoose');
 const log = require('./../libs/logger')(module);
 const response = require('./../libs/response');
 const User = require('./../models/user').User;
 const ValidationErrorResponseSerializer = require('./../models/user').ValidationErrorResponseSerializer;
 const UserResponseSerializer = require('./../models/user').UserResponseSerializer;
 const constants = require('./../../src/constants/constants');
-const path = require('path');
 const enums = require('./../enum/enum');
 
 module.exports = function (app) {
