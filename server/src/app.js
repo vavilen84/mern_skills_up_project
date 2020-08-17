@@ -5,7 +5,6 @@ const verbose = process.env.NODE_ENV !== 'test';
 //const escapeHtml = require('escape-html');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-const log = require('./libs/logger')(module);
 //const morgan = require('morgan')
 //app.use(morgan('tiny'))
 

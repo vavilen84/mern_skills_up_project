@@ -11,7 +11,12 @@ const enums = require('./../enum/enum');
 module.exports = function (app) {
 
     app.get(constants.USERS_BASE_URL, function (req, res) {
-        response.sendOK(res, {"data": 1}, "message");
+        User.find({}, function (err, docs){
+            if (err) {
+                response.sendServerError(res);
+            }
+            response.sendOK(res, UserResponseSerializer(docs), "OK")
+        });
     });
 
     app.post(constants.USERS_BASE_URL, function (req, res) {
@@ -35,7 +40,7 @@ module.exports = function (app) {
             } else if (!doc) {
                 user.save(function (err, user, affected) {
                     if (!err) {
-                        response.sendCreated(res, UserResponseSerializer(user), constants.USERS_BASE_URL+'/'+ user._id)
+                        response.sendCreated(res, UserResponseSerializer([user]), constants.USERS_BASE_URL+'/'+ user._id)
                     } else {
                         if (err.name === constants.MONGOOSE_VALIDATION_ERR_KEY) {
                             response.sendValidationError(res, ValidationErrorResponseSerializer(err));

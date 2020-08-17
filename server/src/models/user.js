@@ -68,9 +68,15 @@ exports.ValidationErrorResponseSerializer = function (err) {
     return {"errors": data};
 }
 
-exports.UserResponseSerializer = function (user) {
-    return {
-        username: user.username
-    };
+exports.UserResponseSerializer = function (users) {
+    let result = [];
+    for (let i in users) {
+        result.push(
+            {
+                username: users[i].username
+            }
+        );
+    }
+    return result;
 }
 
