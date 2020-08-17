@@ -1,22 +1,25 @@
+const log = require('./libs/logger')(module);
 const express = require('express');
 const app = express();
 const verbose = process.env.NODE_ENV !== 'test';
-const escapeHtml = require('escape-html');
+//const escapeHtml = require('escape-html');
 const bodyParser = require('body-parser');
-const morgan = require('morgan')
+app.use(bodyParser.json());
 const log = require('./libs/logger')(module);
-
-app.use(bodyParser.urlencoded({extended: true}));
+//const morgan = require('morgan')
 //app.use(morgan('tiny'))
 
 require('dotenv').config();
+if (process.env.NODE_ENV === 'test') {
+    require('dotenv').config({ path: '.env.test' });
+}
 require('./routes/utils')(app, verbose);
 require('./routes/posts')(app);
 require('./routes/users')(app);
 
 const port = process.env.SERVER_PORT;
 let server = app.listen(port, () => {
-    //log.info(`Example app listening at http://localhost:${port}`)
+    log.info(`Example app listening at http://localhost:${port}`)
 });
 
 exports.App = server;

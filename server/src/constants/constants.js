@@ -1,6 +1,6 @@
 module.exports.MONGOOSE_VALIDATION_ERR_KEY = 'ValidationError';
 
-module.exports.USERS_COLLECTION_NAME = 'Users';
+module.exports.USERS_COLLECTION_NAME = 'users';
 
 module.exports.USERS_BASE_URL = '/api/v1/users';
 

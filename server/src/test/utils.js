@@ -1,17 +1,18 @@
 require('dotenv').config({path: '.env.test'});
-const mongoose = require('./../libs/mongoose').Mongoose;
+const mongoose = require('mongoose');
+const config = require('./../config/db');
 const log = require('./../libs/logger')(module);
-const constants = require('./../constants/constants');
 
 function clearTestDBCollections() {
+    mongoose.connect(process.env.MONGODB_CONN_STRING, config.mongoose.options);
     const db = mongoose.connection;
-    db.dropCollection(constants.USERS_COLLECTION_NAME, function(err){
-        if (err) {
-            if (!err.toString().includes("ns not found")) {
-                log.info(err.toString());
-            }
-        }
-    })
+    db.on('error', function (err) {
+        log.error('connection error:', err.message);
+    });
+    db.once('open', function callback () {
+        log.info("Connected to DB. Conn string: " + process.env.MONGODB_CONN_STRING);
+    });
+    db.dropDatabase();
 }
 
 exports.prepareDatabaseBeforeTest = function () {

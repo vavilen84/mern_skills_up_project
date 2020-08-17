@@ -5,7 +5,6 @@ const mongoose = require('./../libs/mongoose').Mongoose,
     Schema = mongoose.Schema;
 
 const modelName = 'User';
-const secret = 'secret';
 const scenarioVirtualProp = 'scenario';
 const passwordVirtualProp = 'password';
 
@@ -48,7 +47,7 @@ schema.virtual(passwordVirtualProp)
     .set(function (password) {
         if (password && (this._scenario === enums.Models.SCENARIO_CREATE)) {
             this._plainPassword = password;
-            this.salt = Math.random() + secret;
+            this.salt = Math.random();
             this.hashedPassword = security.encryptPassword(password, this.salt)
         }
     })
@@ -58,7 +57,7 @@ schema.virtual(passwordVirtualProp)
 
 exports.User = mongoose.model(modelName, schema);
 
-exports.ValidationErrorSerializer = function (err) {
+exports.ValidationErrorResponseSerializer = function (err) {
     let data = {};
     if (err.errors.username) {
         data.username = err.errors.username.message;
@@ -68,3 +67,10 @@ exports.ValidationErrorSerializer = function (err) {
     }
     return {"errors": data};
 }
+
+exports.UserResponseSerializer = function (user) {
+    return {
+        username: user.username
+    };
+}
+

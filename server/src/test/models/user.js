@@ -2,7 +2,6 @@ require('dotenv').config({ path: '.env.test' });
 const assert = require('assert');
 const log = require('../../libs/logger')(module);
 const User = require('../../models/user').User;
-const User = require('../../models/user').ResponseErrHandler;
 const enums = require('../../enum/enum');
 
 describe('ResponseErrHandler', function () {
