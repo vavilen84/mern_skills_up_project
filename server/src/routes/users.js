@@ -56,10 +56,9 @@ module.exports = function (app) {
             } else {
                 if (security.checkPassword(user.password, doc.salt, doc.hashedPassword)) {
                     response.sendOK(res, security.generateAuthTokens(), "OK")
-                } else {
-                    response.sendUnauthorized(res)
+                    return;
                 }
-                response.sendOK(res, UserResponseSerializer([doc])[0], "OK")
+                response.sendUnauthorized(res)
             }
         });
     });
