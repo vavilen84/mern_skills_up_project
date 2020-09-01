@@ -1,5 +1,6 @@
 const log = require('./../libs/logger')(module);
 const response = require('./../libs/response');
+const security = require('./../libs/security');
 const User = require('./../models/user').User;
 const ValidationErrorResponseSerializer = require('./../models/user').ValidationErrorResponseSerializer;
 const UserResponseSerializer = require('./../models/user').UserResponseSerializer;
@@ -25,6 +26,39 @@ module.exports = function (app) {
             if (!doc) {
                 response.sendNotFound(res)
             } else {
+                response.sendOK(res, UserResponseSerializer([doc])[0], "OK")
+            }
+        });
+    });
+
+    app.post(constants.USERS_BASE_URL+"/:username/authenticate", function (req, res) {
+
+        let user = new User({
+            scenario: enums.Models.SCENARIO_AUTHENTICATE
+        });
+
+        user.set('username', req.body.username);
+        user.set('password', req.body.password);
+
+        let errors = user.validateSync();
+        if (errors) {
+            log.info(errors);
+            response.sendUnprocessableEntity(res, ValidationErrorResponseSerializer(errors));
+            return;
+        }
+
+        User.findOne({username:req.params.username}, function (err, doc){
+            if (err) {
+                response.sendServerError(res);
+            }
+            if (!doc) {
+                response.sendNotFound(res)
+            } else {
+                if (security.checkPassword(user.password, doc.salt, doc.hashedPassword)) {
+                    response.sendOK(res, security.generateAuthTokens(), "OK")
+                } else {
+                    response.sendUnauthorized(res)
+                }
                 response.sendOK(res, UserResponseSerializer([doc])[0], "OK")
             }
         });
