@@ -19,6 +19,7 @@
     "mongoose": "^5.9.28",
     "redis": "^3.0.2",
     "supertest": "^4.0.2",
+    "uuid": "^8.3.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {

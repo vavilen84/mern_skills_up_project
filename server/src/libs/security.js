@@ -1,5 +1,6 @@
 const security = require('crypto');
 const secret = 'secret';
+const uuid = require('uuid').v4;
 
 exports.checkPassword = function (password, salt, hashedPassword) {
     return this.encryptPassword(password, salt) === hashedPassword;
@@ -11,17 +12,7 @@ exports.encryptPassword = function (password, salt) {
 
 exports.generateAuthTokens = function () {
     return {
-        accessToken: generateHash(),
-        refreshToken: generateHash()
+        accessToken: uuid(),
+        refreshToken: uuid()
     };
-}
-
-function generateHash() {
-    let hash = 0, i, chr;
-    for (i = 0; i < this.length; i++) {
-        chr = this.charCodeAt(i);
-        hash = ((hash << 5) - hash) + chr;
-        hash |= 0; // Convert to 32bit integer
-    }
-    return hash;
 }
