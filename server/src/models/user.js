@@ -47,7 +47,7 @@ schema.virtual(scenarioVirtualProp)
 
 schema.virtual(passwordVirtualProp)
     .set(function (password) {
-        if (password && (this._scenario === enums.Models.SCENARIO_CREATE)) {
+        if (password && ([enums.Models.SCENARIO_CREATE, enums.Models.SCENARIO_AUTHENTICATE].includes(this._scenario))) {
             this._plainPassword = password;
             this.salt = Math.random();
             this.hashedPassword = security.encryptPassword(password, this.salt)
