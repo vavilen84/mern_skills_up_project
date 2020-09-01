@@ -20,6 +20,8 @@ const schema = new Schema({
             switch (this._scenario) {
                 case enums.Models.SCENARIO_CREATE:
                     return true;
+                case enums.Models.SCENARIO_AUTHENTICATE:
+                    return true;
                 default:
                     return false;
             }
