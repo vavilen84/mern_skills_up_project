@@ -9,6 +9,7 @@ export default class SiteDocument extends Document {
                 <meta name='viewport' content='initial-scale=1.0, width=device-width' />
                 <link rel='stylesheet' type='text/css' href='/css/bootstrap.min.css' />
                 <link rel='stylesheet' type='text/css' href='/css/bootstrap-responsive.min.css' />
+                <link rel='stylesheet' type='text/css' href='/css/style.css' />
                 <script src="/js/bootstrap.min.js"/>
             </Head>
             <body>

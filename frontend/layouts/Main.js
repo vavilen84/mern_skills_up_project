@@ -9,7 +9,7 @@ export default ({children, title = 'This is the default title'}) => (
         </Head>
         <Nav/>
 
-        <div className="container">
+        <div className="container content">
             {children}
         </div>
 
