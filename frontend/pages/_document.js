@@ -10,6 +10,8 @@ export default class SiteDocument extends Document {
                 <link rel='stylesheet' type='text/css' href='/css/bootstrap.min.css' />
                 <link rel='stylesheet' type='text/css' href='/css/bootstrap-responsive.min.css' />
                 <link rel='stylesheet' type='text/css' href='/css/style.css' />
+                <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+                <script src="https://code.jquery.com/jquery-migrate-3.3.1.js"></script>
                 <script src="/js/bootstrap.min.js"/>
             </Head>
             <body>

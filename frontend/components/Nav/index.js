@@ -13,7 +13,7 @@ const Nav = () => (
             <div className="nav-collapse">
                 <ul className={'nav'}>
                     <li>
-                        <Link className="active" href='/'><a>Home</a></Link>
+                        <Link href='/'><a>Home</a></Link>
                     </li>
                     <li>
                         <Link href='/about' prefetch><a>About</a></Link>
