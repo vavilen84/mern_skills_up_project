@@ -3,6 +3,9 @@ import React from "react";
 import {Nav} from "react-bootstrap";
 import Holder from "./Holder";
 
+import { Link } from "react-router-dom"
+import Main from "./Main";
+
 const ContentWrap = styled.section`
   padding-bottom: 90px;
 `;
@@ -11,19 +14,12 @@ function Content() {
     return (
         <ContentWrap>
             <Holder>
-                <Nav
-                    activeKey="Home"
-                    onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-                >
-                    <Nav.Item>
-                        <Nav.Link eventKey="Home" href="/">Home</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link eventKey="Register" href="/register">Register</Nav.Link>
-                    </Nav.Item>
-                </Nav>
-
+                <ul>
+                    <li><Link to='/'>Home</Link></li>
+                    <li><Link to='/register'>Register</Link></li>
+                </ul>
             </Holder>
+            <Main/>
         </ContentWrap>
     );
 }
