@@ -1,4 +1,5 @@
 import React from "react";
+import {USERS_BASE_URL} from "./Constants";
 
 class RegisterForm extends React.Component {
     constructor(props) {
@@ -20,23 +21,36 @@ class RegisterForm extends React.Component {
     }
 
     handleSubmit(event) {
-        console.log(this.state);
         event.preventDefault();
+        fetch(USERS_BASE_URL, {
+            method: 'POST',
+            body: {
+                username: this.state.email,
+                password: this.state.password
+            }
+        })
+            .then(res => res.json())
+            .then(this.handleResponse())
+    }
 
+    handleResponse(json) {
+        console.log(json);
     }
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Email</label>
-                    <input type="email" className="form-control" placeholder="Enter email" onChange={this.handleChangeEmail}/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input type="password" className="form-control" placeholder="Password" onChange={this.handleChangePassword}/>
-                </div>
-                <input type="submit" value="Submit" className="btn btn-success"/>
-            </form>
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="exampleInputEmail1">Email</label>
+                        <input type="email" className="form-control" placeholder="Enter email" onChange={this.handleChangeEmail}/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="exampleInputPassword1">Password</label>
+                        <input type="password" className="form-control" placeholder="Password" onChange={this.handleChangePassword}/>
+                    </div>
+                    <input type="submit" value="Submit" className="btn btn-success"/>
+                </form>
+            </div>
         );
     }
 }

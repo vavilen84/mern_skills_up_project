@@ -1,13 +1,12 @@
-import React from "react";
 import RegisterForm from "./RegisterForm";
-import RegisterFormErrors from "./RegisterFormErrors";
+import React from "react";
 
-const Register = () => (
-    <div>
+const RegisterFormErrors = () => (
+    <div style>
         <h1>Welcome to the register page!</h1>
         <RegisterFormErrors/>
         <RegisterForm/>
     </div>
 )
 
-export default Register;
+export default RegisterFormErrors;
