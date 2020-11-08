@@ -7,14 +7,17 @@ import {
     Redirect,
     withRouter
 } from "react-router-dom"
+import Holder from "./Holder";
 
 
 const Main = () => (
     <main>
-        <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route path='/register' component={Register}/>
-        </Switch>
+        <Holder>
+            <Switch>
+                <Route exact path='/' component={Home}/>
+                <Route path='/register' component={Register}/>
+            </Switch>
+        </Holder>
     </main>
 );
 

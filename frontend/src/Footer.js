@@ -3,29 +3,27 @@ import React from "react";
 import Holder from "./Holder";
 
 var style = {
-    backgroundColor: "#F8F8F8",
+    backgroundColor: "#222",
     borderTop: "1px solid #E7E7E7",
     textAlign: "center",
-    // padding: "20px",
     position: "fixed",
     left: "0",
     bottom: "0",
     height: "60px",
     width: "100%",
+    color: "white"
 }
 
-var phantom = {
-    display: 'block',
-    // padding: '20px',
-    height: '60px',
-    width: '100%',
+var spanStyle = {
+    position: "relative",
+    top: "20px"
 }
+
 function Footer() {
     return (
         <div>
-            <div style={phantom} />
             <div style={style}>
-                Vlad Teplov @copy 2020
+                <span style={spanStyle}>Blog @copy 2020</span>
             </div>
         </div>
     );

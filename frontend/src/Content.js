@@ -13,12 +13,21 @@ const ContentWrap = styled.section`
 function Content() {
     return (
         <ContentWrap>
-            <Holder>
-                <ul>
-                    <li><Link to='/'>Home</Link></li>
-                    <li><Link to='/register'>Register</Link></li>
-                </ul>
-            </Holder>
+            <div className="navbar">
+                <div className="navbar-inner">
+                    <div className="container">
+                        <Holder>
+                            <a className="brand" href="#">Blog</a>
+                            <div className="nav-collapse">
+                                <ul className="nav">
+                                    <li><Link to='/'>Home</Link></li>
+                                    <li><Link to='/register'>Register</Link></li>
+                                </ul>
+                            </div>
+                        </Holder>
+                    </div>
+                </div>
+            </div>
             <Main/>
         </ContentWrap>
     );
