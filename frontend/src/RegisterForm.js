@@ -1,5 +1,5 @@
 import React from "react";
-import {USERS_BASE_URL} from "./Constants";
+import {getURL, USERS_BASE_URL} from "./Server";
 
 const responseBlockStyle = {
     display: "none",
@@ -22,6 +22,7 @@ class RegisterForm extends React.Component {
         this.responseBlock = React.createRef();
         this.responseCode = React.createRef();
         this.responseMessage = React.createRef();
+        this.responseErrors = React.createRef();
     }
     handleChangeEmail(event) {
         this.setState({email: event.target.value});
@@ -32,12 +33,15 @@ class RegisterForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch("http://server.react_node_blog_local:8000"+USERS_BASE_URL, {
+        fetch(getURL(USERS_BASE_URL), {
             method: 'POST',
-            body: {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
                 username: this.state.email,
                 password: this.state.password
-            }
+            })
         })
             .then(res => res.json())
             .then(json => this.handleResponse(json))
@@ -45,8 +49,11 @@ class RegisterForm extends React.Component {
 
     handleResponse(json) {
         this.responseBlock.current.style.display = "block";
-        this.responseCode = json.code;
-        this.responseMessage = json.message;
+        this.responseCode.current.innerHTML = json.code;
+        this.responseMessage.current.innerHTML = json.message;
+        if (json.data.errors) {
+            this.responseErrors.current.innerHTML = Object.entries(json.data.errors).map((item) => item[1]).join("<br>")
+        }
         console.log(json);
     }
     render() {
@@ -55,6 +62,7 @@ class RegisterForm extends React.Component {
                 <div style={responseBlockStyle} ref={this.responseBlock}>
                     <div ref={this.responseCode}/>
                     <div ref={this.responseMessage}/>
+                    <div ref={this.responseErrors}/>
                 </div>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
