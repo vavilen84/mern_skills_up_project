@@ -22,6 +22,7 @@ class RegisterForm extends React.Component {
         this.responseBlock = React.createRef();
         this.responseCode = React.createRef();
         this.responseMessage = React.createRef();
+        this.responseDataMessage = React.createRef();
         this.responseErrors = React.createRef();
     }
     handleChangeEmail(event) {
@@ -50,11 +51,21 @@ class RegisterForm extends React.Component {
     handleResponse(json) {
         this.responseBlock.current.style.display = "block";
         this.responseCode.current.innerHTML = json.code;
-        this.responseMessage.current.innerHTML = json.message;
+
+        this.responseMessage.current.innerHTML = '';
+        if (json.message) {
+            this.responseMessage.current.innerHTML = json.message;
+        }
+
+        this.responseErrors.current.innerHTML = '';
         if (json.data.errors) {
             this.responseErrors.current.innerHTML = Object.entries(json.data.errors).map((item) => item[1]).join("<br>")
         }
-        console.log(json);
+
+        this.responseDataMessage.current.innerHTML = '';
+        if (json.data.message) {
+            this.responseDataMessage.current.innerHTML = json.data.message;
+        }
     }
     render() {
         return (
@@ -63,6 +74,7 @@ class RegisterForm extends React.Component {
                     <div ref={this.responseCode}/>
                     <div ref={this.responseMessage}/>
                     <div ref={this.responseErrors}/>
+                    <div ref={this.responseDataMessage}/>
                 </div>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
