@@ -1,24 +1,13 @@
-import React from "react";
+import {Route, Switch} from "react-router-dom";
 import Home from "./Home";
 import Register from "./Register";
-import {
-    Route,
-    Switch,
-    Redirect,
-    withRouter
-} from "react-router-dom"
-import Holder from "./Holder";
-
+import React from "react";
 
 const Main = () => (
-    <main>
-        <Holder>
-            <Switch>
-                <Route exact path='/' component={Home}/>
-                <Route path='/register' component={Register}/>
-            </Switch>
-        </Holder>
-    </main>
-);
+    <Switch>
+        <Route exact path='/' component={Home}/>
+        <Route path='/register' component={Register}/>
+    </Switch>
+)
 
 export default Main;

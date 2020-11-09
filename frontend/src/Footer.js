@@ -1,8 +1,7 @@
-import styled from 'styled-components'
 import React from "react";
 import Holder from "./Holder";
 
-var style = {
+const style = {
     backgroundColor: "#222",
     borderTop: "1px solid #E7E7E7",
     textAlign: "center",
@@ -14,7 +13,7 @@ var style = {
     color: "white"
 }
 
-var spanStyle = {
+const spanStyle = {
     position: "relative",
     top: "20px"
 }
@@ -22,9 +21,11 @@ var spanStyle = {
 function Footer() {
     return (
         <div>
-            <div style={style}>
-                <span style={spanStyle}>Blog @copy 2020</span>
-            </div>
+            <Holder>
+                <div style={style}>
+                    <span style={spanStyle}>Blog @copy 2020</span>
+                </div>
+            </Holder>
         </div>
     );
 }

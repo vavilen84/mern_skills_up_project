@@ -12,6 +12,10 @@ require('dotenv').config();
 if (process.env.NODE_ENV === 'test') {
     require('dotenv').config({ path: '.env.test' });
 }
+if (process.env.NODE_ENV === 'local') {
+    console.log(123);
+    require('dotenv').config({ path: '.env.local' });
+}
 require('./routes/utils')(app, verbose);
 require('./routes/posts')(app);
 require('./routes/users')(app);
