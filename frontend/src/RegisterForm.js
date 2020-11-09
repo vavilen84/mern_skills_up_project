@@ -1,6 +1,12 @@
 import React from "react";
 import {USERS_BASE_URL} from "./Constants";
 
+const responseBlockStyle = {
+    display: "none",
+    padding: "20px",
+    border: "1px solid black"
+}
+
 class RegisterForm extends React.Component {
     constructor(props) {
         super();
@@ -12,6 +18,10 @@ class RegisterForm extends React.Component {
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.responseBlock = React.createRef();
+        this.responseCode = React.createRef();
+        this.responseMessage = React.createRef();
     }
     handleChangeEmail(event) {
         this.setState({email: event.target.value});
@@ -22,7 +32,7 @@ class RegisterForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch(USERS_BASE_URL, {
+        fetch("http://server.react_node_blog_local:8000"+USERS_BASE_URL, {
             method: 'POST',
             body: {
                 username: this.state.email,
@@ -30,15 +40,22 @@ class RegisterForm extends React.Component {
             }
         })
             .then(res => res.json())
-            .then(this.handleResponse())
+            .then(json => this.handleResponse(json))
     }
 
     handleResponse(json) {
+        this.responseBlock.current.style.display = "block";
+        this.responseCode = json.code;
+        this.responseMessage = json.message;
         console.log(json);
     }
     render() {
         return (
             <div>
+                <div style={responseBlockStyle} ref={this.responseBlock}>
+                    <div ref={this.responseCode}/>
+                    <div ref={this.responseMessage}/>
+                </div>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Email</label>
