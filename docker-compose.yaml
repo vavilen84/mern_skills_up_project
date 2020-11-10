@@ -8,14 +8,8 @@ services:
       - "8081:8081"
     depends_on:
       - mongodb
-    environment:
-      - ME_CONFIG_OPTIONS_EDITORTHEME=${ME_CONFIG_OPTIONS_EDITORTHEME}
-      - ME_CONFIG_BASICAUTH_USERNAME=${BASIC_AUTH_USERNAME}
-      - ME_CONFIG_BASICAUTH_PASSWORD=${BASIC_AUTH_PASSWORD}
-      - ME_CONFIG_MONGODB_SERVER=mongodb
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGODB_USERNAME}
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGODB_PASSWORD}
-      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE}
+    env_file:
+      - .env
     networks:
       - local
 
@@ -24,14 +18,9 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./docker/bitnami:/tmp/bitnami
-    environment:
-      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
-      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
-      - MONGODB_USERNAME=${MONGODB_USERNAME}
-      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
-      - MONGODB_DATABASE=${MONGODB_DATABASE}
+      - ./docker/bitnami:/bitnami/mongodb
+    env_file:
+      - .env
     networks:
       - local
 
@@ -62,8 +51,6 @@ services:
       dockerfile: ./docker/frontend/Dockerfile
     ports:
       - '3000:3000'
-    environment:
-      - HTTPS=${USE_SSL}
     volumes:
       - "./frontend:${WORKING_DIR}"
     depends_on:
