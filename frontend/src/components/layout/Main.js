@@ -1,6 +1,6 @@
 import {Route, Switch} from "react-router-dom";
-import Home from "./Home";
-import Register from "./Register";
+import Home from "../pages/Home";
+import Register from "../pages/register/Register";
 import React from "react";
 
 const Main = () => (

@@ -1,5 +1,5 @@
 import React from "react";
-import {getURL, USERS_BASE_URL} from "./Server";
+import {getURL, USERS_BASE_URL} from "../Server";
 
 class RegisterForm extends React.Component {
     constructor(props) {
