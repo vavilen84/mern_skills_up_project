@@ -1,12 +1,6 @@
 import React from "react";
 import {getURL, USERS_BASE_URL} from "./Server";
 
-const responseBlockStyle = {
-    display: "none",
-    padding: "20px",
-    border: "1px solid black"
-}
-
 class RegisterForm extends React.Component {
     constructor(props) {
         super();
@@ -19,11 +13,7 @@ class RegisterForm extends React.Component {
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
-        this.responseBlock = React.createRef();
-        this.responseCode = React.createRef();
-        this.responseMessage = React.createRef();
-        this.responseDataMessage = React.createRef();
-        this.responseErrors = React.createRef();
+
     }
     handleChangeEmail(event) {
         this.setState({email: event.target.value});
@@ -48,7 +38,33 @@ class RegisterForm extends React.Component {
             .then(json => this.handleResponse(json))
     }
 
+    handleCreated() {
+
+    }
+
+    handleBadRequest(){
+
+    }
+
+    handleUnprocessableEntity(){
+
+    }
+
     handleResponse(json) {
+        switch (json.code) {
+            case 201:
+                this.handleCreated(json);
+                break;
+            case 400:
+                this.handleBadRequest();
+                break;
+            case 422:
+                this.handleUnprocessableEntity();
+                break;
+            default:
+                this.handleError();
+                break;
+        }
         this.responseBlock.current.style.display = "block";
         this.responseCode.current.innerHTML = json.code;
 
@@ -70,12 +86,6 @@ class RegisterForm extends React.Component {
     render() {
         return (
             <div>
-                <div style={responseBlockStyle} ref={this.responseBlock}>
-                    <div ref={this.responseCode}/>
-                    <div ref={this.responseMessage}/>
-                    <div ref={this.responseErrors}/>
-                    <div ref={this.responseDataMessage}/>
-                </div>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Email</label>

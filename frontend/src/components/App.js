@@ -1,4 +1,4 @@
-import './App.css';
+import '../App.css';
 import styled from 'styled-components'
 import Content from "./Content";
 import React from "react";

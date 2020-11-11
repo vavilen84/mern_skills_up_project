@@ -19,6 +19,8 @@
     "mongodb": "^3.6.0",
     "mongoose": "^5.9.28",
     "redis": "^3.0.2",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "supertest": "^4.0.2",
     "uuid": "^8.3.0",
     "winston": "^3.3.3"
