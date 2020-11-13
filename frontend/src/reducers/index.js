@@ -1,23 +1,20 @@
-export default function(state, action) {
+import {SHOW_ALERT,INIT_APP} from "../actions";
+
+const defaultState = {
+    type: INIT_APP,
+    showAlert: false,
+};
+
+export default function(state = defaultState, action) {
     switch (action.type) {
-        case 'add':
+        case SHOW_ALERT:
             return [
                 ...state,
                 {
-                    id: Date.now(),
-                    title: action.payload,
-                    completed: false
+                    showAlert: true,
+                    payload: action.payload
                 }
             ]
-        case 'toggle':
-            return state.map(todo => {
-                if (todo.id === action.payload) {
-                    todo.completed = !todo.completed
-                }
-                return todo
-            })
-        case 'remove':
-            return state.filter(todo => todo.id !== action.payload)
         default:
             return state
     }

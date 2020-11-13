@@ -1,6 +1,5 @@
 import React from "react";
 import RegisterForm from "./RegisterForm";
-import Alert from "../../layout/Alert";
 
 const Register = () => (
     <div>

@@ -14,6 +14,33 @@ class Alert extends React.Component {
         this.responseMessage = React.createRef();
         this.responseDataMessage = React.createRef();
         this.responseErrors = React.createRef();
+
+        let state = this.props.store.getState();
+
+        this.responseBlock.current.style.display = state.showAlert ? "block" : "none";
+
+        this.responseCode.current.innerHTML = '';
+        if (state.payload.code) {
+            this.responseCode.current.innerHTML = state.payload.code;
+        }
+
+        this.responseMessage.current.innerHTML = '';
+        if (state.payload.message) {
+            this.responseMessage.current.innerHTML = state.payload.message;
+        }
+
+        this.responseErrors.current.innerHTML = '';
+        if (state.payload.data.errors) {
+            this.responseErrors.current.innerHTML =
+                Object
+                .entries(state.payload.data.errors)
+                .map((item) => item[1]).join("<br>")
+        }
+
+        this.responseDataMessage.current.innerHTML = '';
+        if (state.payload.data.message) {
+            this.responseDataMessage.current.innerHTML = state.payload.data.message;
+        }
     }
 
     render (){
