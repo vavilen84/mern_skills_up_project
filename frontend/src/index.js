@@ -8,7 +8,8 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import rootReducer from './reducers/index';
+import {rootReducer} from './reducers/index';
+import {Provider} from 'react-redux';
 
 // Note: this API requires redux@>=3.1.0
 const store = createStore(
@@ -20,7 +21,9 @@ const store = createStore(
 
 ReactDOM.render(
     <React.StrictMode>
-        <App store={store} />
+        <Provider store={store}>
+            <App />
+        </Provider>
     </React.StrictMode>
   ,
   document.getElementById('root')
