@@ -1,4 +1,4 @@
-import {getURL, USERS_BASE_URL} from "../../helpers/Server";
+import {getURL, USERS_BASE_URL} from "../../helpers";
 import {showAlert} from "../index";
 
 export function submitCreateUser(email, password){
