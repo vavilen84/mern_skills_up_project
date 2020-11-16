@@ -4,27 +4,25 @@ import './static/index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+//import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import {rootReducer} from './reducers/index';
+import {rootReducer} from './reducers';
 import {Provider} from 'react-redux';
 
 // Note: this API requires redux@>=3.1.0
 const store = createStore(
-    rootReducer,
+    combineReducers({rootReducer}),
     composeWithDevTools(
-        applyMiddleware(thunk, logger)
+        applyMiddleware(logger)
     )
 );
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </React.StrictMode>
+    <Provider store={store}>
+        <App />
+    </Provider>
   ,
   document.getElementById('root')
 );

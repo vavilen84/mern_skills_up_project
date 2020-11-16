@@ -1,16 +1,23 @@
-import {SHOW_ALERT,INIT_APP} from "../actions";
+import {SHOW_ALERT} from "../actions";
 
 const defaultState = {
     showAlert: false,
     payload: null
 };
 
-export function rootReducer(state = defaultState, action) {
+export function rootReducer(state, action) {
+    if (!state) {
+        state = defaultState;
+    }
     switch (action.type) {
         case SHOW_ALERT:
-            state.showAlert = true;
-            state.payload = action.payload;
-            return state;
+            return [
+                ...state,
+                {
+                    showAlert: true,
+                    payload: action.payload
+                }
+            ]
         default:
             return state
     }

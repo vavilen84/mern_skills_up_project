@@ -1,6 +1,7 @@
 import React from "react";
-import {submitCreateUser} from "../../../actions";
+import {showAlert, submitCreateUser} from "../../../actions";
 import { connect } from 'react-redux'
+import {getURL, USERS_BASE_URL} from "../../../helpers/Server";
 
 class RegisterForm extends React.Component {
 
@@ -26,10 +27,31 @@ class RegisterForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.submitCreateUser(this.state.email, this.state.password);
+
+        const email = this.state.email;
+        const password = this.state.password;
+        const showAlert = this.props.showAlert;
+
+        showAlert({code:200});
+        // fetch(getURL(USERS_BASE_URL), {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         username: email,
+        //         password: password
+        //     })
+        // })
+        //     .then(res => res.json())
+        //     .then(json => showAlert(json))
+
     }
 
     render() {
+        const a = {1:1,2:2,3:3}
+        console.log(...this.props);
+
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -49,7 +71,7 @@ class RegisterForm extends React.Component {
 }
 
 const mapDispatchToProps = {
-    submitCreateUser,
+    showAlert
 }
 
 export default connect(null, mapDispatchToProps)(RegisterForm);
