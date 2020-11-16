@@ -1,6 +1,6 @@
 import React from "react";
-import {submitCreateUser} from "../../../actions";
 import { connect } from 'react-redux'
+import {submitCreateUser} from "../../../actions/async";
 
 class RegisterForm extends React.Component {
 
@@ -28,7 +28,7 @@ class RegisterForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.submitCreateUser(this.state.email, this.state.password);
+        this.props.onSubmitCreateUser(this.state.email, this.state.password);
     }
 
     render() {
@@ -52,7 +52,7 @@ class RegisterForm extends React.Component {
 
 const mapDispatchToProps = dispatch => (
     {
-        submitCreateUser: (email, password) => dispatch(submitCreateUser(email, password))
+        onSubmitCreateUser: (email, password) => dispatch(submitCreateUser(email, password))
     }
 )
 

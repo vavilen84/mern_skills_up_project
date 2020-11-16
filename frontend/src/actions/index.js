@@ -1,33 +1,16 @@
-import {getURL, USERS_BASE_URL} from "../helpers/Server";
-
-export const SHOW_ALERT = 'SHOW_ALERT';
-
-export function submitCreateUser(email, password){
-    return (dispatch) => {
-        return fetch(getURL(USERS_BASE_URL), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: email,
-                password: password
-            })
-        })
-            .then(res =>  res.json())
-            .then(json => dispatch(showAlert(json.code, json.data, json.message)))
-        ;
-    };
-}
+import {CHANGE_ROUTE, SHOW_ALERT} from "../actionTypes";
 
 export function showAlert(code, data, message) {
     return {
         type: SHOW_ALERT,
-        showAlert: true,
-        alert: {
-            code: code,
-            data: data,
-            message: message
-        }
+        code: code,
+        data: data,
+        message: message
+    };
+}
+
+export function changeRoute(){
+    return {
+        type: CHANGE_ROUTE
     };
 }

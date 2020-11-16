@@ -1,25 +1,13 @@
-import {SHOW_ALERT} from "../actions";
+import {CHANGE_ROUTE, SHOW_ALERT} from "../actionTypes";
+import {showAlert, clearAlert, defaultState} from "../mutations";
 
-const defaultState = {
-    type: null,
-    showAlert: false,
-    alert: {
-        code: null,
-        data: [],
-        message: null
-    }
-};
-
-export function rootReducer(state, action) {
-    if (!state) {
-        state = defaultState;
-    }
+export function rootReducer(state = defaultState, action) {
+    let st = Object.assign({},state);
     switch (action.type) {
         case SHOW_ALERT:
-            let st = Object.assign({},state);
-            st.showAlert = action.showAlert;
-            st.alert = action.alert;
-            return st;
+            return showAlert(st, action);
+        case CHANGE_ROUTE:
+            return clearAlert(st);
         default:
             return state
     }
