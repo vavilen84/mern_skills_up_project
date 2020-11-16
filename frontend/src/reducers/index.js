@@ -5,19 +5,13 @@ const defaultState = {
     payload: null
 };
 
-export function rootReducer(state, action) {
-    if (!state) {
-        state = defaultState;
-    }
+export function rootReducer(state = defaultState, action) {
     switch (action.type) {
         case SHOW_ALERT:
-            return [
-                ...state,
-                {
-                    showAlert: true,
-                    payload: action.payload
-                }
-            ]
+            let st = Object.assign({},state);
+            st.showAlert = true;
+            st.payload = action.payload;
+            return st;
         default:
             return state
     }

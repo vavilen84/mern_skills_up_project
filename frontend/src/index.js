@@ -5,7 +5,7 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-//import thunk from 'redux-thunk';
+import thunk from 'redux-thunk';
 import logger from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import {rootReducer} from './reducers';
@@ -15,7 +15,7 @@ import {Provider} from 'react-redux';
 const store = createStore(
     combineReducers({rootReducer}),
     composeWithDevTools(
-        applyMiddleware(logger)
+        applyMiddleware(thunk, logger)
     )
 );
 
