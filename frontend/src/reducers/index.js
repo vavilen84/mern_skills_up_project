@@ -1,16 +1,24 @@
 import {SHOW_ALERT} from "../actions";
 
 const defaultState = {
+    type: null,
     showAlert: false,
-    payload: null
+    alert: {
+        code: null,
+        data: [],
+        message: null
+    }
 };
 
-export function rootReducer(state = defaultState, action) {
+export function rootReducer(state, action) {
+    if (!state) {
+        state = defaultState;
+    }
     switch (action.type) {
         case SHOW_ALERT:
             let st = Object.assign({},state);
-            st.showAlert = true;
-            st.payload = action.payload;
+            st.showAlert = action.showAlert;
+            st.alert = action.alert;
             return st;
         default:
             return state

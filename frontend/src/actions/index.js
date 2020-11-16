@@ -15,15 +15,19 @@ export function submitCreateUser(email, password){
             })
         })
             .then(res =>  res.json())
-            .then(json => dispatch(showAlert(json)))
+            .then(json => dispatch(showAlert(json.code, json.data, json.message)))
         ;
     };
 }
 
-export function showAlert(payload) {
+export function showAlert(code, data, message) {
     return {
         type: SHOW_ALERT,
         showAlert: true,
-        payload: payload
+        alert: {
+            code: code,
+            data: data,
+            message: message
+        }
     };
 }
