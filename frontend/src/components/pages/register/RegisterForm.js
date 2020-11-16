@@ -28,7 +28,7 @@ class RegisterForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        submitCreateUser(this.state.email, this.state.password);
+        this.props.submitCreateUser(this.state.email, this.state.password);
     }
 
     render() {
@@ -50,8 +50,10 @@ class RegisterForm extends React.Component {
     }
 }
 
-const mapDispatchToProps = {
-    submitCreateUser
-}
+const mapDispatchToProps = dispatch => (
+    {
+        submitCreateUser: (email, password) => dispatch(submitCreateUser(email, password))
+    }
+)
 
 export default connect(null, mapDispatchToProps)(RegisterForm);
