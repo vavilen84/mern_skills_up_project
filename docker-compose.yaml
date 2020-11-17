@@ -45,19 +45,20 @@ services:
 
   frontend:
     container_name: frontend
-    working_dir: ${WORKING_DIR}
     build:
       context: ./
       dockerfile: ./docker/frontend/Dockerfile
     ports:
       - '3000:3000'
     volumes:
-      - "./frontend:${WORKING_DIR}"
+      - "./frontend:/usr/src/app"
     depends_on:
       - server
       - mongodb
     networks:
       - local
+    env_file:
+      - .env
 
 networks:
   local:
