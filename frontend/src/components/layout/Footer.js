@@ -1,5 +1,5 @@
 import React from "react";
-import Holder from "./Holder";
+import Holder from "./holder/Holder";
 
 const style = {
     backgroundColor: "#222",

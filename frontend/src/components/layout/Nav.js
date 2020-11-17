@@ -1,4 +1,4 @@
-import Holder from "./Holder";
+import Holder from "./holder/Holder";
 import React from "react";
 import {Link} from "react-router-dom";
 import {changeRoute} from "../../actions";
