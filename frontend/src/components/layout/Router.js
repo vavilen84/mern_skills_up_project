@@ -3,11 +3,11 @@ import Home from "../pages/Home";
 import Register from "../pages/register/Register";
 import React from "react";
 
-const Main = () => (
+const Router = () => (
     <Switch>
         <Route exact path='/' component={Home}/>
         <Route path='/register' component={Register}/>
     </Switch>
 )
 
-export default Main;
+export default Router;

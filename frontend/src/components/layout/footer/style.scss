@@ -1,0 +1,16 @@
+.footer{
+  background-color: #222;
+  border-top: 1px solid #E7E7E7;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  color: white;
+
+  .text {
+    position: relative;
+    top: 20px;
+  }
+}

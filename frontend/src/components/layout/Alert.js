@@ -2,19 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {List} from "./common/List";
 
-const style = {
-    display: "none",
-    padding: "20px",
-    border: "1px solid black"
-}
-
 class Alert extends React.Component {
-    constructor(props) {
-
-        super(props);
-
-    }
-
     render (){
         return (
             <div className={'alertBlock'}>
