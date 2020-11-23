@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux'
-import {submitCreateUser} from "../../../actions/async";
+import {submitCreateUser} from "../../../actions/async/submitCreateUser";
 
 class RegisterForm extends React.Component {
 
