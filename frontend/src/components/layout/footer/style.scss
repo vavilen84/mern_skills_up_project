@@ -1,6 +1,6 @@
 .footer{
-  background-color: #222;
-  border-top: 1px solid #E7E7E7;
+  background-color: transparent;
+  border-top: 1px solid #222222;
   text-align: center;
   position: fixed;
   left: 0;
@@ -12,5 +12,6 @@
   .text {
     position: relative;
     top: 20px;
+    color: #222222;
   }
 }

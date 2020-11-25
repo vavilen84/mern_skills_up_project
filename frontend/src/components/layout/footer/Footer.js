@@ -7,7 +7,7 @@ function Footer() {
         <div>
             <Holder>
                 <div className={'footer'}>
-                    <span className={'text'}>Blog @copy 2020</span>
+                    <span className={'text'}>Vladimir Teplov personal page</span>
                 </div>
             </Holder>
         </div>
