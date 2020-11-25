@@ -1,4 +1,7 @@
 .holder {
   width: 1000px;
+  @media screen and (max-width: 1000px) {
+    width: auto;
+  }
   margin: 0 auto;
 }
