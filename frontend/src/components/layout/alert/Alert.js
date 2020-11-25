@@ -10,7 +10,7 @@ class Alert extends React.Component {
 
     render() {
         return (
-            <div className={'alertBlock ' + this.props.wrapClassName}>
+            <div className={'alertBlock ' + this.props.wrapClassName + ' ' + this.props.toggleVisibleClassName}>
                 <div>{this.props.code}</div>
                 <List items={this.props.data}/>
                 <div>{this.props.message}</div>
@@ -27,6 +27,7 @@ const setWrapClassName = (code) => {
 const mapStateToProps = (state) => {
     let alert = state.rootReducer.alert;
     return {
+        toggleVisibleClassName: alert.visible ? 'visible' : 'hidden',
         code: alert.code,
         data: alert.data,
         message: alert.message,

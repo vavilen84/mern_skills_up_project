@@ -9,4 +9,7 @@
   &.success {
     border: 3px solid green;
   }
+  &.hidden{
+    display: none;
+  }
 }
