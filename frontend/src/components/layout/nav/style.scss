@@ -1,0 +1,17 @@
+.navbar {
+  border-bottom: 1px solid #222222;
+
+  .navigation {
+    padding: 10px 0 0 0;
+
+    li {
+      list-style: none;
+      float: left;
+      margin: 10px 10px 20px 10px;
+
+      a{
+        color: #222222;
+      }
+    }
+  }
+}

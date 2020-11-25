@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux'
 import {submitCreateUser} from "../../../actions/async/submitCreateUser";
 
-class RegisterForm extends React.Component {
+class LoginForm extends React.Component {
 
     constructor(props) {
 
@@ -56,4 +56,4 @@ const mapDispatchToProps = dispatch => (
     }
 )
 
-export default connect(null, mapDispatchToProps)(RegisterForm);
+export default connect(null, mapDispatchToProps)(LoginForm);

@@ -5,7 +5,5 @@
 html,
 body {
   height: 100%;
-}
-body, label, input, button, select, textarea {
-  font-size: 14px;
+  font-size: 17px;
 }

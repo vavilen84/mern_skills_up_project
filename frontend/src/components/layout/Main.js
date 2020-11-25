@@ -1,6 +1,6 @@
 import {Route, Switch} from "react-router-dom";
 import Home from "../pages/Home";
-import Register from "../pages/register/Register";
+import Login from "../pages/login/Login";
 import React from "react";
 import Holder from "./holder/Holder";
 import Alert from "./alert/Alert";
@@ -10,7 +10,7 @@ const Main = () => (
         <Alert />
         <Switch>
             <Route exact path='/' component={Home}/>
-            <Route path='/register' component={Register}/>
+            <Route exact path='/login' component={Login}/>
         </Switch>
     </Holder>
 )
