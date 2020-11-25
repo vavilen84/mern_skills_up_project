@@ -29,6 +29,12 @@ module.exports.sendUnauthorized = function (res) {
     res.send(new Response(constants.RESPONSE_CODE.NOT_FOUND, constants.RESPONSE_MESSAGE.NOT_FOUND));
 }
 
+module.exports.sendForbidden = function (res) {
+    setDefaultRespHeaders(res);
+    res.statusCode = constants.RESPONSE_CODE.FORBIDDEN;
+    res.send(new Response(constants.RESPONSE_CODE.FORBIDDEN, constants.RESPONSE_MESSAGE.FORBIDDEN));
+}
+
 module.exports.sendOK = function (res, data, message) {
     setDefaultRespHeaders(res);
     res.statusCode = constants.RESPONSE_CODE.OK;

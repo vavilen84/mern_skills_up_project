@@ -65,6 +65,9 @@ module.exports = function (app) {
 
     app.post(constants.USERS_BASE_URL, function (req, res) {
 
+        // action is forbidden
+        response.sendForbidden(res)
+
         let user = new User({
             scenario: enums.Models.SCENARIO_CREATE
         });
