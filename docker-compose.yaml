@@ -24,24 +24,24 @@ services:
     networks:
       - local
 
-  server:
-    tty: true
-    build:
-      context: ./
-      dockerfile: ./docker/server/Dockerfile
-    networks:
-      - local
-    volumes:
-      - "./server:${WORKING_DIR}/server"
-    working_dir: ${WORKING_DIR}/server
-    depends_on:
-      - mongodb
-    env_file:
-      - .env
-    expose:
-      - "8000"
-    ports:
-      - 8000:8000
+#  server:
+#    tty: true
+#    build:
+#      context: ./
+#      dockerfile: ./docker/server/Dockerfile
+#    networks:
+#      - local
+#    volumes:
+#      - "./server:${WORKING_DIR}/server"
+#    working_dir: ${WORKING_DIR}/server
+#    depends_on:
+#      - mongodb
+#    env_file:
+#      - .env
+#    expose:
+#      - "8000"
+#    ports:
+#      - 8000:8000
 
 #  frontend:
 #    container_name: frontend
