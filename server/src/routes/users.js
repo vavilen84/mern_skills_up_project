@@ -10,6 +10,11 @@ const enums = require('./../enum/enum');
 module.exports = function (app) {
 
     app.get(constants.USERS_BASE_URL, function (req, res) {
+
+        // action is forbidden
+        response.sendForbidden(res);
+        return;
+
         User.find({}, function (err, docs){
             if (err) {
                 response.sendServerError(res);
@@ -19,6 +24,11 @@ module.exports = function (app) {
     });
 
     app.get(constants.USERS_BASE_URL+"/:username", function (req, res) {
+
+        // action is forbidden
+        response.sendForbidden(res);
+        return;
+
         User.findOne({username:req.params.username}, function (err, doc){
             if (err) {
                 response.sendServerError(res);
@@ -50,6 +60,7 @@ module.exports = function (app) {
         User.findOne({username:req.params.username}, function (err, doc){
             if (err) {
                 response.sendServerError(res);
+                return;
             }
             if (!doc) {
                 response.sendNotFound(res)
@@ -66,7 +77,8 @@ module.exports = function (app) {
     app.post(constants.USERS_BASE_URL, function (req, res) {
 
         // action is forbidden
-        response.sendForbidden(res)
+        response.sendForbidden(res);
+        return;
 
         let user = new User({
             scenario: enums.Models.SCENARIO_CREATE
