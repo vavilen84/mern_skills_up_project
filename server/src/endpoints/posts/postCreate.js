@@ -1,20 +1,27 @@
-const response = require('Libs/response');
+const response = require('Utils/response');
 const constants = require('Constants/constants');
 const Post = require('Models/post').Post;
-const enums = require('Enum/enum');
+const ValidationErrorResponseSerializer = require('Models/post').ValidationErrorResponseSerializer;
 
 module.exports = function(app) {
 
-    app.post(constants.POSTS_BASE_URL, function (req, res) {
+    app.post(constants.POSTS_BASE_URL, async function (req, res) {
 
         let post = new Post({
-            scenario: enums.Models.SCENARIO_AUTHENTICATE
+            image: req.body.image || null,
+            uniqueKey: req.body.uniqueKey || null,
+            url: req.body.url || null,
+            title: req.body.title || null,
+            relatedPostIds: req.body.relatedPostIds || [],
+            tags: req.body.tags || [],
+            keywords: req.body.keywords || null,
+            description: req.body.description || null,
+            greeting: req.body.greeting || null,
+            content: req.body.content || null,
+            status: req.body.status
         });
 
-        user.set('username', req.body.username);
-        user.set('password', req.body.password);
-
-        let errors = user.validateSync();
+        let errors = post.validateSync();
         if (errors) {
             log.info(errors);
             response.sendUnprocessableEntity(res, ValidationErrorResponseSerializer(errors));

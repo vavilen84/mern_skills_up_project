@@ -19,7 +19,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-            Libs: path.resolve(__dirname, 'src/libs/'),
+            Utils: path.resolve(__dirname, 'src/utils/'),
             Config: path.resolve(__dirname, 'src/config/'),
             Constants: path.resolve(__dirname, 'src/constants/'),
             Enum: path.resolve(__dirname, 'src/enum/'),

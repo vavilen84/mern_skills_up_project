@@ -1,7 +1,6 @@
-const response = require('Libs/response');
+const response = require('Utils/response');
 const constants = require('Constants/constants');
 const Post = require('Models/post').Post;
-const enums = require('Enum/enum');
 
 module.exports = function(app) {
 

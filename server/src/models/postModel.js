@@ -1,25 +1,48 @@
-const mongoose = require('Libs/mongoose').Mongoose,
+const mongoose = require('Utils/mongoose').Mongoose,
     Schema = mongoose.Schema;
+const errorSerializer = require('Utils/modelErrorSerializer');
 
 const modelName = 'post';
-const scenarioVirtualProp = 'scenario';
 
 const schema = new Schema({
-    image_filename: {
+    image: {
         type: String,
-    },
-    image_ext: {
-        type: String,
+        max: 255,
     },
     uniqueKey: {
         type: String,
         unique: true,
+        max: 255,
+    },
+    url: {
+        type: String,
+        unique: true,
+        max: 255,
+    },
+    title: {
+        type: String,
+        max: 255,
+    },
+    relatedPostIds: {
+        type: Array,
+    },
+    tags: {
+        type: Array,
+    },
+    keywords: {
+        type: String,
+        max: 255,
+    },
+    description: {
+        type: String,
+        max: 255,
     },
     greeting: {
         type: String,
     },
     content: {
         type: String,
+        required: true,
     },
     status: {
         type: Boolean,
@@ -35,3 +58,8 @@ const schema = new Schema({
 });
 
 exports.Post = mongoose.model(modelName, schema);
+
+exports.ValidationErrorResponseSerializer = function (err) {
+    let props = ['image', 'uniqueKey', 'url', 'title', 'keywords', 'description', 'content'];
+    return errorSerializer(props, err);
+}

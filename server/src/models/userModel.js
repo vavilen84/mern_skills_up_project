@@ -1,8 +1,8 @@
 const enums = require('Enum/enum')
-const log = require('Libs/logger')(module);
-const security = require('Libs/security');
-const mongoose = require('Libs/mongoose').Mongoose,
+const security = require('Utils/security');
+const mongoose = require('Utils/mongoose').Mongoose,
     Schema = mongoose.Schema;
+const errorSerializer = require('Utils/modelErrorSerializer');
 
 const modelName = 'User';
 const scenarioVirtualProp = 'scenario';
@@ -18,8 +18,6 @@ const schema = new Schema({
         type: String,
         required: [function () {
             switch (this._scenario) {
-                case enums.Models.SCENARIO_CREATE:
-                    return true;
                 case enums.Models.SCENARIO_AUTHENTICATE:
                     return true;
                 default:
@@ -47,7 +45,7 @@ schema.virtual(scenarioVirtualProp)
 
 schema.virtual(passwordVirtualProp)
     .set(function (password) {
-        if (password && ([enums.Models.SCENARIO_CREATE, enums.Models.SCENARIO_AUTHENTICATE].includes(this._scenario))) {
+        if (password && ([enums.Models.SCENARIO_AUTHENTICATE].includes(this._scenario))) {
             this._plainPassword = password;
             this.salt = Math.random();
             this.hashedPassword = security.encryptPassword(password, this.salt)
@@ -60,25 +58,6 @@ schema.virtual(passwordVirtualProp)
 exports.User = mongoose.model(modelName, schema);
 
 exports.ValidationErrorResponseSerializer = function (err) {
-    let data = {};
-    if (err.errors.username) {
-        data.username = err.errors.username.message;
-    }
-    if (err.errors.hashedPassword) {
-        data.password = err.errors.hashedPassword.message;
-    }
-    return {"errors": data};
+    let props = ['username', ['hashedPassword', 'password']];
+    return errorSerializer(props, err);
 }
-
-exports.UserResponseSerializer = function (users) {
-    let result = [];
-    for (let i in users) {
-        result.push(
-            {
-                username: users[i].username
-            }
-        );
-    }
-    return result;
-}
-
