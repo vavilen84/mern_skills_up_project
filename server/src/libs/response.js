@@ -1,4 +1,4 @@
-const constants = require('./../constants/constants');
+const constants = require('Constants/constants');
 
 function Response(code, message, data) {
     this.code = code;

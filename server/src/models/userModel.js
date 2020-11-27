@@ -1,7 +1,7 @@
-const enums = require('./../enum/enum')
-const log = require('./../../src/libs/logger')(module);
-const security = require('./../../src/libs/security');
-const mongoose = require('./../libs/mongoose').Mongoose,
+const enums = require('Enum/enum')
+const log = require('Libs/logger')(module);
+const security = require('Libs/security');
+const mongoose = require('Libs/mongoose').Mongoose,
     Schema = mongoose.Schema;
 
 const modelName = 'User';
