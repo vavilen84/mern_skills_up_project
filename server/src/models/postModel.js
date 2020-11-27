@@ -1,6 +1,7 @@
 const mongoose = require('Utils/mongoose').Mongoose,
     Schema = mongoose.Schema;
 const errorSerializer = require('Utils/modelErrorSerializer');
+const enums = require('Enum/enum');
 
 const modelName = 'post';
 
@@ -46,6 +47,7 @@ const schema = new Schema({
     },
     status: {
         type: Boolean,
+        default: enums.PostStatuses.ACTIVE
     },
     created: {
         type: Date,

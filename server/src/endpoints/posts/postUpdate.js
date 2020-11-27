@@ -1,64 +1,43 @@
 const response = require('Utils/response');
 const constants = require('Constants/constants');
 const Post = require('Models/post').Post;
-const enums = require('Enum/enum');
+const ValidationErrorResponseSerializer = require('Models/post').ValidationErrorResponseSerializer;
 
 module.exports = function(app) {
 
-    app.post(constants.POSTS_BASE_URL, async function (req, res) {
+    app.post(constants.POSTS_BASE_URL + "/:id", async function (req, res) {
 
-        let existingPost = null;
-        if (req.body.id) {
-            existingPost = await Post.findById(req.body.id).exec();
+        let post = await Post.findById(id).exec();
+        if (!post) {
+            response.sendNotFound(res);
+            return;
         }
 
-        let postModel = new Post({
-            id: req.body.id,
-            image: req.body.image,
-            uniqueKey: req.body.uniqueKey,
-            greeting: req.body.greeting,
-            content: req.body.content,
-            status: req.body.status
-        });
+        post.image = req.body.image || post.image;
+        post.uniqueKey = req.body.uniqueKey || post.uniqueKey;
+        post.url = req.body.url || post.url;
+        post.title = req.body.title || post.title;
+        post.relatedPostIds = req.body.relatedPostIds || post.relatedPostIds;
+        post.tags = req.body.tags || post.tags;
+        post.keywords = req.body.keywords || post.keywords;
+        post.description = req.body.description || post.description;
+        post.greeting = req.body.greeting || post.greeting;
+        post.content = req.body.content || post.content;
+        post.status = req.body.status || post.status;
+        post.updated = Date.now();
 
-
-
-
-        const existingPost = Post.findById(req.params.id, function (err, doc){
-            if (err) {
-                response.sendServerError(res);
-                return;
-            }
-            if (!doc) {
-                response.sendNotFound(res)
-            } else {
-                response.sendOK(res, doc, "OK")
-            }
-        });
-        post.set('username', req.body.username);
-        post.set('password', req.body.password);
-
-        let errors = user.validateSync();
+        let errors = post.validateSync();
         if (errors) {
             log.info(errors);
             response.sendUnprocessableEntity(res, ValidationErrorResponseSerializer(errors));
             return;
         }
-
-        User.findOne({username:req.params.username}, function (err, doc){
+        post.save(function (err) {
             if (err) {
                 response.sendServerError(res);
                 return;
             }
-            if (!doc) {
-                response.sendNotFound(res)
-            } else {
-                if (security.checkPassword(user.password, doc.salt, doc.hashedPassword)) {
-                    response.sendOK(res, security.generateAuthTokens(), "OK")
-                    return;
-                }
-                response.sendUnauthorized(res)
-            }
+            response.sendOK(res, post, "OK")
         });
     });
 

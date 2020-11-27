@@ -2,6 +2,7 @@ const response = require('Utils/response');
 const constants = require('Constants/constants');
 const Post = require('Models/post').Post;
 const ValidationErrorResponseSerializer = require('Models/post').ValidationErrorResponseSerializer;
+const enums = require('Enum/enum');
 
 module.exports = function(app) {
 
@@ -18,7 +19,7 @@ module.exports = function(app) {
             description: req.body.description || null,
             greeting: req.body.greeting || null,
             content: req.body.content || null,
-            status: req.body.status
+            status: req.body.status || enums.PostStatuses.ACTIVE
         });
 
         let errors = post.validateSync();
@@ -27,21 +28,12 @@ module.exports = function(app) {
             response.sendUnprocessableEntity(res, ValidationErrorResponseSerializer(errors));
             return;
         }
-
-        User.findOne({username:req.params.username}, function (err, doc){
+        post.save(function (err) {
             if (err) {
                 response.sendServerError(res);
                 return;
             }
-            if (!doc) {
-                response.sendNotFound(res)
-            } else {
-                if (security.checkPassword(user.password, doc.salt, doc.hashedPassword)) {
-                    response.sendOK(res, security.generateAuthTokens(), "OK")
-                    return;
-                }
-                response.sendUnauthorized(res)
-            }
+            response.sendOK(res, post, "OK")
         });
     });
 

@@ -18,7 +18,7 @@ const schema = new Schema({
         type: String,
         required: [function () {
             switch (this._scenario) {
-                case enums.Models.SCENARIO_AUTHENTICATE:
+                case enums.Scenarios.SCENARIO_AUTHENTICATE:
                     return true;
                 default:
                     return false;
@@ -45,7 +45,7 @@ schema.virtual(scenarioVirtualProp)
 
 schema.virtual(passwordVirtualProp)
     .set(function (password) {
-        if (password && ([enums.Models.SCENARIO_AUTHENTICATE].includes(this._scenario))) {
+        if (password && ([enums.Scenarios.SCENARIO_AUTHENTICATE].includes(this._scenario))) {
             this._plainPassword = password;
             this.salt = Math.random();
             this.hashedPassword = security.encryptPassword(password, this.salt)
