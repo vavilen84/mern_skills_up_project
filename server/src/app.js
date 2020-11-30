@@ -7,9 +7,10 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(cors());
 
-require('dotenv').config();
 if (process.env.NODE_ENV === 'test') {
     require('dotenv').config({ path: '.env.test' });
+} else {
+    require('dotenv').config();
 }
 
 require('./endpoints/posts/postCreate')(app);

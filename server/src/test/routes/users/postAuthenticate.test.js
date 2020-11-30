@@ -1,16 +1,17 @@
+require('dotenv').config({ path: '.env.test' });
 const assert = require('assert');
-const utils = require('../utils');
-const app = require('../../app').App;
+const utils = require('../../utils');
+const app = require('../../../app').App;
 const request = require('supertest');
-const log = require('../../utils/logger')(module);
-const constants = require('./../../constants/constants');
-const User = require('./../../models/userModel').User;
-const security = require('../../utils/security');
+const log = require('../../../utils/logger')(module);
+const constants = require('./../../../constants/constants');
+const User = require('./../../../models/userModel').User;
+const security = require('../../../utils/security');
 
 describe(constants.USERS_BASE_URL, function (done) {
 
-    beforeEach(function (done) {
-        utils.prepareDatabaseBeforeTest(done);
+    beforeEach(async function () {
+        await utils.prepareDatabaseBeforeTest();
     });
 
     describe('POST ' + constants.USERS_BASE_URL + "/:username/authenticate", function () {
