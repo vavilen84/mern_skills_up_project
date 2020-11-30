@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const config = require('Config/db');
+const config = require('../config/db');
 const log = require('logger')(module);
 
 mongoose.connect(process.env.MONGODB_CONN_STRING, config.mongoose.options);

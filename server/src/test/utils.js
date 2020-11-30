@@ -1,8 +1,8 @@
 require('dotenv').config({path: '.env.test'});
-const db = require('../libs/mongoose').Db;
-const log = require('./../libs/logger')(module);
+const db = require('../utils/mongoose').Db;
+const log = require('./../utils/logger')(module);
 const enums = require('./../enum/enum');
-const User = require('./../models/user').User;
+const User = require('./../models/userModel').User;
 
 async function prepareDatabaseBeforeTest(done) {
     log.info("CLEAR DB");

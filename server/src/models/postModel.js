@@ -1,7 +1,7 @@
-const mongoose = require('Utils/mongoose').Mongoose,
+const mongoose = require('../utils/mongoose').Mongoose,
     Schema = mongoose.Schema;
-const errorSerializer = require('Utils/modelErrorSerializer');
-const enums = require('Enum/enum');
+const errorSerializer = require('../utils/modelErrorSerializer');
+const enums = require('../enum/enum');
 
 const modelName = 'post';
 

@@ -1,10 +1,10 @@
-const log = require('Utils/logger')(module);
-const response = require('Utils/response');
-const security = require('Utils/security');
-const User = require('Models/user').User;
-const ValidationErrorResponseSerializer = require('Models/user').ValidationErrorResponseSerializer;
-const constants = require('Constants/constants');
-const enums = require('Enum/enum');
+const log = require('../../utils/logger')(module);
+const response = require('../../utils/response');
+const security = require('../../utils/security');
+const User = require('../../models/userModel').User;
+const ValidationErrorResponseSerializer = require('../../models/userModel').ValidationErrorResponseSerializer;
+const constants = require('../../constants/constants');
+const enums = require('../../enum/enum');
 
 module.exports = function (app) {
 

@@ -1,6 +1,6 @@
-const response = require('Utils/response');
-const constants = require('Constants/constants');
-const Post = require('Models/post').Post;
+const response = require('../../utils/response');
+const constants = require('../../constants/constants');
+const Post = require('../../models/postModel').Post;
 
 module.exports = function(app) {
 

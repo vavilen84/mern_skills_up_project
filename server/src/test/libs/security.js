@@ -1,5 +1,5 @@
 const assert = require('assert');
-const security = require('./../../libs/security');
+const security = require('../../utils/security');
 
 describe('libs', function () {
     describe('security', function () {

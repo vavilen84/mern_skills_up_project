@@ -2,10 +2,10 @@ const assert = require('assert');
 const utils = require('../utils');
 const app = require('../../app').App;
 const request = require('supertest');
-const log = require('./../../libs/logger')(module);
+const log = require('../../utils/logger')(module);
 const constants = require('./../../constants/constants');
-const User = require('./../../models/user').User;
-const security = require('./../../libs/security');
+const User = require('./../../models/userModel').User;
+const security = require('../../utils/security');
 
 describe(constants.USERS_BASE_URL, function (done) {
 

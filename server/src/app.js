@@ -1,8 +1,7 @@
-const log = require('./libs/logger')(module);
+const log = require('./utils/logger')(module);
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const verbose = process.env.NODE_ENV !== 'test';
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
@@ -12,9 +11,14 @@ require('dotenv').config();
 if (process.env.NODE_ENV === 'test') {
     require('dotenv').config({ path: '.env.test' });
 }
-require('./routes/utils')(app, verbose);
-require('./routes/posts')(app);
-require('./routes/users')(app);
+
+require('./endpoints/posts/postCreate')(app);
+require('./endpoints/posts/postDelete')(app);
+require('./endpoints/posts/postGet')(app);
+require('./endpoints/posts/postGetList')(app);
+require('./endpoints/posts/postUpdate')(app);
+
+require('./endpoints/users/userAuthenticate')(app);
 
 const port = process.env.SERVER_PORT;
 let server = app.listen(port, () => {
