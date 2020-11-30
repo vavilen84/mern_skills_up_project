@@ -12,7 +12,7 @@ module.exports = function (app) {
 
         let user = new User({
             username: req.body.username,
-            scenario: enums.Models.SCENARIO_AUTHENTICATE
+            scenario: enums.Scenarios.SCENARIO_AUTHENTICATE
         });
 
         user.set('password', req.body.password);

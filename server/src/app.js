@@ -22,11 +22,11 @@ require('./endpoints/posts/postUpdate')(app);
 require('./endpoints/users/userAuthenticate')(app);
 
 const port = process.env.SERVER_PORT;
-let server = app.listen(port, () => {
+app.listen(port, () => {
     log.info(`Example app listening at http://localhost:${port}`)
 });
 
-exports.App = server;
+exports.App = app;
 
 
 

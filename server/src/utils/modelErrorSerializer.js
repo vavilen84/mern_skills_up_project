@@ -1,4 +1,4 @@
-module.exports.default = function (props, err) {
+module.exports.errorSerializer = function (props, err) {
     let data = {};
     for (let i in props) {
         if ((typeof props[i]) === 'object') {

@@ -2,7 +2,7 @@ const enums = require('../enum/enum')
 const security = require('../utils/security');
 const mongoose = require('../utils/mongoose').Mongoose,
     Schema = mongoose.Schema;
-const errorSerializer = require('../utils/modelErrorSerializer');
+const errorSerializer = require('../utils/modelErrorSerializer').errorSerializer;
 
 const modelName = 'User';
 const scenarioVirtualProp = 'scenario';
