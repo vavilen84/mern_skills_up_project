@@ -12,8 +12,10 @@ const schema = new Schema({
     },
     uniqueKey: {
         type: String,
-        unique: true,
         max: 255,
+        unique: [function () {
+            return (this.uniqueKey.length > 0);
+        }, 'uniqueKey should be unique']
     },
     url: {
         type: String,
