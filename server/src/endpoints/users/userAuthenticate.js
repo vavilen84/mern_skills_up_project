@@ -4,15 +4,13 @@ const security = require('../../utils/security');
 const User = require('../../models/userModel').User;
 const ValidationErrorResponseSerializer = require('../../models/userModel').ValidationErrorResponseSerializer;
 const constants = require('../../constants/constants');
-const enums = require('../../enum/enum');
 
 module.exports = function (app) {
 
     app.post(constants.USERS_BASE_URL+"/:username/authenticate", function (req, res) {
 
         let user = new User({
-            username: req.body.username,
-            scenario: enums.Scenarios.SCENARIO_AUTHENTICATE
+            username: req.body.username
         });
 
         user.set('password', req.body.password);
