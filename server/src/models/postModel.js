@@ -1,6 +1,6 @@
 const mongoose = require('../utils/mongoose').Mongoose,
     Schema = mongoose.Schema;
-const errorSerializer = require('../utils/modelErrorSerializer');
+const errorSerializer = require('../utils/modelErrorSerializer').errorSerializer;
 const enums = require('../enum/enum');
 
 const modelName = 'post';
@@ -15,7 +15,7 @@ const schema = new Schema({
         max: 255,
         unique: [function () {
             return (this.uniqueKey.length > 0);
-        }, 'uniqueKey should be unique']
+        }, 'uniqueKey error']
     },
     url: {
         type: String,
