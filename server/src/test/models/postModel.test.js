@@ -13,16 +13,28 @@ describe('PostModelTest model validation', function () {
     });
 
     describe('validate required fields', function () {
-        it('postModel/error on empty: content/url', function () {
+        it('postModel/error on empty: content/url', async function () {
             let post = new PostModelTest({});
-            let errors = ValidationErrorResponseSerializer(post.validateSync());
-            assert.strictEqual(errors.errors['url'], constants.VALIDATION_ERRORS.REQUIRED);
-            assert.strictEqual(errors.errors['content'], constants.VALIDATION_ERRORS.REQUIRED);
+            let err = null;
+            try {
+                await post.validate();
+            } catch (err) {
+                err = ValidationErrorResponseSerializer(err);
+                assert.strictEqual(err.errors['url'], constants.VALIDATION_ERRORS.REQUIRED);
+                assert.strictEqual(err.errors['content'], constants.VALIDATION_ERRORS.REQUIRED);
+            }
+            assert.notStrictEqual(err, true);
         });
-        it('postModel/no error on not empty: url/content', function () {
+        it('postModel/no error on not empty: url/content', async function () {
             let post = new PostModelTest({url:"uniqueUrl", content:"content"});
-            let errors = ValidationErrorResponseSerializer(post.validateSync());
-            assert.strictEqual(errors.errors.length > 0, false);
+            let err = null;
+            try {
+                await post.validate();
+            } catch (err) {
+                err = ValidationErrorResponseSerializer(err);
+                assert.notStrictEqual(err, false);
+            }
+            assert.notStrictEqual(err, false);
         });
     });
 
