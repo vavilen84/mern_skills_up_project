@@ -2,8 +2,39 @@ const mongoose = require('../utils/mongoose').Mongoose,
     Schema = mongoose.Schema;
 const errorSerializer = require('../utils/modelErrorSerializer').errorSerializer;
 const enums = require('../enum/enum');
+const constants = require('../constants/constants');
 
 const modelName = 'post';
+
+async function uniqueKeyUniqueValidator(v) {
+    if (v) {
+        let model = mongoose.model(modelName, schema);
+        let doc = await model.findOne({uniqueKey: v}).exec();
+        if (doc) {
+            return false;
+        }
+    }
+    return true;
+}
+
+async function urlUniqueValidator(v) {
+    if (v) {
+        let model = mongoose.model(modelName, schema);
+        let doc = await model.findOne({url: v}).exec();
+        if (doc) {
+            return false;
+        }
+    }
+    return true;
+}
+
+const uniqueKeyCustomValidators = [
+    {validator: uniqueKeyUniqueValidator, msg: constants.VALIDATION_ERRORS.UNIQUE}
+]
+
+const urlCustomValidators = [
+    {validator: urlUniqueValidator, msg: constants.VALIDATION_ERRORS.UNIQUE}
+]
 
 const schema = new Schema({
     image: {
@@ -13,13 +44,12 @@ const schema = new Schema({
     uniqueKey: {
         type: String,
         max: 255,
-        unique: [function () {
-            return (this.uniqueKey.length > 0);
-        }, 'uniqueKey error']
+        validate: uniqueKeyCustomValidators,
     },
     url: {
         type: String,
-        unique: true,
+        required: [true, constants.VALIDATION_ERRORS.REQUIRED],
+        validate: urlCustomValidators,
         max: 255,
     },
     title: {
@@ -45,10 +75,11 @@ const schema = new Schema({
     },
     content: {
         type: String,
-        required: true,
+        required: [true, constants.VALIDATION_ERRORS.REQUIRED],
     },
     status: {
-        type: Boolean,
+        type: Number,
+        enum: [enums.PostStatuses.ACTIVE, enums.PostStatuses.INACTIVE],
         default: enums.PostStatuses.ACTIVE
     },
     created: {
