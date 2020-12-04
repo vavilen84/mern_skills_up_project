@@ -6,19 +6,25 @@ const request = require('supertest');
 const log = require('../../../utils/logger')(module);
 const constants = require('./../../../constants/constants');
 const Post = require('./../../../models/postModel').Post;
-const security = require('../../../utils/security');
 const homePageFixture = require('../../fixtures/posts').HOME_PAGE;
 
-describe(constants.USERS_BASE_URL, function (done) {
+describe(constants.USERS_BASE_URL, function () {
 
     beforeEach(async function () {
         await utils.prepareDatabaseBeforeTest();
     });
 
     describe('POST ' + constants.POSTS_BASE_URL, function () {
-        it('endpoints/posts/get 200 on create post', async function (done) {
-            let postFromDb = await Post.findOne({uniqueKey: homePageFixture.uniqueKey}).exec();
-            assert.notStrictEqual(postFromDb, null);
+        it('endpoints/posts/get 200 on create post', async function () {
+            let postFromDb = null;
+            let err = null;
+            try {
+                postFromDb = await Post.findOne({uniqueKey: homePageFixture.uniqueKey}).exec();
+            } catch (err){
+                console.log(err);
+            }
+            assert.strictEqual(err, null);
+            assert.strictEqual(postFromDb, null);
 
             request(app)
                 .post(constants.POSTS_BASE_URL)
@@ -38,13 +44,19 @@ describe(constants.USERS_BASE_URL, function (done) {
                     assert.strictEqual(postFromDb.url, homePageFixture.url);
                     assert.strictEqual(postFromDb.uniqueKey, homePageFixture.uniqueKey);
 
-                    done();
                 });
         });
 
-        it('endpoints/posts/get 422 on validation failed', async function (done) {
-            let postFromDb = await Post.findOne({uniqueKey: homePageFixture.uniqueKey}).exec();
-            assert.notStrictEqual(postFromDb, null);
+        it('endpoints/posts/get 422 on validation failed', async function () {
+            let postFromDb = null;
+            let err = null;
+            try {
+                postFromDb = await Post.findOne({uniqueKey: homePageFixture.uniqueKey}).exec();
+            } catch (err){
+                console.log(err);
+            }
+            assert.strictEqual(err, null);
+            assert.strictEqual(postFromDb, null);
 
             request(app)
                 .post(constants.POSTS_BASE_URL)
@@ -64,7 +76,6 @@ describe(constants.USERS_BASE_URL, function (done) {
                     assert.strictEqual(postFromDb.url, homePageFixture.url);
                     assert.strictEqual(postFromDb.uniqueKey, homePageFixture.uniqueKey);
 
-                    done();
                 });
         });
     });

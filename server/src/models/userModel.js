@@ -28,9 +28,11 @@ const schema = new Schema({
 
 schema.virtual(passwordVirtualProp)
     .set(function (password) {
-        this._plainPassword = password;
-        this.salt = Math.random();
-        this.hashedPassword = security.encryptPassword(password, this.salt)
+        if (password) {
+            this._plainPassword = password;
+            this.salt = Math.random();
+            this.hashedPassword = security.encryptPassword(password, this.salt)
+        }
     })
     .get(function () {
         return this._plainPassword;

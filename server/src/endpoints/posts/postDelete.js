@@ -2,7 +2,7 @@ const response = require('../../utils/response');
 const constants = require('../../constants/constants');
 const Post = require('../../models/postModel').Post;
 
-module.exports = function(app) {
+module.exports = function (app) {
 
     app.delete(constants.POSTS_BASE_URL + "/:id", async function (req, res) {
 
@@ -11,13 +11,13 @@ module.exports = function(app) {
             response.sendNotFound(res);
             return;
         }
-        post.delete(function (err){
-            if (err) {
+        await post.remove()
+            .then(function () {
+                response.sendOK(res, null, "OK")
+            }).catch(function (err) {
+                console.log(err);
                 response.sendServerError(res);
-                return;
-            }
-            response.sendOK(res, null, "OK")
-        });
+            });
     });
 
 };

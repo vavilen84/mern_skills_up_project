@@ -8,7 +8,7 @@ const post1fixture = require('./fixtures/posts').POST_1;
 const post2fixture = require('./fixtures/posts').POST_2;
 const post3fixture = require('./fixtures/posts').POST_3;
 
-async function prepareDatabaseBeforeTest(done) {
+async function prepareDatabaseBeforeTest() {
     log.info("CLEAR DB");
     db.set('debug', true);
     await db.dropDatabase();
@@ -29,9 +29,8 @@ async function prepareDatabaseBeforeTest(done) {
     await post3.save().catch(e => console.log(e));
 
     await user.save().catch(e => console.log(e));
-    done();
 }
 
-exports.prepareDatabaseBeforeTest = async function (done) {
-    await prepareDatabaseBeforeTest(done);
+exports.prepareDatabaseBeforeTest = async function () {
+    await prepareDatabaseBeforeTest();
 }
