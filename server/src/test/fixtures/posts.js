@@ -47,3 +47,19 @@ module.exports.POST_2 = {
     created: null,
     updated: null
 };
+
+module.exports.POST_3 = {
+    image: "/path/to/image.png",
+    uniqueKey: "post3uniqueKey",
+    url: "/post-3",
+    title: "Post 3",
+    relatedPostIds: [],
+    tags: ["php", "server"],
+    keywords: "one, two",
+    description: "three, four",
+    greeting: null,
+    content: "content string",
+    status: enumConst.PostStatuses.ACTIVE,
+    created: null,
+    updated: null
+};

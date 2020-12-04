@@ -16,7 +16,33 @@ describe(constants.USERS_BASE_URL, function (done) {
     });
 
     describe('POST ' + constants.POSTS_BASE_URL, function () {
-        it('get 200 on create post', async function (done) {
+        it('endpoints/posts/get 200 on create post', async function (done) {
+            let postFromDb = await Post.findOne({uniqueKey: homePageFixture.uniqueKey}).exec();
+            assert.notStrictEqual(postFromDb, null);
+
+            request(app)
+                .post(constants.POSTS_BASE_URL)
+                .send(homePageFixture)
+                .expect('Content-Type', /json/)
+                .expect(constants.RESPONSE_CODE.OK)
+                .end(async function (err, res) {
+                    const resp = JSON.parse(res.text);
+
+                    let post = resp.data;
+                    assert.strictEqual(resp.code, constants.RESPONSE_CODE.OK);
+                    assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.OK);
+                    assert.strictEqual(post.url, homePageFixture.url);
+                    assert.strictEqual(post.uniqueKey, homePageFixture.uniqueKey);
+
+                    let postFromDb = await Post.findOne({uniqueKey: homePageFixture.uniqueKey}).exec();
+                    assert.strictEqual(postFromDb.url, homePageFixture.url);
+                    assert.strictEqual(postFromDb.uniqueKey, homePageFixture.uniqueKey);
+
+                    done();
+                });
+        });
+
+        it('endpoints/posts/get 422 on validation failed', async function (done) {
             let postFromDb = await Post.findOne({uniqueKey: homePageFixture.uniqueKey}).exec();
             assert.notStrictEqual(postFromDb, null);
 

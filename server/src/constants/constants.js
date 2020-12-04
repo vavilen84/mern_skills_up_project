@@ -27,3 +27,8 @@ module.exports.RESPONSE_MESSAGE = {
     VALIDATION_ERROR: 'Validation error',
     SERVER_ERROR: 'Server error'
 };
+
+module.exports.VALIDATION_ERRORS = {
+    UNIQUE: "field should be unique",
+    REQUIRED: "field is required"
+};
