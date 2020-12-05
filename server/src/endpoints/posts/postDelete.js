@@ -11,7 +11,7 @@ module.exports = function (app) {
             response.sendNotFound(res);
             return;
         }
-        await post.remove()
+        post.remove()
             .then(function () {
                 response.sendOK(res, null, "OK")
             }).catch(function (err) {

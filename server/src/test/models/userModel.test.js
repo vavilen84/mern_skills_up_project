@@ -6,8 +6,8 @@ const user1fixture = require('./../fixtures/users').USER_1;
 
 describe('UserModelTest model validation', function () {
 
-    beforeEach(function (done) {
-        done();
+    beforeEach(async function () {
+        await utils.prepareDatabaseBeforeTest();
     });
 
     describe('validate required fields', function () {

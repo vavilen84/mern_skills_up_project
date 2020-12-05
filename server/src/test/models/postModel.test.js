@@ -8,8 +8,8 @@ const utils = require('./../utils');
 
 describe('PostModelTest model validation', function () {
 
-    beforeEach(function (done) {
-        utils.prepareDatabaseBeforeTest(done);
+    beforeEach(async function () {
+        await utils.prepareDatabaseBeforeTest();
     });
 
     describe('validate required fields', function () {
