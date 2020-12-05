@@ -8,17 +8,16 @@ const post1fixture = require('./fixtures/posts').POST_1;
 const post2fixture = require('./fixtures/posts').POST_2;
 const post3fixture = require('./fixtures/posts').POST_3;
 
-async function prepareDatabaseBeforeTest() {
-    log.info("CLEAR DB");
-    db.set('debug', true);
-    await db.dropDatabase();
-
+async function createUsers(){
     let user = new User({
         scenario: enums.Scenarios.SCENARIO_CREATE
     });
     user.set('username', user1fixture.username);
     user.set('password', user1fixture.password);
+    await user.save().catch(e => console.log(e));
+}
 
+async function createPosts(){
     let post1 = new Post(post1fixture);
     await post1.save().catch(e => console.log(e));
 
@@ -27,8 +26,14 @@ async function prepareDatabaseBeforeTest() {
 
     let post3 = new Post(post3fixture);
     await post3.save().catch(e => console.log(e));
+}
 
-    await user.save().catch(e => console.log(e));
+async function prepareDatabaseBeforeTest() {
+    log.info("CLEAR DB");
+    db.set('debug', true);
+    db.dropDatabase()
+        .then(createUsers())
+        .then(createPosts());
 }
 
 exports.prepareDatabaseBeforeTest = async function () {

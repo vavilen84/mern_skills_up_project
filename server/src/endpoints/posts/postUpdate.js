@@ -26,12 +26,14 @@ module.exports = function(app) {
         post.status = req.body.status || post.status;
         post.updated = Date.now();
 
-        let errors = post.validateSync();
-        if (errors) {
-            log.info(errors);
+        try {
+            await post.validate();
+        } catch(errors){
+            console.log(errors);
             response.sendUnprocessableEntity(res, ValidationErrorResponseSerializer(errors));
             return;
         }
+
         post.save(function (err) {
             if (err) {
                 response.sendServerError(res);

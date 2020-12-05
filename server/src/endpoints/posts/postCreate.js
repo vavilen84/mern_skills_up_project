@@ -22,9 +22,10 @@ module.exports = function(app) {
             status: req.body.status || enums.PostStatuses.ACTIVE
         });
 
-        let errors = post.validateSync();
-        if (errors) {
-            log.info(errors);
+        try {
+            await post.validate();
+        } catch(errors) {
+            console.log(errors);
             response.sendUnprocessableEntity(res, ValidationErrorResponseSerializer(errors));
             return;
         }

@@ -6,17 +6,16 @@ const request = require('supertest');
 const log = require('../../../utils/logger')(module);
 const constants = require('./../../../constants/constants');
 const Post = require('./../../../models/postModel').Post;
-const security = require('../../../utils/security');
 const homePageFixture = require('../../fixtures/posts').HOME_PAGE;
 
-describe(constants.USERS_BASE_URL, function (done) {
+describe(constants.USERS_BASE_URL, function () {
 
-    beforeEach(async function (done) {
-        await utils.prepareDatabaseBeforeTest(done);
+    beforeEach(async function () {
+        await utils.prepareDatabaseBeforeTest();
     });
 
     describe('DELETE ' + constants.POSTS_BASE_URL, function () {
-        it('get 200 on delete post', async function (done) {
+        it('get 200 on delete post', async function () {
             let postFromDb = await Post.findOne({uniqueKey: homePageFixture.uniqueKey}).exec();
             assert.notStrictEqual(postFromDb, null);
 
@@ -37,8 +36,6 @@ describe(constants.USERS_BASE_URL, function (done) {
                     let postFromDb = await Post.findOne({uniqueKey: homePageFixture.uniqueKey}).exec();
                     assert.strictEqual(postFromDb.url, homePageFixture.url);
                     assert.strictEqual(postFromDb.uniqueKey, homePageFixture.uniqueKey);
-
-                    done();
                 });
         });
     });
