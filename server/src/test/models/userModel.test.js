@@ -3,6 +3,7 @@ const assert = require('assert');
 const ValidationErrorResponseSerializer = require('../../models/userModel').ValidationErrorResponseSerializer;
 const UserModelTest = require('../../models/userModel').User;
 const user1fixture = require('./../fixtures/users').USER_1;
+const utils = require('./../utils');
 
 describe('UserModelTest model validation', function () {
 
