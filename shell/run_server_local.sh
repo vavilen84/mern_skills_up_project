@@ -1,1 +1,0 @@
-NODE_ENV=local node server/src/app.js

@@ -1,1 +1,1 @@
-NODE_ENV=development node server/src/app.js
+node server/src/app.js
