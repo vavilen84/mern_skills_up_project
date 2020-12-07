@@ -14,7 +14,13 @@ module.exports.ensurePageExistsByUniqueKey = async function (page) {
     if (!page.uniqueKey) {
         throw 'uniqueKey is empty!';
     }
-    await Post.findOne({uniqueKey: page.uniqueKey}).exec()
+    await findPostByUniqueKey(page.uniqueKey)
         .then(post => assertIsObject(post))
-        .catch(err => assertIsNull(err));
+        .catch(err => assertIsNull(err))
 }
+
+async function findPostByUniqueKey(uk){
+    return await Post.findOne({uniqueKey: uk}).exec();
+}
+
+module.exports.findPostByUniqueKey = findPostByUniqueKey;

@@ -48,7 +48,6 @@ describe(constants.USERS_BASE_URL, function () {
                 .end(async function (err, res) {
                     utils.assertIsNull(err);
                     const resp = JSON.parse(res.text);
-                    let post = resp.data;
                     assert.strictEqual(resp.code, constants.RESPONSE_CODE.UNPROCESSABLE_ENTITY);
                     assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.UNPROCESSABLE_ENTITY);
                     done();

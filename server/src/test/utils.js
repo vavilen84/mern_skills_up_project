@@ -15,26 +15,33 @@ async function createUsers(){
     });
     user.set('username', user1fixture.username);
     user.set('password', user1fixture.password);
-    await user.save();
+    try {
+        await user.save();
+    } catch(err){
+        assertIsNull(err);
+    }
 }
 
 async function createPosts(){
     let post1 = new Post(post1fixture);
-    await post1.save().catch(err => assertIsNull(err));
-
     let post2 = new Post(post2fixture);
-    await post2.save().catch(err => assertIsNull(err));
-
     let post3 = new Post(post3fixture);
-    await post3.save().catch(err => assertIsNull(err));
+
+    try {
+        await post1.save();
+        await post2.save();
+        await post3.save();
+    } catch(err){
+        assertIsNull(err);
+    }
 }
 
 async function prepareDatabaseBeforeTest() {
     log.info("CLEAR DB");
     db.set('debug', true);
     try {
-        await db.collections.users.remove();
-        await db.collections.posts.remove();
+        await db.collections.users.deleteMany();
+        await db.collections.posts.deleteMany();
         await createUsers();
         await createPosts();
     } catch (err) {
