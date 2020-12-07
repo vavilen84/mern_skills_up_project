@@ -9,17 +9,17 @@ class LoginForm extends React.Component {
         super(props);
 
         this.state = {
-            email: '',
+            username: '',
             password: ''
         };
 
-        this.handleChangeEmail = this.handleChangeEmail.bind(this);
+        this.handleChangeUsername = this.handleChangeUsername.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChangeEmail(event) {
-        this.setState({email: event.target.value});
+    handleChangeUsername(event) {
+        this.setState({username: event.target.value});
     }
 
     handleChangePassword(event) {
@@ -28,7 +28,7 @@ class LoginForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.onSubmitCreateUser(this.state.email, this.state.password);
+        this.props.onSubmitCreateUser(this.state.username, this.state.password);
     }
 
     render() {
@@ -36,11 +36,11 @@ class LoginForm extends React.Component {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">Email</label>
-                        <input type="email" className="form-control" placeholder="Enter email" onChange={this.handleChangeEmail}/>
+                        <label htmlFor="">Username</label>
+                        <input type="text" className="form-control" placeholder="Enter username" onChange={this.handleChangeUsername}/>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">Password</label>
+                        <label htmlFor="">Password</label>
                         <input type="password" className="form-control" placeholder="Password" onChange={this.handleChangePassword}/>
                     </div>
                     <input type="submit" value="Submit" className="btn btn-success"/>
@@ -52,7 +52,7 @@ class LoginForm extends React.Component {
 
 const mapDispatchToProps = dispatch => (
     {
-        onSubmitCreateUser: (email, password) => dispatch(submitCreateUser(email, password))
+        onSubmitCreateUser: (username, password) => dispatch(submitCreateUser(username, password))
     }
 )
 
