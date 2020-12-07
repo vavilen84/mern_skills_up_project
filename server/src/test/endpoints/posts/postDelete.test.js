@@ -6,7 +6,7 @@ const request = require('supertest');
 const log = require('../../../utils/logger')(module);
 const constants = require('./../../../constants/constants');
 const post3fixture = require('../../fixtures/posts').POST_3;
-const {ensurePageExistsByUniqueKey, ensurePageDoesNotExistsByUniqueKey, findPostByUniqueKey} = require('./base');
+const {ensurePageDoesNotExistsByUniqueKey, findPostByUniqueKey} = require('./base');
 
 describe(constants.USERS_BASE_URL, function () {
 
@@ -16,8 +16,7 @@ describe(constants.USERS_BASE_URL, function () {
 
     describe('DELETE ' + constants.POSTS_BASE_URL, function () {
         it('get 200 on delete post', function (done) {
-            ensurePageExistsByUniqueKey(post3fixture)
-                .then(() => findPostByUniqueKey(post3fixture.uniqueKey))
+                findPostByUniqueKey(post3fixture.uniqueKey)
                 .then(function (post) {
                     request(app)
                         .delete(constants.POSTS_BASE_URL + "/" + post.id)
@@ -39,6 +38,7 @@ describe(constants.USERS_BASE_URL, function () {
                 .expect('Content-Type', /json/)
                 .expect(constants.RESPONSE_CODE.NOT_FOUND)
                 .end(async function (err, res) {
+                    utils.assertIsNull(err);
                     const resp = JSON.parse(res.text);
                     assert.strictEqual(resp.code, constants.RESPONSE_CODE.NOT_FOUND);
                     assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.NOT_FOUND);
