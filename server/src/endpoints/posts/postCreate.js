@@ -25,7 +25,6 @@ module.exports = function(app) {
         try {
             await post.validate();
         } catch(errors) {
-            console.log(errors);
             response.sendUnprocessableEntity(res, ValidationErrorResponseSerializer(errors));
             return;
         }

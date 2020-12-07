@@ -1,3 +1,4 @@
+const assert = require('assert');
 const db = require('../utils/mongoose').Db;
 const log = require('./../utils/logger')(module);
 const enums = require('./../enum/enum');
@@ -14,33 +15,69 @@ async function createUsers(){
     });
     user.set('username', user1fixture.username);
     user.set('password', user1fixture.password);
-    await user.save().catch(e => console.log(e));
+    await user.save();
 }
 
 async function createPosts(){
     let post1 = new Post(post1fixture);
-    await post1.save().catch(e => console.log(e));
+    await post1.save().catch(err => assertIsNull(err));
 
     let post2 = new Post(post2fixture);
-    await post2.save().catch(e => console.log(e));
+    await post2.save().catch(err => assertIsNull(err));
 
     let post3 = new Post(post3fixture);
-    await post3.save().catch(e => console.log(e));
+    await post3.save().catch(err => assertIsNull(err));
 }
 
 async function prepareDatabaseBeforeTest() {
     log.info("CLEAR DB");
     db.set('debug', true);
-    db.dropDatabase()
-        .then(async function(){
-            await db.collection('posts').count().then(count => console.log(count))
-        })
-        .then(createUsers())
-        .then(()=>console.log('users created'))
-        .then(createPosts())
-        .then(()=>console.log('posts created'));
+    try {
+        await db.collections.users.remove();
+        await db.collections.posts.remove();
+        await createUsers();
+        await createPosts();
+    } catch (err) {
+        assertIsNull(err);
+    }
 }
 
 exports.prepareDatabaseBeforeTest = async function () {
     await prepareDatabaseBeforeTest();
 }
+
+function assertIsNull(obj){
+    if (obj) {
+        logAndExit(obj);
+    }
+    assert.strictEqual(obj, null)
+}
+
+exports.assertIsNull = assertIsNull;
+
+function assertTrue(obj){
+    assert.equal(obj, true)
+}
+
+exports.assertTrue = assertTrue;
+
+function assertIsObject(obj){
+    assert.equal(typeof obj === 'object', true)
+}
+
+exports.assertIsObject = assertIsObject;
+
+function assertFalse(obj){
+    if (obj) {
+        logAndExit(obj);
+    }
+    assert.equal(obj, false)
+}
+
+function logAndExit(obj){
+    console.log(obj);
+    console.trace();
+    process.exit(1);
+}
+
+exports.assertFalse = assertFalse;
