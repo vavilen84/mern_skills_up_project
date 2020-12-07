@@ -11,7 +11,9 @@ async function uniqueKeyUniqueValidator(v) {
         let model = mongoose.model(modelName, schema);
         let doc = await model.findOne({uniqueKey: v}).exec();
         if (doc) {
-            return false;
+            if (doc.id !== this._id.toString()) {
+                return false;
+            }
         }
     }
     return true;
@@ -22,7 +24,9 @@ async function urlUniqueValidator(v) {
         let model = mongoose.model(modelName, schema);
         let doc = await model.findOne({url: v}).exec();
         if (doc) {
-            return false;
+            if (doc.id !== this._id.toString()) {
+                return false;
+            }
         }
     }
     return true;

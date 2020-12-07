@@ -38,20 +38,20 @@ describe(constants.USERS_BASE_URL, function () {
                 });
         });
 
-        // it('endpoints/posts/get 422 on validation failed', function (done) {
-        //     request(app)
-        //         .post(constants.POSTS_BASE_URL)
-        //         .send({})
-        //         .expect('Content-Type', /json/)
-        //         .expect(constants.RESPONSE_CODE.UNPROCESSABLE_ENTITY)
-        //         .end(async function (err, res) {
-        //             utils.assertIsNull(err);
-        //             const resp = JSON.parse(res.text);
-        //             assert.strictEqual(resp.code, constants.RESPONSE_CODE.UNPROCESSABLE_ENTITY);
-        //             assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.UNPROCESSABLE_ENTITY);
-        //             done();
-        //         });
-        // });
+        it('get 404 on update not existing post', function (done) {
+            request(app)
+                .post(constants.POSTS_BASE_URL + "/56cb91bdc3464f14678934ca")
+                .send(post3fixture)
+                .expect('Content-Type', /json/)
+                .expect(constants.RESPONSE_CODE.NOT_FOUND)
+                .end(async function (err, res) {
+                    utils.assertIsNull(err);
+                    const resp = JSON.parse(res.text);
+                    assert.strictEqual(resp.code, constants.RESPONSE_CODE.NOT_FOUND);
+                    assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.NOT_FOUND);
+                    done();
+                });
+        });
     });
 
 });

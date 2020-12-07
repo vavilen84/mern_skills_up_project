@@ -7,7 +7,7 @@ module.exports = function(app) {
 
     app.post(constants.POSTS_BASE_URL + "/:id", async function (req, res) {
 
-        let post = await Post.findById(id).exec();
+        let post = await Post.findById(req.params.id).exec();
         if (!post) {
             response.sendNotFound(res);
             return;
