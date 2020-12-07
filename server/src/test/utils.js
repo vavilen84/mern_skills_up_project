@@ -32,8 +32,13 @@ async function prepareDatabaseBeforeTest() {
     log.info("CLEAR DB");
     db.set('debug', true);
     db.dropDatabase()
+        .then(async function(){
+            await db.collection('posts').count().then(count => console.log(count))
+        })
         .then(createUsers())
-        .then(createPosts());
+        .then(()=>console.log('users created'))
+        .then(createPosts())
+        .then(()=>console.log('posts created'));
 }
 
 exports.prepareDatabaseBeforeTest = async function () {

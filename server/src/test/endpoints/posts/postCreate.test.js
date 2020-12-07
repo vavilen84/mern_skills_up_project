@@ -16,15 +16,17 @@ describe(constants.USERS_BASE_URL, function () {
     });
 
     describe('POST ' + constants.POSTS_BASE_URL, function () {
-        it('endpoints/posts/get 200 on create post', async function () {
-            ensurePageDoesNotExistsByUniqueKey(homePageFixture)
-                .then(function () {
-                    request(app)
+        it('endpoints/posts/get 200 on create post',  function (done) {
+            console.log('post create #1 start');
+             ensurePageDoesNotExistsByUniqueKey(homePageFixture)
+                .then( function () {
+                     request(app)
                         .post(constants.POSTS_BASE_URL)
                         .send(homePageFixture)
                         .expect('Content-Type', /json/)
                         .expect(constants.RESPONSE_CODE.OK)
                         .end(async function (err, res) {
+                            assert.strictEqual(err, null);
                             const resp = JSON.parse(res.text);
                             let post = resp.data;
                             assert.strictEqual(resp.code, constants.RESPONSE_CODE.OK);
@@ -34,12 +36,15 @@ describe(constants.USERS_BASE_URL, function () {
                             let postFromDb = await Post.findOne({uniqueKey: homePageFixture.uniqueKey}).exec();
                             assert.strictEqual(postFromDb.url, homePageFixture.url);
                             assert.strictEqual(postFromDb.uniqueKey, homePageFixture.uniqueKey);
+                            await ensurePageExistsByUniqueKey(homePageFixture);
+                            done();
+                            console.log('post create #1 done');
                         });
-                })
-                .then(ensurePageExistsByUniqueKey(homePageFixture));
+                });
         });
 
-        it('endpoints/posts/get 422 on validation failed', async function () {
+        it('endpoints/posts/get 422 on validation failed', function (done) {
+            console.log('post create #2 start');
             ensurePageDoesNotExistsByUniqueKey(homePageFixture)
                 .then(function () {
                     request(app)
@@ -48,6 +53,7 @@ describe(constants.USERS_BASE_URL, function () {
                         .expect('Content-Type', /json/)
                         .expect(constants.RESPONSE_CODE.OK)
                         .end(async function (err, res) {
+                            assert.strictEqual(err, null);
                             const resp = JSON.parse(res.text);
                             let post = resp.data;
                             assert.strictEqual(resp.code, constants.RESPONSE_CODE.OK);
@@ -57,9 +63,11 @@ describe(constants.USERS_BASE_URL, function () {
                             let postFromDb = await Post.findOne({uniqueKey: homePageFixture.uniqueKey}).exec();
                             assert.strictEqual(postFromDb.url, homePageFixture.url);
                             assert.strictEqual(postFromDb.uniqueKey, homePageFixture.uniqueKey);
+                            await ensurePageDoesNotExistsByUniqueKey(homePageFixture)
+                            done();
+                            console.log('post create #2 done');
                         });
-                })
-                .then(ensurePageDoesNotExistsByUniqueKey(homePageFixture));
+                });
         });
     });
 
