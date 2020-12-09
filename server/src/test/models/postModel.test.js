@@ -1,56 +1,63 @@
-require('dotenv').config({ path: '.env.test' });
+require('dotenv').config({path: '.env.test'});
 const assert = require('assert');
 const ValidationErrorResponseSerializer = require('../../models/postModel').ValidationErrorResponseSerializer;
 const PostModelTest = require('../../models/postModel').Post;
 const post3fixture = require('./../fixtures/posts').POST_3;
 const constants = require('./../../constants/constants');
 const utils = require('./../utils');
+const {logAndExit} = require("../utils");
 
 describe('PostModelTest model validation', function () {
 
-    beforeEach(async function () {
-        await utils.prepareDatabaseBeforeTest();
+    beforeEach(function (done) {
+        utils.beforeEach(done);
     });
 
     describe('validate required fields', function () {
-        it('postModel/error on empty: content/url', async function () {
-            let post = new PostModelTest({});
-            let err = null;
-            try {
-                await post.validate();
-            } catch (err) {
-                err = ValidationErrorResponseSerializer(err);
-                assert.strictEqual(err.errors['url'], constants.VALIDATION_ERRORS.REQUIRED);
-                assert.strictEqual(err.errors['content'], constants.VALIDATION_ERRORS.REQUIRED);
-            }
-            assert.notStrictEqual(err, true);
+        it('postModel/error on empty: content/url', function (done) {
+            (async function () {
+                let post = new PostModelTest();
+                await post.validate()
+                    .then(() => {
+                        logAndExit('no validation error')
+                    })
+                    .catch(function (err) {
+                        err = ValidationErrorResponseSerializer(err);
+                        assert.strictEqual(err.errors['url'], constants.VALIDATION_ERRORS.REQUIRED);
+                        assert.strictEqual(err.errors['content'], constants.VALIDATION_ERRORS.REQUIRED);
+                        done();
+                    });
+            })();
         });
-        it('postModel/no error on not empty: url/content', async function () {
-            let post = new PostModelTest({url:"uniqueUrl", content:"content"});
-            let err = null;
-            try {
-                await post.validate();
-            } catch (err) {
-                err = ValidationErrorResponseSerializer(err);
-                assert.notStrictEqual(err, false);
-            }
-            assert.notStrictEqual(err, false);
+        it('postModel/no error on not empty: url/content', function (done) {
+            (async function () {
+                let post = new PostModelTest({url: "uniqueUrl", content: "content"});
+                await post.validate()
+                    .then(() => {
+                        done();
+                    })
+                    .catch(function (err) {
+                        logAndExit('validation errors')
+                    });
+            })();
         });
     });
 
     describe('unique', function () {
-        it('postModel/error on not unique uniqueKey/url',  async function () {
-            let post = new PostModelTest({uniqueKey: post3fixture.uniqueKey, url:post3fixture.url});
-            let err = null;
-            try {
-                await post.validate();
-            } catch (err) {
-                err = ValidationErrorResponseSerializer(err);
-                assert.strictEqual(err.errors['uniqueKey'], constants.VALIDATION_ERRORS.UNIQUE);
-                assert.strictEqual(err.errors['url'], constants.VALIDATION_ERRORS.UNIQUE);
-            }
-            assert.notStrictEqual(err, true);
+        it('postModel/error on not unique uniqueKey/url', function (done) {
+            (async function () {
+                let post = new PostModelTest({uniqueKey: post3fixture.uniqueKey, url: post3fixture.url});
+                await post.validate()
+                    .then(() => {
+                        logAndExit('no validation error')
+                    })
+                    .catch(function (err) {
+                        err = ValidationErrorResponseSerializer(err);
+                        assert.strictEqual(err.errors['uniqueKey'], constants.VALIDATION_ERRORS.UNIQUE);
+                        assert.strictEqual(err.errors['url'], constants.VALIDATION_ERRORS.UNIQUE);
+                        done();
+                    });
+            })();
         });
     });
-
 });

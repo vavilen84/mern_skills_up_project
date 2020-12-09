@@ -18,7 +18,7 @@ async function createUsers(){
     try {
         await user.save();
     } catch(err){
-        assertIsNull(err);
+        logAndExit(err);
     }
 }
 
@@ -32,7 +32,7 @@ async function createPosts(){
         await post2.save();
         await post3.save();
     } catch(err){
-        assertIsNull(err);
+        logAndExit(err);
     }
 }
 
@@ -41,16 +41,16 @@ async function prepareDatabaseBeforeTest() {
     db.set('debug', true);
     try {
         await db.collections.users.deleteMany();
-        await db.collections.posts.deleteMany();
         await createUsers();
+        await db.collections.posts.deleteMany();
         await createPosts();
     } catch (err) {
-        assertIsNull(err);
+        logAndExit(err);
     }
 }
 
-exports.prepareDatabaseBeforeTest = async function () {
-    await prepareDatabaseBeforeTest();
+exports.prepareDatabaseBeforeTest =  function () {
+     return prepareDatabaseBeforeTest();
 }
 
 function assertIsNull(obj){
@@ -63,13 +63,13 @@ function assertIsNull(obj){
 exports.assertIsNull = assertIsNull;
 
 function assertTrue(obj){
-    assert.equal(obj, true)
+    assert.strictEqual(obj == true, true)
 }
 
 exports.assertTrue = assertTrue;
 
 function assertIsObject(obj){
-    assert.equal(typeof obj === 'object', true)
+    assert.strictEqual(typeof obj === 'object', true)
 }
 
 exports.assertIsObject = assertIsObject;
@@ -78,8 +78,10 @@ function assertFalse(obj){
     if (obj) {
         logAndExit(obj);
     }
-    assert.equal(obj, false)
+    assert.strictEqual(obj == false, true)
 }
+
+exports.assertFalse = assertFalse;
 
 function logAndExit(obj){
     console.log(obj);
@@ -87,4 +89,18 @@ function logAndExit(obj){
     process.exit(1);
 }
 
-exports.assertFalse = assertFalse;
+exports.logAndExit = logAndExit;
+
+function beforeEach(done){
+    prepareDatabaseBeforeTest()
+        .then(() => {
+            done()
+        })
+        .catch(err => {
+            logAndExit(err)
+        });
+}
+
+exports.beforeEach = beforeEach;
+
+
