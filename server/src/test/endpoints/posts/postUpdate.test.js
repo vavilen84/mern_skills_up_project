@@ -9,8 +9,8 @@ const post3fixture = require('../../fixtures/posts').POST_3;
 
 describe(constants.USERS_BASE_URL, function () {
 
-    beforeEach(async function () {
-        await utils.prepareDatabaseBeforeTest();
+    beforeEach(function (done) {
+        utils.beforeEach(done);
     });
 
     describe('POST ' + constants.POSTS_BASE_URL, function () {

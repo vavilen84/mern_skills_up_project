@@ -4,8 +4,9 @@ module.exports.USERS_COLLECTION_NAME = 'users';
 module.exports.POSTS_COLLECTION_NAME = 'posts';
 
 
-module.exports.USER_MODEL_NAME = 'user';
-module.exports.POST_MODEL_NAME = 'post';
+module.exports.USER_MODEL_NAME = 'User';
+module.exports.POST_MODEL_NAME = 'Post';
+module.exports.TOKEN_MODEL_NAME = 'Token';
 
 module.exports.USERS_BASE_URL = '/api/v1/users';
 module.exports.POSTS_BASE_URL = '/api/v1/posts';

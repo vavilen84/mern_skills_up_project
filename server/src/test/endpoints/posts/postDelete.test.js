@@ -10,8 +10,8 @@ const {ensurePageDoesNotExistsByUniqueKey, findPostByUniqueKey} = require('./bas
 
 describe(constants.USERS_BASE_URL, function () {
 
-    beforeEach(async function () {
-        await utils.prepareDatabaseBeforeTest();
+    beforeEach(function (done) {
+        utils.beforeEach(done);
     });
 
     describe('DELETE ' + constants.POSTS_BASE_URL, function () {

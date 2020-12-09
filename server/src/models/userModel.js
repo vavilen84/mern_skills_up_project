@@ -4,11 +4,8 @@ const mongoose = require('../utils/mongoose').Mongoose,
 const errorSerializer = require('../utils/modelErrorSerializer').errorSerializer;
 const constants = require('../constants/constants');
 
-const modelName = 'User';
-const passwordVirtualProp = 'password';
-
 async function usernameUniqueValidator(v) {
-    let model = mongoose.model(modelName, schema);
+    let model = getModel();
     let doc = await model.findOne({username: v}).exec();
     if (doc) {
         if (doc.id !== this._id.toString()) {
@@ -22,7 +19,7 @@ const usernameCustomValidators = [
     {validator: usernameUniqueValidator, msg: constants.VALIDATION_ERRORS.UNIQUE}
 ]
 
-const schema = new Schema({
+const schemaObj = {
     username: {
         type: String,
         unique: true,
@@ -41,9 +38,11 @@ const schema = new Schema({
         type: Date,
         default: Date.now
     },
-});
+};
 
-schema.virtual(passwordVirtualProp)
+const schema = new Schema(schemaObj);
+
+schema.virtual('password')
     .set(function (password) {
         if (password) {
             this._plainPassword = password;
@@ -55,9 +54,15 @@ schema.virtual(passwordVirtualProp)
         return this._plainPassword;
     });
 
-exports.User = mongoose.model(modelName, schema);
+exports.User = getModel();
+
+function getModel() {
+    return mongoose.model(constants.USER_MODEL_NAME, schema);
+}
 
 exports.ValidationErrorResponseSerializer = function (err) {
-    let props = ['username', ['hashedPassword', 'password']];
-    return errorSerializer(props, err);
+    const keys = Object.keys(schemaObj);
+    delete keys.hashedPassword;
+    keys.push(['hashedPassword', 'password']);
+    return errorSerializer(keys, err);
 }

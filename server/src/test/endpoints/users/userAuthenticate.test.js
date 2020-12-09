@@ -9,8 +9,8 @@ const user1fixture = require('../../fixtures/users').USER_1;
 
 describe(constants.USERS_BASE_URL, function () {
 
-    beforeEach(async function () {
-        await utils.prepareDatabaseBeforeTest();
+    beforeEach(function (done) {
+        utils.beforeEach(done);
     });
 
     describe('POST ' + constants.USERS_BASE_URL + "/:username/authenticate", function () {

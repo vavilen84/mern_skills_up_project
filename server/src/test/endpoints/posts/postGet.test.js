@@ -10,8 +10,8 @@ const {findPostByUniqueKey} = require('./base');
 
 describe(constants.USERS_BASE_URL, function () {
 
-    beforeEach(async function () {
-        await utils.prepareDatabaseBeforeTest();
+    beforeEach(function (done) {
+        utils.beforeEach(done);
     });
 
     describe('GET ' + constants.POSTS_BASE_URL, function () {
