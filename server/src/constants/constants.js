@@ -29,6 +29,7 @@ module.exports.RESPONSE_MESSAGE = {
 };
 
 module.exports.VALIDATION_ERRORS = {
+    UUID: "field data is not valid uuid",
     UNIQUE: "field should be unique",
     REQUIRED: "field is required"
 };

@@ -9,3 +9,8 @@ module.exports.PostStatuses = {
     "ACTIVE": 1,
     "INACTIVE": 2,
 }
+
+module.exports.TokenTypes = {
+    "AUTH": 1,
+    "REFRESH": 2,
+}
