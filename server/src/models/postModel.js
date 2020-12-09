@@ -4,11 +4,9 @@ const errorSerializer = require('../utils/modelErrorSerializer').errorSerializer
 const enums = require('../enum/enum');
 const constants = require('../constants/constants');
 
-const modelName = 'post';
-
 async function uniqueKeyUniqueValidator(v) {
     if (v) {
-        let model = mongoose.model(modelName, schema);
+        let model = getModel();
         let doc = await model.findOne({uniqueKey: v}).exec();
         if (doc) {
             if (doc.id !== this._id.toString()) {
@@ -20,7 +18,7 @@ async function uniqueKeyUniqueValidator(v) {
 }
 
 async function urlUniqueValidator(v) {
-    let model = mongoose.model(modelName, schema);
+    let model = getModel();
     let doc = await model.findOne({url: v}).exec();
     if (doc) {
         if (doc.id !== this._id.toString()) {
@@ -38,7 +36,7 @@ const urlCustomValidators = [
     {validator: urlUniqueValidator, msg: constants.VALIDATION_ERRORS.UNIQUE}
 ]
 
-const schema = new Schema({
+const schemaObj = {
     image: {
         type: String,
         max: 255,
@@ -46,7 +44,7 @@ const schema = new Schema({
     uniqueKey: {
         type: String,
         max: 255,
-        index: {unique: true, sparse: true},
+        unique: true,
         validate: uniqueKeyCustomValidators,
     },
     url: {
@@ -86,19 +84,24 @@ const schema = new Schema({
         enum: [enums.PostStatuses.ACTIVE, enums.PostStatuses.INACTIVE],
         default: enums.PostStatuses.ACTIVE
     },
-    created: {
+    createdAt: {
         type: Date,
         default: Date.now
     },
-    updated: {
+    updatedAt: {
         type: Date,
         default: Date.now
     },
-});
+};
 
-exports.Post = mongoose.model(modelName, schema);
+const schema = new Schema(schemaObj)
+
+exports.Post = getModel();
+
+function getModel() {
+    return mongoose.model(constants.POST_MODEL_NAME, schema);
+}
 
 exports.ValidationErrorResponseSerializer = function (err) {
-    let props = ['image', 'uniqueKey', 'url', 'title', 'keywords', 'description', 'content'];
-    return errorSerializer(props, err);
+    return errorSerializer(Object.keys(schemaObj), err);
 }

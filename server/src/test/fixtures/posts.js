@@ -18,7 +18,7 @@ module.exports.HOME_PAGE = {
 
 module.exports.POST_1 = {
     image: "/path/to/image.png",
-    uniqueKey: null,
+    uniqueKey: "post1",
     url: "/post-1",
     title: "Post 1",
     relatedPostIds: [],
@@ -34,7 +34,7 @@ module.exports.POST_1 = {
 
 module.exports.POST_2 = {
     image: "/path/to/image.png",
-    uniqueKey: null,
+    uniqueKey: "post2",
     url: "/post-2",
     title: "Post 2",
     relatedPostIds: [],
@@ -50,7 +50,7 @@ module.exports.POST_2 = {
 
 module.exports.POST_3 = {
     image: "/path/to/image.png",
-    uniqueKey: "post3uniqueKey",
+    uniqueKey: "post3",
     url: "/post-3",
     title: "Post 3",
     relatedPostIds: [],

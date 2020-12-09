@@ -24,7 +24,7 @@ module.exports = function(app) {
         post.greeting = req.body.greeting || post.greeting;
         post.content = req.body.content || post.content;
         post.status = req.body.status || post.status;
-        post.updated = Date.now();
+        post.updatedAt = Date.now();
 
         try {
             await post.validate();

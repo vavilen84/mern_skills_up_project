@@ -14,7 +14,7 @@ describe('PostModelTest model validation', function () {
     });
 
     describe('validate required fields', function () {
-        it('postModel/error on empty: content/url', function (done) {
+        it('postModel/errors on empty required fields', function (done) {
             (async function () {
                 let post = new PostModelTest();
                 await post.validate()
@@ -26,6 +26,9 @@ describe('PostModelTest model validation', function () {
                         assert.strictEqual(err.errors['url'], constants.VALIDATION_ERRORS.REQUIRED);
                         assert.strictEqual(err.errors['content'], constants.VALIDATION_ERRORS.REQUIRED);
                         done();
+                    })
+                    .catch((err) => {
+                        logAndExit(err)
                     });
             })();
         });
@@ -37,7 +40,7 @@ describe('PostModelTest model validation', function () {
                         done();
                     })
                     .catch(function (err) {
-                        logAndExit('validation errors')
+                        logAndExit(err)
                     });
             })();
         });
@@ -56,6 +59,9 @@ describe('PostModelTest model validation', function () {
                         assert.strictEqual(err.errors['uniqueKey'], constants.VALIDATION_ERRORS.UNIQUE);
                         assert.strictEqual(err.errors['url'], constants.VALIDATION_ERRORS.UNIQUE);
                         done();
+                    })
+                    .catch(function (err) {
+                        logAndExit(err)
                     });
             })();
         });

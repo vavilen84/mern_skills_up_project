@@ -2,6 +2,7 @@ const mongoose = require('../utils/mongoose').Mongoose,
     Schema = mongoose.Schema;
 const uuid = require('uuid');
 const enums = require('../enum/enum');
+const constants = require('./../constants/constants');
 const errorSerializer = require('../utils/modelErrorSerializer').errorSerializer;
 
 const modelName = 'token';
