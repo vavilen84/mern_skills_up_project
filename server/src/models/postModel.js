@@ -20,13 +20,11 @@ async function uniqueKeyUniqueValidator(v) {
 }
 
 async function urlUniqueValidator(v) {
-    if (v) {
-        let model = mongoose.model(modelName, schema);
-        let doc = await model.findOne({url: v}).exec();
-        if (doc) {
-            if (doc.id !== this._id.toString()) {
-                return false;
-            }
+    let model = mongoose.model(modelName, schema);
+    let doc = await model.findOne({url: v}).exec();
+    if (doc) {
+        if (doc.id !== this._id.toString()) {
+            return false;
         }
     }
     return true;
@@ -48,10 +46,12 @@ const schema = new Schema({
     uniqueKey: {
         type: String,
         max: 255,
+        index: {unique: true, sparse: true},
         validate: uniqueKeyCustomValidators,
     },
     url: {
         type: String,
+        index: {unique: true},
         required: [true, constants.VALIDATION_ERRORS.REQUIRED],
         validate: urlCustomValidators,
         max: 255,

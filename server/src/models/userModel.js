@@ -2,14 +2,31 @@ const security = require('../utils/security');
 const mongoose = require('../utils/mongoose').Mongoose,
     Schema = mongoose.Schema;
 const errorSerializer = require('../utils/modelErrorSerializer').errorSerializer;
+const constants = require('../constants/constants');
 
 const modelName = 'User';
 const passwordVirtualProp = 'password';
+
+async function usernameUniqueValidator(v) {
+    let model = mongoose.model(modelName, schema);
+    let doc = await model.findOne({username: v}).exec();
+    if (doc) {
+        if (doc.id !== this._id.toString()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+const usernameCustomValidators = [
+    {validator: usernameUniqueValidator, msg: constants.VALIDATION_ERRORS.UNIQUE}
+]
 
 const schema = new Schema({
     username: {
         type: String,
         unique: true,
+        validate: usernameCustomValidators,
         required: [true, 'username is required']
     },
     hashedPassword: {

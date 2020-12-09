@@ -9,7 +9,7 @@ const post1fixture = require('./fixtures/posts').POST_1;
 const post2fixture = require('./fixtures/posts').POST_2;
 const post3fixture = require('./fixtures/posts').POST_3;
 
-async function createUsers(){
+async function createUsers() {
     let user = new User({
         scenario: enums.Scenarios.SCENARIO_CREATE
     });
@@ -17,12 +17,12 @@ async function createUsers(){
     user.set('password', user1fixture.password);
     try {
         await user.save();
-    } catch(err){
+    } catch (err) {
         logAndExit(err);
     }
 }
 
-async function createPosts(){
+async function createPosts() {
     let post1 = new Post(post1fixture);
     let post2 = new Post(post2fixture);
     let post3 = new Post(post3fixture);
@@ -31,7 +31,7 @@ async function createPosts(){
         await post1.save();
         await post2.save();
         await post3.save();
-    } catch(err){
+    } catch (err) {
         logAndExit(err);
     }
 }
@@ -49,11 +49,11 @@ async function prepareDatabaseBeforeTest() {
     }
 }
 
-exports.prepareDatabaseBeforeTest =  function () {
-     return prepareDatabaseBeforeTest();
+exports.prepareDatabaseBeforeTest = function () {
+    return prepareDatabaseBeforeTest();
 }
 
-function assertIsNull(obj){
+function assertIsNull(obj) {
     if (obj) {
         logAndExit(obj);
     }
@@ -62,28 +62,13 @@ function assertIsNull(obj){
 
 exports.assertIsNull = assertIsNull;
 
-function assertTrue(obj){
-    assert.strictEqual(obj == true, true)
-}
-
-exports.assertTrue = assertTrue;
-
-function assertIsObject(obj){
+function assertIsObject(obj) {
     assert.strictEqual(typeof obj === 'object', true)
 }
 
 exports.assertIsObject = assertIsObject;
 
-function assertFalse(obj){
-    if (obj) {
-        logAndExit(obj);
-    }
-    assert.strictEqual(obj == false, true)
-}
-
-exports.assertFalse = assertFalse;
-
-function logAndExit(obj){
+function logAndExit(obj) {
     console.log(obj);
     console.trace();
     process.exit(1);
@@ -91,7 +76,7 @@ function logAndExit(obj){
 
 exports.logAndExit = logAndExit;
 
-function beforeEach(done){
+function beforeEach(done) {
     prepareDatabaseBeforeTest()
         .then(() => {
             done()
@@ -103,4 +88,23 @@ function beforeEach(done){
 
 exports.beforeEach = beforeEach;
 
+function assertObjIsEmpty(obj) {
+    assert.strictEqual(Object.keys(obj).length === 0, true);
+}
 
+exports.assertObjIsEmpty = assertObjIsEmpty;
+
+function assertStringIsNotEmpty(string) {
+    if ((typeof string) !== 'string') {
+        throw new Error('arg is not a string');
+    }
+    assert.strictEqual(string.length !== 0, true);
+}
+
+exports.assertStringIsNotEmpty = assertStringIsNotEmpty;
+
+function assertObjHasProp(obj, prop) {
+    assert.strictEqual(obj.hasOwnProperty(prop), true);
+}
+
+exports.assertObjHasProp = assertObjHasProp;
