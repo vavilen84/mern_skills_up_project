@@ -14,31 +14,44 @@ function setDefaultRespHeaders(res) {
 function send(res, code, data, message) {
     setDefaultRespHeaders(res);
     res.statusCode = code;
-    res.end(new Response(code, message, data));
+    res.send(new Response(code, message, data));
+    res.end();
 }
 
 module.exports.sendNotFound = function (res) {
-    setDefaultRespHeaders(res);
-    res.statusCode = constants.RESPONSE_CODE.NOT_FOUND;
-    res.end(new Response(constants.RESPONSE_CODE.NOT_FOUND, constants.RESPONSE_MESSAGE.NOT_FOUND));
+    send(
+        res,
+        constants.RESPONSE_CODE.NOT_FOUND,
+        null,
+        constants.RESPONSE_MESSAGE.NOT_FOUND
+    );
 }
 
 module.exports.sendUnauthorized = function (res) {
-    setDefaultRespHeaders(res);
-    res.statusCode = constants.RESPONSE_CODE.NOT_FOUND;
-    res.end(new Response(constants.RESPONSE_CODE.NOT_FOUND, constants.RESPONSE_MESSAGE.NOT_FOUND));
+    send(
+        res,
+        constants.RESPONSE_CODE.UNAUTHORIZED,
+        null,
+        constants.RESPONSE_MESSAGE.UNAUTHORIZED
+    );
 }
 
 module.exports.sendForbidden = function (res) {
-    setDefaultRespHeaders(res);
-    res.statusCode = constants.RESPONSE_CODE.FORBIDDEN;
-    res.end(new Response(constants.RESPONSE_CODE.FORBIDDEN, constants.RESPONSE_MESSAGE.FORBIDDEN));
+    send(
+        res,
+        constants.RESPONSE_CODE.FORBIDDEN,
+        null,
+        constants.RESPONSE_MESSAGE.FORBIDDEN
+    );
 }
 
-module.exports.sendOK = function (res, data, message) {
-    setDefaultRespHeaders(res);
-    res.statusCode = constants.RESPONSE_CODE.OK;
-    res.end(new Response(constants.RESPONSE_CODE.OK, message, data));
+module.exports.sendOK = function (res, data, message = null) {
+    send(
+        res,
+        constants.RESPONSE_CODE.OK,
+        data,
+        message
+    );
 }
 
 module.exports.sendUnprocessableEntity = function (res, errors) {
@@ -51,15 +64,12 @@ module.exports.sendUnprocessableEntity = function (res, errors) {
 }
 
 module.exports.sendCreated = function (res, user, url) {
-    setDefaultRespHeaders(res);
     res.setHeader('Location', url)
-    res.statusCode = constants.RESPONSE_CODE.CREATED;
-    res.end(
-        new Response(
-            constants.RESPONSE_CODE.CREATED,
-            constants.RESPONSE_MESSAGE.CREATED,
-            user
-        )
+    send(
+        res,
+        constants.RESPONSE_CODE.CREATED,
+        user,
+        constants.RESPONSE_MESSAGE.CREATED
     );
 }
 
