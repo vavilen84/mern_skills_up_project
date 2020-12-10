@@ -64,6 +64,7 @@ module.exports.sendUnprocessableEntity = function (res, errors) {
 }
 
 module.exports.sendCreated = function (res, user, url) {
+
     res.setHeader('Location', url)
     send(
         res,

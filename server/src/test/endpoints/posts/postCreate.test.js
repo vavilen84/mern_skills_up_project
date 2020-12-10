@@ -4,6 +4,7 @@ const utils = require('../../utils');
 const app = require('../../../app').App;
 const request = require('supertest');
 const constants = require('./../../../constants/constants');
+const {TOKEN_1_UUID} = require("../../fixtures/tokens");
 const Post = require('./../../../models/postModel').Post;
 const homePageFixture = require('../../fixtures/posts').HOME_PAGE;
 const {ensurePageExistsByUniqueKey, ensurePageDoesNotExistsByUniqueKey} = require('./base');
@@ -15,7 +16,7 @@ describe(constants.USERS_BASE_URL, function () {
     });
 
     describe('POST ' + constants.POSTS_BASE_URL, function () {
-        it('endpoints/posts/get 401 on not authorized request',  function (done) {
+        it('endpoints/posts/get 401 on not authorized request', function (done) {
             request(app)
                 .post(constants.POSTS_BASE_URL)
                 .send(homePageFixture)
@@ -30,12 +31,13 @@ describe(constants.USERS_BASE_URL, function () {
                 });
         });
 
-        it('endpoints/posts/get 200 on create post',  function (done) {
-             ensurePageDoesNotExistsByUniqueKey(homePageFixture)
-                .then( function () {
-                     request(app)
+        it('endpoints/posts/get 200 on create post', function (done) {
+            ensurePageDoesNotExistsByUniqueKey(homePageFixture)
+                .then(function () {
+                    request(app)
                         .post(constants.POSTS_BASE_URL)
                         .send(homePageFixture)
+                        .set('Authorization', 'Bearer ' + TOKEN_1_UUID)
                         .expect('Content-Type', /json/)
                         .expect(constants.RESPONSE_CODE.OK)
                         .end(async function (err, res) {
@@ -58,6 +60,7 @@ describe(constants.USERS_BASE_URL, function () {
             request(app)
                 .post(constants.POSTS_BASE_URL)
                 .send({})
+                .set('Authorization', 'Bearer ' + TOKEN_1_UUID)
                 .expect('Content-Type', /json/)
                 .expect(constants.RESPONSE_CODE.UNPROCESSABLE_ENTITY)
                 .end(async function (err, res) {

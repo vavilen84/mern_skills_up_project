@@ -18,7 +18,7 @@ module.exports = function (app) {
                 response.sendOK(res, post, "OK")
             })
             .catch(err => {
-                response.sendServerError(err)
+                response.sendServerError(res)
             });
     });
 };

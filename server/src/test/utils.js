@@ -8,6 +8,8 @@ const user1fixture = require('./fixtures/users').USER_1;
 const post1fixture = require('./fixtures/posts').POST_1;
 const post2fixture = require('./fixtures/posts').POST_2;
 const post3fixture = require('./fixtures/posts').POST_3;
+const Token = require('./../models/tokenModel').Token;
+const token1fixture = require('./fixtures/tokens').TOKEN_1;
 
 async function createUsers() {
     let user = new User({
@@ -17,6 +19,16 @@ async function createUsers() {
     user.set('password', user1fixture.password);
     try {
         await user.save();
+    } catch (err) {
+        logAndExit(err);
+    }
+}
+
+async function createTokens() {
+    let token1 = new Token(token1fixture);
+
+    try {
+        await token1.save();
     } catch (err) {
         logAndExit(err);
     }
@@ -44,6 +56,8 @@ async function prepareDatabaseBeforeTest() {
         await createUsers();
         await db.collections.posts.deleteMany();
         await createPosts();
+        await db.collections.tokens.deleteMany();
+        await createTokens();
     } catch (err) {
         logAndExit(err);
     }
