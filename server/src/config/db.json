@@ -4,7 +4,9 @@
       "keepAlive": 1,
       "useNewUrlParser": true,
       "useCreateIndex": true,
-      "useUnifiedTopology": true
+      "useUnifiedTopology": true,
+      "connectTimeoutMS": 5000,
+      "socketTimeoutMS": 5000
     }
   }
 }

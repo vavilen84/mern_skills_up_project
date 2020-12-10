@@ -12,11 +12,7 @@ async function main(){
     const client = new MongoClient(uri);
 
     try {
-        await cli
-
-
-
-        fghfghfghent.connect(function (err, client) {
+        await client.connect(function (err, client) {
             if (err) throw err;
         });
 

@@ -7,11 +7,25 @@ const utils = require('./../utils');
 const {logAndExit} = require("../utils");
 const uuid = require('uuid');
 const enums = require("../../enum/enum");
+const {createTokens} = require("../../models/tokenModel");
 
 describe('TokenModelTest model validation', function () {
 
     beforeEach(function (done) {
         utils.beforeEach(done);
+    });
+
+    describe('createTokens', function () {
+        it('create tokens successfully', function (done) {
+            console.log(1);
+            createTokens()
+                .then((tokens) => {
+                    assert.strictEqual(tokens.accessToken instanceof TokenModelTest, true);
+                    assert.strictEqual(tokens.refreshToken instanceof TokenModelTest, true);
+                    done();
+                })
+                .catch(err => logAndExit(err));
+        });
     });
 
     describe('validate', function () {
@@ -51,7 +65,7 @@ describe('TokenModelTest model validation', function () {
         });
         it('tokenModel/error on not valid uuid v4 token', function (done) {
             (async function () {
-                const token = new TokenModelTest({token:"not_valid_token_format"});
+                const token = new TokenModelTest({token: "not_valid_token_format"});
                 await token.validate()
                     .then(() => {
                         logAndExit('should be validation errors!')
