@@ -1,79 +1,47 @@
-const log = require('../../utils/logger')(module);
+const logger = require('../../utils/logger')(module);
 const response = require('../../utils/response');
 const security = require('../../utils/security');
 const User = require('../../models/userModel').User;
 const ValidationErrorResponseSerializer = require('../../models/userModel').ValidationErrorResponseSerializer;
 const constants = require('../../constants/constants');
-const {generateTokens} = require("../../models/tokenModel");
-const conn = require('./../../utils/mongoose').Db;
+const {createTokens} = require("../../models/tokenModel");
 
 module.exports = function (app) {
-
     app.post(constants.USERS_BASE_URL + "/:username/authenticate", async function (req, res) {
-
         let user = new User({
             username: req.body.username
         });
         user.set('password', req.body.password);
-
         try {
             await user.validate();
         } catch (err) {
             response.sendUnprocessableEntity(res, ValidationErrorResponseSerializer(err));
+            return;
         }
-
         let existingUser = null;
         try {
             existingUser = await User.findOne({username: req.params.username}).exec();
         } catch (err) {
+            logger.info(err);
             response.sendServerError(res);
+            return;
         }
-
         if (!existingUser) {
             response.sendNotFound(res);
-        } else {
-            if (security.checkPassword(user.password, existingUser.salt, existingUser.hashedPassword)) {
-
-                let tokens = generateTokens();
-
-                let session = null;
-                try {
-                    session = await conn.startSession();
-                } catch (err) {
-                    response.sendServerError(res);
-                }
-                if (!session) {
-                    response.sendServerError(res);
-                }
-
-                session.startTransaction();
-
-                try {
-
-                    await tokens.accessToken.validate();
-                    await tokens.accessToken.save();
-                    await tokens.refreshToken.validate();
-                    await tokens.refreshToken.save();
-
-                } catch(err) {
-
-                    try {
-                        await session.abortTransaction();
-                    } catch(abortTxnErr) {
-                        session.endSession();
-                        response.sendServerError(res);
-                    }
-
-                    response.sendServerError(res);
-                    session.endSession();
-                }
-
-                await session.commitTransaction();
-                session.endSession();
-
-                response.sendOK(res, tokens, constants.RESPONSE_MESSAGE.OK)
-            }
-            response.sendUnauthorized(res)
+            return;
         }
+        if (!security.checkPassword(user.password, existingUser.salt, existingUser.hashedPassword)) {
+            response.sendUnauthorized(res);
+            return;
+        }
+        let tokens = null;
+        try {
+            tokens = await createTokens();
+        } catch (err) {
+            logger.info(err);
+            response.sendServerError(res);
+            return;
+        }
+        response.sendOK(res, tokens, constants.RESPONSE_MESSAGE.OK)
     });
 };

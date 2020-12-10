@@ -5,6 +5,8 @@ const enums = require('../enum/enum');
 const constants = require('./../constants/constants');
 const {addYears} = require("../utils/date");
 const errorSerializer = require('../utils/modelErrorSerializer').errorSerializer;
+const conn = require('./../utils/mongoose').Db;
+const logger = require('./../utils/logger')(module);
 
 function uuidValidator(v) {
     return uuid.validate(v);
@@ -45,7 +47,7 @@ exports.ValidationErrorResponseSerializer = function (err) {
     return errorSerializer(Object.keys(schemaObj), err);
 }
 
-exports.generateTokens = function () {
+function generateTokens() {
     let model = getModel();
     let accessToken = new model({
         token: uuid.v4(),
@@ -62,3 +64,41 @@ exports.generateTokens = function () {
         refreshToken: refreshToken
     };
 }
+
+async function createTokens() {
+    let tokens = generateTokens();
+    let session = null;
+    try {
+        session = await conn.startSession();
+    } catch (err) {
+        throw err;
+    }
+    if (!session) {
+        throw new Error('Txn session is null');
+    }
+    session.startTransaction();
+    try {
+        await tokens.accessToken.validate();
+        await tokens.accessToken.save();
+        await tokens.refreshToken.validate();
+        await tokens.refreshToken.save();
+    } catch (err) {
+        try {
+            await session.abortTransaction();
+        } catch (abortTxnErr) {
+            throw abortTxnErr;
+        }
+        session.endSession();
+        throw err;
+    }
+    try {
+        await session.commitTransaction();
+    } catch (err) {
+        session.endSession();
+        throw err;
+    }
+    session.endSession();
+    return tokens;
+}
+
+exports.createTokens = createTokens;
