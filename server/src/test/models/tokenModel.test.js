@@ -17,7 +17,6 @@ describe('TokenModelTest model validation', function () {
 
     describe('createTokens', function () {
         it('create tokens successfully', function (done) {
-            console.log(1);
             createTokens()
                 .then((tokens) => {
                     assert.strictEqual(tokens.accessToken instanceof TokenModelTest, true);

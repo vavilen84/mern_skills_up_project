@@ -12,9 +12,8 @@ module.exports = function (app) {
             username: req.body.username
         });
         user.set('password', req.body.password);
-        try {
-            await user.validate();
-        } catch (err) {
+        let err = user.validateSync();
+        if (err) {
             response.sendUnprocessableEntity(res, ValidationErrorResponseSerializer(err));
             return;
         }
@@ -30,7 +29,7 @@ module.exports = function (app) {
             response.sendNotFound(res);
             return;
         }
-        if (!security.checkPassword(user.password, existingUser.salt, existingUser.hashedPassword)) {
+        if (!security.checkPassword(req.body.password, existingUser.salt, existingUser.hashedPassword)) {
             response.sendUnauthorized(res);
             return;
         }
