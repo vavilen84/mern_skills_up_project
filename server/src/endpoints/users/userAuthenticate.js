@@ -40,10 +40,10 @@ module.exports = function (app) {
                 try {
                     session = await conn.startSession();
                 } catch (err) {
-                    response.sendServerError(err);
+                    response.sendServerError(res);
                 }
                 if (!session) {
-                    response.sendServerError('session is null');
+                    response.sendServerError(res);
                 }
 
                 session.startTransaction();
@@ -61,10 +61,10 @@ module.exports = function (app) {
                         await session.abortTransaction();
                     } catch(abortTxnErr) {
                         session.endSession();
-                        response.sendServerError(abortTxnErr);
+                        response.sendServerError(res);
                     }
 
-                    response.sendServerError(err);
+                    response.sendServerError(res);
                     session.endSession();
                 }
 
