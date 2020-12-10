@@ -15,6 +15,21 @@ describe(constants.USERS_BASE_URL, function () {
     });
 
     describe('POST ' + constants.POSTS_BASE_URL, function () {
+        it('endpoints/posts/get 401 on not authorized request',  function (done) {
+            request(app)
+                .post(constants.POSTS_BASE_URL)
+                .send(homePageFixture)
+                .expect('Content-Type', /json/)
+                .expect(constants.RESPONSE_CODE.UNAUTHORIZED)
+                .end(async function (err, res) {
+                    utils.assertIsNull(err);
+                    const resp = JSON.parse(res.text);
+                    assert.strictEqual(resp.code, constants.RESPONSE_CODE.UNAUTHORIZED);
+                    assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.UNAUTHORIZED);
+                    done();
+                });
+        });
+
         it('endpoints/posts/get 200 on create post',  function (done) {
              ensurePageDoesNotExistsByUniqueKey(homePageFixture)
                 .then( function () {

@@ -3,6 +3,7 @@ const mongoose = require('../utils/mongoose').Mongoose,
 const uuid = require('uuid');
 const enums = require('../enum/enum');
 const constants = require('./../constants/constants');
+const {addYears} = require("../utils/date");
 const errorSerializer = require('../utils/modelErrorSerializer').errorSerializer;
 
 function uuidValidator(v) {
@@ -36,7 +37,7 @@ const schema = new Schema(schemaObj);
 
 exports.Token = getModel();
 
-function getModel(){
+function getModel() {
     return mongoose.model(constants.TOKEN_MODEL_NAME, schema);
 }
 
@@ -44,3 +45,20 @@ exports.ValidationErrorResponseSerializer = function (err) {
     return errorSerializer(Object.keys(schemaObj), err);
 }
 
+exports.generateTokens = function () {
+    let model = getModel();
+    let accessToken = new model({
+        token: uuid.v4(),
+        type: enums.TokenTypes.AUTH,
+        expiresAt: addYears(1)
+    });
+    let refreshToken = new model({
+        token: uuid.v4(),
+        type: enums.TokenTypes.REFRESH,
+        expiresAt: addYears(2)
+    });
+    return {
+        accessToken: accessToken,
+        refreshToken: refreshToken
+    };
+}
