@@ -105,3 +105,19 @@ function getModel() {
 exports.ValidationErrorResponseSerializer = function (err) {
     return errorSerializer(Object.keys(schemaObj), err);
 }
+
+exports.populateFromRequestOnCreate = function (req) {
+    return {
+        image: req.body.image || null,
+        uniqueKey: req.body.uniqueKey || null,
+        url: req.body.url || null,
+        title: req.body.title || null,
+        relatedPostIds: req.body.relatedPostIds || [],
+        tags: req.body.tags || [],
+        keywords: req.body.keywords || null,
+        description: req.body.description || null,
+        greeting: req.body.greeting || null,
+        content: req.body.content || null,
+        status: req.body.status || enums.PostStatuses.ACTIVE
+    }
+}

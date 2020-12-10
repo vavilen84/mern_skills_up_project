@@ -15,11 +15,13 @@ const customTokenValidators = [
 
 const schemaObj = {
     token: {
+        unique: true,
         type: String,
         validate: customTokenValidators,
         required: [true, constants.VALIDATION_ERRORS.REQUIRED],
     },
     type: {
+        index: true,
         type: Number,
         enum: [enums.TokenTypes.AUTH, enums.TokenTypes.REFRESH],
         required: [true, constants.VALIDATION_ERRORS.REQUIRED],
@@ -41,3 +43,4 @@ function getModel(){
 exports.ValidationErrorResponseSerializer = function (err) {
     return errorSerializer(Object.keys(schemaObj), err);
 }
+

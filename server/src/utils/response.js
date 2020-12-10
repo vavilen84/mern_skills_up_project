@@ -14,31 +14,31 @@ function setDefaultRespHeaders(res) {
 function send(res, code, data, message) {
     setDefaultRespHeaders(res);
     res.statusCode = code;
-    res.send(new Response(code, message, data));
+    res.end(new Response(code, message, data));
 }
 
 module.exports.sendNotFound = function (res) {
     setDefaultRespHeaders(res);
     res.statusCode = constants.RESPONSE_CODE.NOT_FOUND;
-    res.send(new Response(constants.RESPONSE_CODE.NOT_FOUND, constants.RESPONSE_MESSAGE.NOT_FOUND));
+    res.end(new Response(constants.RESPONSE_CODE.NOT_FOUND, constants.RESPONSE_MESSAGE.NOT_FOUND));
 }
 
 module.exports.sendUnauthorized = function (res) {
     setDefaultRespHeaders(res);
     res.statusCode = constants.RESPONSE_CODE.NOT_FOUND;
-    res.send(new Response(constants.RESPONSE_CODE.NOT_FOUND, constants.RESPONSE_MESSAGE.NOT_FOUND));
+    res.end(new Response(constants.RESPONSE_CODE.NOT_FOUND, constants.RESPONSE_MESSAGE.NOT_FOUND));
 }
 
 module.exports.sendForbidden = function (res) {
     setDefaultRespHeaders(res);
     res.statusCode = constants.RESPONSE_CODE.FORBIDDEN;
-    res.send(new Response(constants.RESPONSE_CODE.FORBIDDEN, constants.RESPONSE_MESSAGE.FORBIDDEN));
+    res.end(new Response(constants.RESPONSE_CODE.FORBIDDEN, constants.RESPONSE_MESSAGE.FORBIDDEN));
 }
 
 module.exports.sendOK = function (res, data, message) {
     setDefaultRespHeaders(res);
     res.statusCode = constants.RESPONSE_CODE.OK;
-    res.send(new Response(constants.RESPONSE_CODE.OK, message, data));
+    res.end(new Response(constants.RESPONSE_CODE.OK, message, data));
 }
 
 module.exports.sendUnprocessableEntity = function (res, errors) {
@@ -54,7 +54,7 @@ module.exports.sendCreated = function (res, user, url) {
     setDefaultRespHeaders(res);
     res.setHeader('Location', url)
     res.statusCode = constants.RESPONSE_CODE.CREATED;
-    res.send(
+    res.end(
         new Response(
             constants.RESPONSE_CODE.CREATED,
             constants.RESPONSE_MESSAGE.CREATED,
