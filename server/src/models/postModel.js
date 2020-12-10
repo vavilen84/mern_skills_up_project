@@ -121,3 +121,20 @@ exports.populateFromRequestOnCreate = function (req) {
         status: req.body.status || enums.PostStatuses.ACTIVE
     }
 }
+
+exports.populateFromRequestOnUpdate = function (req, post) {
+    post.image = req.body.image || post.image;
+    post.uniqueKey = req.body.uniqueKey || post.uniqueKey;
+    post.url = req.body.url || post.url;
+    post.title = req.body.title || post.title;
+    post.relatedPostIds = req.body.relatedPostIds || post.relatedPostIds;
+    post.tags = req.body.tags || post.tags;
+    post.keywords = req.body.keywords || post.keywords;
+    post.description = req.body.description || post.description;
+    post.greeting = req.body.greeting || post.greeting;
+    post.content = req.body.content || post.content;
+    post.status = req.body.status || post.status;
+    post.updatedAt = Date.now();
+
+    return post;
+}
