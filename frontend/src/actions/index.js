@@ -1,4 +1,4 @@
-import {CHANGE_ROUTE, SHOW_ALERT} from "../actionTypes";
+import {CHANGE_ROUTE, SHOW_ALERT, LOGIN} from "../actionTypes";
 
 export function showAlert(code, data, message) {
     return {
@@ -6,6 +6,14 @@ export function showAlert(code, data, message) {
         code: code,
         data: data,
         message: message
+    };
+}
+
+export function login(accessToken, refreshToken) {
+    return {
+        type: LOGIN,
+        accessToken: accessToken,
+        refreshToken: refreshToken
     };
 }
 
