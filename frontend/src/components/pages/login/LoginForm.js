@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux'
-import {submitCreateUser} from "../../../actions/async/submitCreateUser";
+import {authenticateUser} from "../../../actions/async/authenticateUser";
 
 class LoginForm extends React.Component {
 
@@ -28,7 +28,7 @@ class LoginForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.onSubmitCreateUser(this.state.username, this.state.password);
+        this.props.authenticateUser(this.state.username, this.state.password);
     }
 
     render() {
@@ -52,7 +52,7 @@ class LoginForm extends React.Component {
 
 const mapDispatchToProps = dispatch => (
     {
-        onSubmitCreateUser: (username, password) => dispatch(submitCreateUser(username, password))
+        authenticateUser: (username, password) => dispatch(authenticateUser(username, password))
     }
 )
 

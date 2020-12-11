@@ -4,6 +4,7 @@ import Login from "../pages/login/Login";
 import React from "react";
 import Holder from "./holder/Holder";
 import Alert from "./alert/Alert";
+import Logout from "../Logout";
 
 const Main = () => (
     <Holder>
@@ -11,6 +12,7 @@ const Main = () => (
         <Switch>
             <Route exact path='/' component={Home}/>
             <Route exact path='/login' component={Login}/>
+            <Route exact path='/logout' component={Logout}/>
         </Switch>
     </Holder>
 )

@@ -1,10 +1,19 @@
 import {getURL, USERS_BASE_URL} from "../../helpers";
-import {showAlert,login} from "../index";
-import {defaultErr,tokensEmptyErr} from "../../constants/constants";
+import {showAlert, login} from "../index";
+import {defaultErr, tokensEmptyErr} from "../../constants/constants";
 
-export function submitCreateUser(username, password) {
+export function authenticateUser(username, password) {
     return (dispatch) => {
-        createUser(username, password)
+        fetch(getURL(USERS_BASE_URL + "/" + username + "/authenticate"), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        })
             .then(res => res.json())
             .then(json => {
                 if (json.code === 200) {
@@ -24,15 +33,3 @@ export function submitCreateUser(username, password) {
     };
 }
 
-function createUser(username, password) {
-    return fetch(getURL(USERS_BASE_URL + "/" + username + "/authenticate"), {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
-    });
-}

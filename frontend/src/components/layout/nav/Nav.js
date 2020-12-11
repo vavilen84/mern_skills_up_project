@@ -5,7 +5,6 @@ import {changeRoute} from "../../../actions";
 import {connect} from "react-redux";
 import "./style.scss";
 
-
 const Nav = (props) => {
 
     let authBlock = (<Link to='/login' onClick={props.onChangeRoute}>Login</Link>);

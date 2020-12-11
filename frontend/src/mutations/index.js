@@ -45,3 +45,16 @@ export function login(state, action) {
 
     return state;
 }
+
+export function logout(state) {
+
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+
+    state.auth = {
+        accessToken: null,
+        refreshToken: null
+    };
+
+    return state;
+}
