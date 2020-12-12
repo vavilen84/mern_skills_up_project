@@ -1,5 +1,5 @@
-import {CHANGE_ROUTE, SHOW_ALERT, LOGIN, LOGOUT} from "../actionTypes";
-import {showAlert, clearAlert, defaultState, login, logout} from "../mutations";
+import {CHANGE_ROUTE, SHOW_ALERT, LOGIN, LOGOUT, SWITCH_MODE} from "../actionTypes";
+import {showAlert, clearAlert, defaultState, login, logout, switchMode} from "../mutations";
 
 export function rootReducer(state = defaultState, action) {
     let st = Object.assign({},state);
@@ -12,6 +12,8 @@ export function rootReducer(state = defaultState, action) {
             return login(st, action);
         case LOGOUT:
             return logout(st);
+        case SWITCH_MODE:
+            return switchMode(st, action);
         default:
             return state
     }
