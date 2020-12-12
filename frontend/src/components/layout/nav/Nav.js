@@ -15,13 +15,11 @@ const Nav = (props) => {
 
     return (
         <div className="navbar">
-            <div className="container">
-                <Holder>
-                    <div className="nav-collapse">
-                        {nav}
-                    </div>
-                </Holder>
-            </div>
+            <Holder>
+                <div className="nav-collapse">
+                    {nav}
+                </div>
+            </Holder>
         </div>
     )
 }

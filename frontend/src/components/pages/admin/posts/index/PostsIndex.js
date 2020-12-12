@@ -1,11 +1,12 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import "./style.scss";
+import {adminPostsCreateRoute} from "../../../../../constants/constants";
 
 const PostsIndex = (props) => {
-    render(
+    return (
         <div>
-            <Link to={}>Create</Link>
+            <Link className={'btn btn-success'} to={adminPostsCreateRoute}>Create</Link>
         </div>
     );
 }

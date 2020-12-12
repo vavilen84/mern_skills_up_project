@@ -1,18 +1,29 @@
 import '../../../static/App.css';
-import Content from "../content/Content";
 import React from "react";
 import Footer from "../footer/Footer";
-import {BrowserRouter as Router} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import "./style.scss";
+import Nav from "../nav/Nav";
+import Router from "../router/Router";
+import Holder from "../holder/Holder";
+import Alert from "../alert/Alert";
 
 function App() {
     return (
-        <Router>
+        <BrowserRouter>
             <div className={'wrapper'}>
-                <Content/>
+                <div className={'content'}>
+                    <Nav/>
+                    <Holder>
+                        <div className={'container'}>
+                            <Alert />
+                            <Router />
+                        </div>
+                    </Holder>
+                </div>
                 <Footer/>
             </div>
-        </Router>
+        </BrowserRouter>
     );
 }
 
