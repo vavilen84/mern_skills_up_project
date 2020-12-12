@@ -11,7 +11,7 @@ const FrontendLink = (props) => {
         props.switchMode(frontendMode);
     }
 
-    return (<Link to={homeRoute} onChangeRoute={onClick}>Frontend</Link>);
+    return (<Link to={homeRoute} onClick={onClick}>Frontend</Link>);
 }
 
 
