@@ -6,9 +6,15 @@ export const tokensEmptyErr = 'Tokens are empty';
 export const frontendMode = 'frontend_mode';
 export const backendMode = 'backend_mode';
 
-// routes
+// frontend routes
 export const homeRoute = '/';
-export const adminRoute = '/admin';
 export const blogRoute = '/blog';
+
+// backend routes
+export const adminRoute = '/admin';
+export const adminPostsIndexRoute = '/admin/posts';
+export const adminPostsCreateRoute = '/admin/posts/create';
+
+// auth rotes
 export const loginRoute = '/login';
 export const logoutRoute = '/logout';

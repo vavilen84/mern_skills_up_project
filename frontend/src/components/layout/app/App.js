@@ -3,6 +3,7 @@ import Content from "../content/Content";
 import React from "react";
 import Footer from "../footer/Footer";
 import {BrowserRouter as Router} from "react-router-dom";
+import "./style.scss";
 
 function App() {
     return (

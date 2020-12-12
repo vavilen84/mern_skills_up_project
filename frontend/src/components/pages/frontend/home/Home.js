@@ -1,9 +1,9 @@
 import React from "react";
-import Me from '../../../static/img/me.jpeg'
+import Me from '../../../../static/img/me.jpeg'
 import './style.scss'
 
 const Home = () => (
-    <div className={'home-page'}>
+    <div className={'index-page'}>
         <div className={'fl-left me col-6 col-lg-4'}>
             <img src={Me} alt={''}/>
         </div>
