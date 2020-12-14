@@ -1,4 +1,4 @@
-import {getURL, USERS_BASE_URL} from "../../helpers";
+import {getDefaultHeaders, getURL, USERS_BASE_URL} from "../../helpers";
 import {showAlert, login} from "../index";
 import {defaultErr, tokensEmptyErr} from "../../constants/constants";
 
@@ -6,15 +6,14 @@ export function authenticateUser(username, password) {
     return (dispatch) => {
         fetch(getURL(USERS_BASE_URL + "/" + username + "/authenticate"), {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: getDefaultHeaders(),
             body: JSON.stringify({
                 username: username,
                 password: password
             })
         })
             .then(res => res.json())
+
             .then(json => {
                 if (json.code === 200) {
                     const accessToken = json.data.accessToken;

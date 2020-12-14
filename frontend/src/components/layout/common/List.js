@@ -5,7 +5,7 @@ export function List (props) {
     if (props.items.errors) {
         let listItems = Object.entries(props.items.errors).map(function(data, index){
             return (
-                <li key={index}>{data[1]}</li>
+                <li key={index}>{data[0]}: {data[1]}</li>
             )
         });
         list = <ul>{listItems}</ul>;

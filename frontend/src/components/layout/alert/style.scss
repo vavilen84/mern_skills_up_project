@@ -1,5 +1,5 @@
 .alertBlock {
-  margin-top:20px;
+  margin:20px 0 20px;
   padding: 20px;
   border-radius: 20px;
 
@@ -11,5 +11,8 @@
   }
   &.hidden{
     display: none;
+  }
+  li {
+    list-style: none;
   }
 }
