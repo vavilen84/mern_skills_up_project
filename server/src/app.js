@@ -5,10 +5,12 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
 app.use(cors());
 
 if (process.env.NODE_ENV === 'test') {
-    require('dotenv').config({ path: '.env.test' });
+    require('dotenv').config({path: '.env.test'});
 } else {
     require('dotenv').config();
 }

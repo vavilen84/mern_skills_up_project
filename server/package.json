@@ -18,6 +18,7 @@
     "dotenv": "^8.2.0",
     "escape-html": "^1.0.3",
     "express": "^4.17.1",
+    "formidable": "^1.2.2",
     "mongodb": "^3.6.0",
     "mongoose": "^5.9.28",
     "redis": "^3.0.2",

@@ -6,3 +6,5 @@ server/node_modules
 server_combined.log
 server_error.log
 docker/bitnami/*
+uploads/*
+!uploads/.gitignore

@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from 'react-redux'
 import {Redirect} from "react-router";
-import {adminPostsIndexRoute, defaultErr, frontendMode, tokensEmptyErr} from "../../../../../constants/constants";
+import {adminPostsIndexRoute, defaultErr} from "../../../../../constants/constants";
 import PostsCreateForm from "./PostsCreateForm";
-import {getDefaultHeadersWithAuth, getURL, POSTS_BASE_URL} from "../../../../../helpers";
-import {login, showAlert} from "../../../../../actions";
+import {getURL, POSTS_BASE_URL} from "../../../../../helpers";
+import {showAlert} from "../../../../../actions";
 
 class PostsCreate extends React.Component {
 
@@ -20,10 +20,18 @@ class PostsCreate extends React.Component {
     }
 
     async handleSubmit(post) {
+
+        let formData = new FormData();
+        formData.append('url', post.url);
+        formData.append('image', post.image);
+        formData.append('content', post.content);
+
         await fetch(getURL(POSTS_BASE_URL), {
             method: 'POST',
-            headers: getDefaultHeadersWithAuth(this.props.accessToken),
-            body: JSON.stringify(post)
+            headers: {
+                'Authorization': 'Bearer ' + this.props.accessToken
+            },
+            body: formData
         })
             .then(res => res.json())
             .then(json => {

@@ -9,16 +9,3 @@ export const SERVER_URL = 'http://localhost:8000'
 export const getURL = (url) => (
     SERVER_URL + url
 )
-
-export const getDefaultHeaders = () => {
-    return {
-        'Content-Type': 'application/json'
-    }
-}
-
-export const getDefaultHeadersWithAuth = (accessToken) => {
-    return Object.assign(
-        getDefaultHeaders(),
-        {'Authorization': 'Bearer ' + accessToken}
-    );
-}

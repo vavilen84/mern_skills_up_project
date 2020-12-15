@@ -11,6 +11,8 @@ class PostsCreateForm extends React.Component {
             content: ''
         };
 
+        this.fileInput = React.createRef();
+
         this.handleChangeUrl = this.handleChangeUrl.bind(this);
         this.handleChangeContent = this.handleChangeContent.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,6 +31,7 @@ class PostsCreateForm extends React.Component {
         let post = {
             url: this.state.url,
             content: this.state.content,
+            image: this.fileInput.current.files[0] || null,
         };
         this.props.handleSubmit(post);
     }
@@ -45,6 +48,10 @@ class PostsCreateForm extends React.Component {
                     <div className="form-group">
                         <label htmlFor="">Content</label>
                         <textarea required className="form-control" placeholder="Content" onChange={this.handleChangeContent}/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="">Image</label>
+                        <input type="file" ref={this.fileInput} />
                     </div>
                     <input type="submit" value="Submit" className="btn btn-success"/>
                 </form>

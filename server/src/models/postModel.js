@@ -44,7 +44,7 @@ const schemaObj = {
     uniqueKey: {
         type: String,
         max: 255,
-        unique: true,
+        index: {unique: true},
         validate: uniqueKeyCustomValidators,
     },
     url: {
@@ -106,19 +106,19 @@ exports.ValidationErrorResponseSerializer = function (err) {
     return errorSerializer(Object.keys(schemaObj), err);
 }
 
-exports.populateFromRequestOnCreate = function (req) {
+exports.populateFromRequestOnCreate = function (formDataFields, imageFilename) {
     return {
-        image: req.body.image || null,
-        uniqueKey: req.body.uniqueKey || null,
-        url: req.body.url || null,
-        title: req.body.title || null,
-        relatedPostIds: req.body.relatedPostIds || [],
-        tags: req.body.tags || [],
-        keywords: req.body.keywords || null,
-        description: req.body.description || null,
-        greeting: req.body.greeting || null,
-        content: req.body.content || null,
-        status: req.body.status || enums.PostStatuses.ACTIVE
+        image: imageFilename || null,
+        uniqueKey: formDataFields.uniqueKey || null,
+        url: formDataFields.url || null,
+        title: formDataFields.title || null,
+        relatedPostIds: formDataFields.relatedPostIds || [],
+        tags: formDataFields.tags || [],
+        keywords: formDataFields.keywords || null,
+        description: formDataFields.description || null,
+        greeting: formDataFields.greeting || null,
+        content: formDataFields.content || null,
+        status: formDataFields.status || enums.PostStatuses.ACTIVE
     }
 }
 
