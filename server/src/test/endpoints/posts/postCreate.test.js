@@ -8,6 +8,8 @@ const {TOKEN_1_UUID} = require("../../fixtures/tokens");
 const Post = require('./../../../models/postModel').Post;
 const homePageFixture = require('../../fixtures/posts').HOME_PAGE;
 const {ensurePageExistsByUniqueKey, ensurePageDoesNotExistsByUniqueKey} = require('./base');
+const path = require('path');
+const fs = require('fs');
 
 describe(constants.USERS_BASE_URL, function () {
 
@@ -36,7 +38,9 @@ describe(constants.USERS_BASE_URL, function () {
                 .then(function () {
                     request(app)
                         .post(constants.POSTS_BASE_URL)
-                        .send(homePageFixture)
+                        .field('url', homePageFixture.url)
+                        .field('content', homePageFixture.content)
+                        .field('uniqueKey', homePageFixture.uniqueKey)
                         .set('Authorization', 'Bearer ' + TOKEN_1_UUID)
                         .expect('Content-Type', /json/)
                         .expect(constants.RESPONSE_CODE.OK)
@@ -59,7 +63,6 @@ describe(constants.USERS_BASE_URL, function () {
         it('endpoints/posts/get 422 on validation failed', function (done) {
             request(app)
                 .post(constants.POSTS_BASE_URL)
-                .send({})
                 .set('Authorization', 'Bearer ' + TOKEN_1_UUID)
                 .expect('Content-Type', /json/)
                 .expect(constants.RESPONSE_CODE.UNPROCESSABLE_ENTITY)
@@ -68,6 +71,29 @@ describe(constants.USERS_BASE_URL, function () {
                     const resp = JSON.parse(res.text);
                     assert.strictEqual(resp.code, constants.RESPONSE_CODE.UNPROCESSABLE_ENTITY);
                     assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.UNPROCESSABLE_ENTITY);
+                    done();
+                });
+        });
+
+        it('endpoints/posts/ get 200 on create post with image & file is uploaded', function (done) {
+            request(app)
+                .post(constants.POSTS_BASE_URL)
+                .field('url', 'uniqueURL')
+                .field('content', 'uniqueContent')
+                .attach('image', path.join(
+                    process.env.SERVER_APP_FOLDER,
+                    'src/test/fixtures/files/fixture_image_1.jpg'
+                ))
+                .set('Authorization', 'Bearer ' + TOKEN_1_UUID)
+                .expect(constants.RESPONSE_CODE.OK)
+                .end(async function (err, res) {
+                    utils.assertIsNull(err);
+                    const resp = JSON.parse(res.text);
+                    let post = resp.data;
+                    assert.strictEqual(post.url === 'uniqueURL', true);
+                    assert.strictEqual(post.content === 'uniqueContent', true);
+                    assert.strictEqual(post.image.length > 0, true);
+                    assert.strictEqual(fs.existsSync(path.join(process.env.UPLOADS_PATH, post.image)), true);
                     done();
                 });
         });

@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
     "dev": "nodemon src/app.js",
-    "test": "APP_ENV=test mocha src/test --recursive --exit"
+    "test": ""
   },
   "author": "",
   "license": "ISC",
