@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from 'react-redux'
-import {Redirect} from "react-router";
+import {Navigate} from "react-router";
 import {adminPostsIndexRoute, defaultErr} from "../../../../../constants/constants";
 import PostsCreateForm from "./PostsCreateForm";
 import {getURL, POSTS_BASE_URL} from "../../../../../helpers";
@@ -49,7 +49,7 @@ class PostsCreate extends React.Component {
     render() {
 
         const content = this.state.created
-            ? <Redirect to={adminPostsIndexRoute}/>
+            ? <Navigate to={adminPostsIndexRoute} replace={true}/>
             : <PostsCreateForm handleSubmit={this.handleSubmit}/>
 
         return (content);

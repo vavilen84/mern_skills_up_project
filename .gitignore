@@ -8,3 +8,4 @@ server_error.log
 docker/bitnami/*
 uploads/*
 !uploads/.gitignore
+frontend/node_modules

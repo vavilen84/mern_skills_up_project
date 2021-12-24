@@ -1,11 +1,11 @@
 import React from "react";
 import LoginForm from "./LoginForm";
 import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 
 const Login = (props) => {
     if (props.isLoggedIn) {
-        return <Redirect to={'/'}/>;
+        return <Navigate to={'/'} replace={true}/>;
     }
     return (
         <div>
