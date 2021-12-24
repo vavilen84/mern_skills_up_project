@@ -12,25 +12,8 @@
     height: 120px;
   }
 
-  .text-block{
-    position: relative;
-    top:3px;
-    left:10px;
-
-    .text {
-      color: #222222;
-    }
-  }
-
-  .icon{
-    width:32px;
-    height: 32px;
-    float:left;
-    margin:10px;
-
-    img{
-      max-width: 32px;
-      max-height: 32px;
-    }
+  .footer-info{
+    margin-top: 20px;
+    color: #222222;
   }
 }
