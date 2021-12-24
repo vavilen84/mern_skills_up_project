@@ -1,11 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
+    watch: true,
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'app.bundle.js',
+        filename: '[hash].bundle.js',
     },
     performance: {
         hints: false,
@@ -19,7 +21,12 @@ module.exports = {
         compress: true,
         port: 9000,
     },
-    plugins: [new HtmlWebpackPlugin()],
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './public/index.html'
+        }),
+        new CleanWebpackPlugin()
+    ],
     module: {
         rules: [
             {
@@ -48,7 +55,8 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env', '@babel/preset-react']
+                        presets: ['@babel/preset-env', '@babel/preset-react'],
+                        plugins: ['@babel/plugin-transform-runtime']
                     }
                 }
             }
