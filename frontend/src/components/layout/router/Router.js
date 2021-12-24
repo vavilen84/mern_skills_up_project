@@ -17,12 +17,12 @@ import PostsCreate from "../../pages/admin/posts/create/PostsCreate";
 
 const Router = () => (
     <Routes>
-        <Route exact path={homeRoute} component={Home}/>
-        <Route exact path={loginRoute} component={Login}/>
-        <Route exact path={logoutRoute} component={Logout}/>
-        <Route exact path={adminRoute} component={Admin}/>
-        <Route exact path={adminPostsIndexRoute} component={PostsIndex}/>
-        <Route exact path={adminPostsCreateRoute} component={PostsCreate}/>
+        <Route exact path={homeRoute} element={<Home/>}/>
+        <Route exact path={loginRoute} element={<Login/>}/>
+        <Route exact path={logoutRoute} element={<Logout/>}/>
+        <Route exact path={adminRoute} element={<Admin/>}/>
+        <Route exact path={adminPostsIndexRoute} element={<PostsIndex/>}/>
+        <Route exact path={adminPostsCreateRoute} element={<PostsCreate/>}/>
     </Routes>
 )
 
