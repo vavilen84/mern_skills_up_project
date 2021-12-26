@@ -1,11 +1,15 @@
 const {MongoClient} = require('mongodb');
-require('dotenv').config();
+if (process.env.NODE_ENV === 'test') {
+    require('dotenv').config({path: '.env.test'});
+} else {
+    require('dotenv').config();
+}
+
 
 async function main() {
-    let myArgs = process.argv.slice(2);
-    let dbName = myArgs[0];
-    let user = myArgs[1];
-    let password = myArgs[2];
+    let dbName = process.env.MONGODB_DATABASE;
+    let userName = process.env.MONGODB_USERNAME;
+    let password = process.env.MONGODB_PASSWORD;
     /**
      * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
@@ -19,7 +23,11 @@ async function main() {
         // Connect to the MongoDB cluster
         await client.connect();
 
-        await client.db(dbName).addUser(user, password);
+        console.log(userName);
+        console.log(password);
+        console.log(dbName);
+
+        await client.db(dbName).addUser(userName, password);
 
     } catch (e) {
         console.error(e);
