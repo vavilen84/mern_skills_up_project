@@ -2,6 +2,7 @@ const assert = require('assert');
 const db = require('../utils/mongoose').Db;
 const log = require('./../utils/logger')(module);
 const enums = require('./../enum/enum');
+const {ConnectDB} = require("../utils/mongoose");
 const User = require('./../models/userModel').User;
 const Post = require('./../models/postModel').Post;
 const user1fixture = require('./fixtures/users').USER_1;
@@ -51,12 +52,13 @@ async function createPosts() {
 async function prepareDatabaseBeforeTest() {
     log.info("CLEAR DB");
     db.set('debug', true);
+    log.info("DB ready state: " + db.readyState);
     try {
-        await db.collections.users.deleteMany();
+        await db.collections.users.deleteMany({});
         await createUsers();
-        await db.collections.posts.deleteMany();
+        await db.collections.posts.deleteMany({});
         await createPosts();
-        await db.collections.tokens.deleteMany();
+        await db.collections.tokens.deleteMany({});
         await createTokens();
     } catch (err) {
         logAndExit(err);
@@ -90,14 +92,14 @@ function logAndExit(obj) {
 
 exports.logAndExit = logAndExit;
 
-function beforeEach(done) {
-    prepareDatabaseBeforeTest()
-        .then(() => {
-            done()
-        })
-        .catch(err => {
-            logAndExit(err)
-        });
+async function beforeEach(done) {
+    try {
+        await ConnectDB();
+        await prepareDatabaseBeforeTest();
+        done();
+    } catch(err){
+        logAndExit(err)
+    }
 }
 
 exports.beforeEach = beforeEach;
@@ -122,3 +124,7 @@ function assertObjHasProp(obj, prop) {
 }
 
 exports.assertObjHasProp = assertObjHasProp;
+
+exports.SetTestEnv = function(){
+    require('dotenv').config({path: process.env.PWD + '/../.env.test'});
+}

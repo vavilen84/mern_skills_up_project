@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const config = require('../config/db');
 const log = require('./logger')(module);
 
-mongoose.connect(process.env.MONGODB_CONN_STRING, config.mongoose.options);
+
 const db = mongoose.connection;
 
 db.on('error', function (err) {
@@ -14,5 +14,8 @@ db.once('open', function callback () {
 
 module.exports.Mongoose = mongoose;
 module.exports.Db = db;
-
+module.exports.ConnectDB = function(){
+    log.info("Connecting to DB. Conn string: " + process.env.MONGODB_CONN_STRING);
+    mongoose.connect(process.env.MONGODB_CONN_STRING, config.mongoose.options);
+}
 
