@@ -9,8 +9,8 @@ const {logAndExit} = require("../utils");
 
 describe('PostModelTest model validation', function () {
 
-    beforeEach(function (done) {
-        utils.beforeEach(done);
+    beforeEach( function (done) {
+         utils.beforeEach(done);
     });
 
     describe('validate required fields', function () {

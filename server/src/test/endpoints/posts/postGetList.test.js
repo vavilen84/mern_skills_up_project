@@ -1,6 +1,7 @@
-require('dotenv').config({path: '.env.test'});
-const assert = require('assert');
 const utils = require('../../utils');
+utils.SetTestEnv();
+
+const assert = require('assert');
 const app = require('../../../app').App;
 const request = require('supertest');
 const log = require('../../../utils/logger')(module);

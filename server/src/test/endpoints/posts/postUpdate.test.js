@@ -1,6 +1,7 @@
-require('dotenv').config({path: '.env.test'});
-const assert = require('assert');
 const utils = require('../../utils');
+utils.SetTestEnv();
+
+const assert = require('assert');
 const app = require('../../../app').App;
 const request = require('supertest');
 const constants = require('./../../../constants/constants');
@@ -36,10 +37,13 @@ describe(constants.USERS_BASE_URL, function () {
         it('endpoints/posts/get 200 on update post',  function (done) {
             findPostByUniqueKey(post3fixture.uniqueKey)
                 .then( function (post) {
+                    let postId = post._id.toString();
+                    post._id = null;
+                    post = post.toObject();
                     const updatedUrl = 'updated_url';
                     post.url = updatedUrl;
                     request(app)
-                        .post(constants.POSTS_BASE_URL+"/"+post.id)
+                        .post(constants.POSTS_BASE_URL+"/"+postId)
                         .send(post)
                         .set('Authorization', 'Bearer ' + TOKEN_1_UUID)
                         .expect('Content-Type', /json/)
