@@ -5,13 +5,11 @@ module.exports.uploadImage = (file) => {
 
     return new Promise((resolve, reject) => {
 
-        if (!fs.existsSync(file.path)) {
+        if (!fs.existsSync(file.filepath)) {
             reject('image file is not saved');
         }
 
         let dt = new Date();
-        let pathArr = file.path.split('/');
-        let tmpFilename = pathArr[pathArr.length - 1];
         let relativePath = path.join(
             dt.getFullYear().toString(),
             dt.getMonth().toString(),
@@ -22,13 +20,13 @@ module.exports.uploadImage = (file) => {
             relativePath
         );
         fs.mkdirSync(newFileFolder, {recursive: true})
-        let newFileName = tmpFilename + path.extname(file.name);
+        let newFileName = file.newFilename + path.extname(file.originalFilename);
         let newFilePath = path.join(
             newFileFolder,
             newFileName
         );
 
-        fs.renameSync(file.path, newFilePath);
+        fs.renameSync(file.filepath, newFilePath);
         if (!fs.existsSync(newFilePath)) {
             reject('image file is not saved correctly');
         }
