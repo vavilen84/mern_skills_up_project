@@ -2,7 +2,9 @@ const assert = require('assert');
 const db = require('../utils/mongoose').Db;
 const log = require('./../utils/logger')(module);
 const enums = require('./../enum/enum');
-const {ConnectDB} = require("../utils/mongoose");
+const {SetEnv} = require("./utils/env");
+const {DBConnect} = require("./utils/mongoose");
+const {InitServerApp} = require("./utils/server");
 const User = require('./../models/userModel').User;
 const Post = require('./../models/postModel').Post;
 const user1fixture = require('./fixtures/users').USER_1;
@@ -94,7 +96,8 @@ exports.logAndExit = logAndExit;
 
 async function beforeEach(done) {
     try {
-        await ConnectDB();
+        SetEnv();
+        DBConnect(InitServerApp);
         await prepareDatabaseBeforeTest();
         done();
     } catch(err){
@@ -124,7 +127,3 @@ function assertObjHasProp(obj, prop) {
 }
 
 exports.assertObjHasProp = assertObjHasProp;
-
-exports.SetTestEnv = function(){
-    require('dotenv').config({path: process.env.PWD + '/../.env.test'});
-}
