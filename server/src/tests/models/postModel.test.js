@@ -1,4 +1,3 @@
-require('dotenv').config({path: '.env.test'});
 const assert = require('assert');
 const ValidationErrorResponseSerializer = require('../../models/postModel').ValidationErrorResponseSerializer;
 const PostModelTest = require('../../models/postModel').Post;
