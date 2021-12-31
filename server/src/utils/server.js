@@ -1,8 +1,9 @@
-const log = require('./../utils/logger')(module);
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const {InitRoutes} = require("./../routes/routes");
+
+let app = createServer();
 
 function createServer(){
     const app = express()
@@ -13,12 +14,4 @@ function createServer(){
     return app
 }
 
-exports.CreateServer = createServer;
-
-exports.InitServerApp = function(){
-    let app = createServer();
-    let port = process.env.SERVER_PORT;
-    app.listen(port, () => {
-        log.info(`Example app listening at http://localhost:${port}`)
-    });
-}
+exports.App = app;

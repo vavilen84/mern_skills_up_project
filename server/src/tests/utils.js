@@ -2,9 +2,9 @@ const assert = require('assert');
 const db = require('../utils/mongoose').Db;
 const log = require('./../utils/logger')(module);
 const enums = require('./../enum/enum');
-const {SetEnv} = require("./utils/env");
-const {DBConnect} = require("./utils/mongoose");
-const {InitServerApp} = require("./utils/server");
+const {SetEnv} = require("./../utils/env");
+const mongoose = require("mongoose");
+const config = require("./../config/db");
 const User = require('./../models/userModel').User;
 const Post = require('./../models/postModel').Post;
 const user1fixture = require('./fixtures/users').USER_1;
@@ -95,9 +95,13 @@ function logAndExit(obj) {
 exports.logAndExit = logAndExit;
 
 async function beforeEach(done) {
+    let dbState = db.readyState;
     try {
         SetEnv();
-        DBConnect(InitServerApp);
+        if (dbState !== 1 && dbState !== 2) {
+            log.info("Connecting to DB. Conn string: " + process.env.MONGODB_CONN_STRING);
+            await mongoose.connect(process.env.MONGODB_CONN_STRING, config.mongoose.options);
+        }
         await prepareDatabaseBeforeTest();
         done();
     } catch(err){
