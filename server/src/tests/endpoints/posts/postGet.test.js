@@ -1,13 +1,10 @@
 const utils = require('../../utils');
-utils.SetTestEnv();
-
 const assert = require('assert');
-const app = require('../../../app').App;
 const request = require('supertest');
-const log = require('../../../utils/logger')(module);
 const constants = require('./../../../constants/constants');
 const post3fixture = require('../../fixtures/posts').POST_3;
 const {findPostByUniqueKey} = require('./base');
+const {App} = require("../../../utils/server");
 
 describe(constants.USERS_BASE_URL, function () {
 
@@ -19,7 +16,7 @@ describe(constants.USERS_BASE_URL, function () {
         it('get 200 on get post', function (done) {
             findPostByUniqueKey(post3fixture.uniqueKey)
                 .then(function (postFromDb) {
-                    request(app)
+                    request(App)
                         .get(constants.POSTS_BASE_URL + "/" + postFromDb.id)
                         .expect('Content-Type', /json/)
                         .expect(constants.RESPONSE_CODE.OK)
@@ -35,7 +32,7 @@ describe(constants.USERS_BASE_URL, function () {
                 });
         });
         it('get 404 on get not existing post', function (done) {
-            request(app)
+            request(App)
                 .get(constants.POSTS_BASE_URL + "/56cb91bdc3464f14678934ca")
                 .expect('Content-Type', /json/)
                 .expect(constants.RESPONSE_CODE.NOT_FOUND)

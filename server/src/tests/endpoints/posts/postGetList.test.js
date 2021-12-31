@@ -1,12 +1,9 @@
 const utils = require('../../utils');
-utils.SetTestEnv();
-
 const assert = require('assert');
-const app = require('../../../app').App;
 const request = require('supertest');
-const log = require('../../../utils/logger')(module);
 const constants = require('./../../../constants/constants');
 const postsFixtures = require('../../fixtures/posts');
+const {App} = require("../../../utils/server");
 
 describe(constants.USERS_BASE_URL, function () {
 
@@ -16,7 +13,7 @@ describe(constants.USERS_BASE_URL, function () {
 
     describe('GET ' + constants.POSTS_BASE_URL, function () {
         it('get 200 on get posts list', function (done) {
-            request(app)
+            request(App)
                 .get(constants.POSTS_BASE_URL)
                 .expect('Content-Type', /json/)
                 .expect(constants.RESPONSE_CODE.OK)

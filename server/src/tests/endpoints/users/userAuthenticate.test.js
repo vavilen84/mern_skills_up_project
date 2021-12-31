@@ -1,11 +1,9 @@
 const utils = require('../../utils');
-utils.SetTestEnv();
-
 const assert = require('assert');
-const app = require('../../../app').App;
 const request = require('supertest');
 const log = require('../../../utils/logger')(module);
 const constants = require('./../../../constants/constants');
+const {App} = require("../../../utils/server");
 const user1fixture = require('../../fixtures/users').USER_1;
 
 describe(constants.USERS_BASE_URL, function () {
@@ -16,7 +14,7 @@ describe(constants.USERS_BASE_URL, function () {
 
     describe('POST ' + constants.USERS_BASE_URL + "/:username/authenticate", function () {
         it('get 404 on authenticate', function (done) {
-            request(app)
+            request(App)
                 .post(constants.USERS_BASE_URL+"/not_existing_username/authenticate")
                 .send({username: "not_existing_username", password: "password"})
                 .expect('Content-Type', /json/)
@@ -30,7 +28,7 @@ describe(constants.USERS_BASE_URL, function () {
                 });
         });
         it('get 422 on authenticate empty body request', function (done) {
-            request(app)
+            request(App)
                 .post(constants.USERS_BASE_URL + "/"+user1fixture.username+"/authenticate")
                 .expect('Content-Type', /json/)
                 .expect(constants.RESPONSE_CODE.UNPROCESSABLE_ENTITY)
@@ -45,7 +43,7 @@ describe(constants.USERS_BASE_URL, function () {
                 });
         });
         it('get 200 on authenticate', function (done) {
-            request(app)
+            request(App)
                 .post(constants.USERS_BASE_URL+"/"+user1fixture.username+"/authenticate")
                 .send({username: user1fixture.username, password: user1fixture.password})
                 .expect('Content-Type', /json/)
