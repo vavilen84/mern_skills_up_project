@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import React from "react";
 import {adminRoute, backendMode} from "../../../../constants/constants";
-import {switchMode} from "../../../../actions";
+import {switchModeAction} from "../../../../actions";
 import {connect} from "react-redux";
 
 const AdminLink = (props) => {
@@ -19,7 +19,7 @@ const AdminLink = (props) => {
 
 const mapDispatchToProps = dispatch => (
     {
-        switchMode: (mode) => dispatch(switchMode(mode))
+        switchMode: (mode) => dispatch(switchModeAction(mode))
     }
 )
 

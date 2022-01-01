@@ -11,8 +11,8 @@ export const defaultState = {
         visible: false
     },
     auth: {
-        accessToken: localStorage.getItem('accessToken'),
-        refreshToken: localStorage.getItem('refreshToken')
+        accessToken: null,
+        refreshToken: null
     }
 };
 
@@ -37,10 +37,6 @@ export function clearAlert(state) {
 }
 
 export function login(state, action) {
-
-    localStorage.setItem('accessToken', action.accessToken);
-    localStorage.setItem('refreshToken', action.refreshToken);
-
     state.auth = {
         accessToken: action.accessToken,
         refreshToken: action.refreshToken
@@ -50,10 +46,6 @@ export function login(state, action) {
 }
 
 export function logout(state) {
-
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-
     state.auth = {
         accessToken: null,
         refreshToken: null

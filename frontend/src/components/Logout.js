@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Navigate} from "react-router-dom";
 import {connect} from "react-redux";
-import {logout} from "../actions";
+import {logoutThunkAction} from "../actions/thunk/logout";
 
 
 const Logout = (props) => {
@@ -17,7 +17,7 @@ const Logout = (props) => {
 
 const mapDispatchToProps = dispatch => (
     {
-        logout: () => dispatch(logout())
+        logout: () => dispatch(logoutThunkAction())
     }
 )
 

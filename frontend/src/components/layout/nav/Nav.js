@@ -1,6 +1,6 @@
 import Holder from "../holder/Holder";
 import React from "react";
-import {changeRoute} from "../../../actions";
+import {changeRouteAction} from "../../../actions";
 import {connect} from "react-redux";
 import "./style.scss";
 import {frontendMode} from "../../../constants/constants";
@@ -26,7 +26,7 @@ const Nav = (props) => {
 
 const mapDispatchToProps = dispatch => (
     {
-        onChangeRoute: () => dispatch(changeRoute())
+        onChangeRoute: () => dispatch(changeRouteAction())
     }
 )
 

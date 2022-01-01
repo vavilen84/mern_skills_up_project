@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux'
-import {authenticateUser} from "../../../../actions/async/authenticateUser";
+import {authenticateUserThunkAction} from "../../../../actions/thunk/authenticateUser";
 
 class LoginForm extends React.Component {
 
@@ -52,7 +52,7 @@ class LoginForm extends React.Component {
 
 const mapDispatchToProps = dispatch => (
     {
-        authenticateUser: (username, password) => dispatch(authenticateUser(username, password))
+        authenticateUser: (username, password) => dispatch(authenticateUserThunkAction(username, password))
     }
 )
 

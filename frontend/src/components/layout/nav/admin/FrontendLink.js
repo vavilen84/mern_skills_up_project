@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import React from "react";
 import {frontendMode, homeRoute} from "../../../../constants/constants";
 import {connect} from "react-redux";
-import {switchMode} from "../../../../actions";
+import {switchModeAction} from "../../../../actions";
 
 const FrontendLink = (props) => {
 
@@ -17,7 +17,7 @@ const FrontendLink = (props) => {
 
 const mapDispatchToProps = dispatch => (
     {
-        switchMode: (mode) => dispatch(switchMode(mode))
+        switchMode: (mode) => dispatch(switchModeAction(mode))
     }
 )
 

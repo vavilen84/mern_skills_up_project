@@ -1,6 +1,6 @@
 import {CHANGE_ROUTE, SHOW_ALERT, LOGIN, LOGOUT, SWITCH_MODE} from "../actionTypes";
 
-export function showAlert(code, data, message) {
+export function showAlertAction(code, data, message) {
     return {
         type: SHOW_ALERT,
         code: code,
@@ -9,7 +9,7 @@ export function showAlert(code, data, message) {
     };
 }
 
-export function login(accessToken, refreshToken) {
+export function loginAction(accessToken, refreshToken) {
     return {
         type: LOGIN,
         accessToken: accessToken,
@@ -17,19 +17,19 @@ export function login(accessToken, refreshToken) {
     };
 }
 
-export function logout() {
+export function logoutAction() {
     return {
         type: LOGOUT,
     };
 }
 
-export function changeRoute() {
+export function changeRouteAction() {
     return {
         type: CHANGE_ROUTE
     };
 }
 
-export function switchMode(mode) {
+export function switchModeAction(mode) {
     return {
         type: SWITCH_MODE,
         mode: mode

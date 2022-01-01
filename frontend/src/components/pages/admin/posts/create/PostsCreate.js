@@ -4,7 +4,7 @@ import {Navigate} from "react-router";
 import {adminPostsIndexRoute, defaultErr} from "../../../../../constants/constants";
 import PostsCreateForm from "./PostsCreateForm";
 import {getURL, POSTS_BASE_URL} from "../../../../../helpers";
-import {showAlert} from "../../../../../actions";
+import {showAlertAction} from "../../../../../actions";
 
 class PostsCreate extends React.Component {
 
@@ -58,7 +58,7 @@ class PostsCreate extends React.Component {
 
 const mapDispatchToProps = dispatch => (
     {
-        showAlert: (code, data, message) => dispatch(showAlert(code, data, message))
+        showAlert: (code, data, message) => dispatch(showAlertAction(code, data, message))
     }
 )
 
