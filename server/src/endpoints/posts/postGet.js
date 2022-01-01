@@ -4,10 +4,10 @@ const Post = require('../../models/postModel').Post;
 const logger = require('./../../utils/logger')(module);
 
 module.exports = function (app) {
-    app.get(constants.POSTS_BASE_URL + "/:id", async function (req, res) {
+    app.get(constants.POSTS_BASE_URL + "/:url", async function (req, res) {
         let post = null;
         try {
-            post = await Post.findById(req.params.id).exec();
+            post = await Post.findOne({url: req.params.url}).exec();
         } catch (err) {
             logger.info(err);
             response.sendServerError(res);
