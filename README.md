@@ -1,13 +1,15 @@
-# Skills up blog on Node.js
+MERN stack blog
 
-## Mocha
+# local env
 
-Run all tests
+run frontend
 ```
-shell/run_all_tests.sh
-```  
-
-Run one models server test file
+cd frontend
+npm run dev
 ```
-make run-models-test test=postModel.test.js
+
+run server
+```
+cd server
+npm run dev
 ```
