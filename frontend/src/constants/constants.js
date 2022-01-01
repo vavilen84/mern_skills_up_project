@@ -8,7 +8,7 @@ export const backendMode = 'backend_mode';
 
 // frontend routes
 export const homeRoute = '/';
-export const blogRoute = '/blog';
+export const postsListRoute = '/posts';
 
 // backend routes
 export const adminRoute = '/admin';

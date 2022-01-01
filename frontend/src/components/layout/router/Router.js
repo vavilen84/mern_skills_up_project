@@ -9,15 +9,17 @@ import {
     adminRoute,
     homeRoute,
     loginRoute,
-    logoutRoute
+    logoutRoute, postsListRoute
 } from "../../../constants/constants";
 import Admin from "../../pages/admin/index/Admin";
 import PostsIndex from "../../pages/admin/posts/index/PostsIndex";
 import PostsCreate from "../../pages/admin/posts/create/PostsCreate";
+import PostsList from "../../pages/frontend/posts/PostsList";
 
 const Router = () => (
     <Routes>
         <Route exact path={homeRoute} element={<Home/>}/>
+        <Route exact path={postsListRoute} element={<PostsList/>}/>
         <Route exact path={loginRoute} element={<Login/>}/>
         <Route exact path={logoutRoute} element={<Logout/>}/>
         <Route exact path={adminRoute} element={<Admin/>}/>
