@@ -1,0 +1,12 @@
+.posts-list{
+  &>li{
+   list-style: none;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    .title{
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+}

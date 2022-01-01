@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import './style.scss'
 import moment from "moment";
+import {postsListRoute} from "../../../../constants/constants";
 
 class PostItem extends Component {
     constructor(props) {
@@ -8,10 +9,13 @@ class PostItem extends Component {
     }
 
     render() {
+        console.log(this.props.item);
         return (
-            <li key={this.props.item.id}>
+            <li>
                 <div className={'title'}>
-                    {this.props.item.title}
+                    <a href={postsListRoute + this.props.item.url}>
+                        {this.props.item.title}
+                    </a>
                 </div>
                 <div className={'description'}>
                     {this.props.item.description}

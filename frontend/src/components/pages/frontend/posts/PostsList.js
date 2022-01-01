@@ -44,7 +44,7 @@ class PostsList extends Component {
             return (
                 <ul className={'posts-list'}>
                     {items.map(item => (
-                        <PostItem item={item}/>
+                        <PostItem key={item.uniqueKey} item={item}/>
                     ))}
                 </ul>
             );
