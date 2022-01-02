@@ -2,8 +2,8 @@ const utils = require('../../utils');
 const assert = require('assert');
 const request = require('supertest');
 const constants = require('./../../../constants/constants');
-const postsFixtures = require('../../fixtures/posts');
 const {App} = require("../../../utils/server");
+const {Post} = require("../../../models/postModel");
 
 describe(constants.USERS_BASE_URL, function () {
 
@@ -18,10 +18,14 @@ describe(constants.USERS_BASE_URL, function () {
                 .expect('Content-Type', /json/)
                 .expect(constants.RESPONSE_CODE.OK)
                 .end(async function (err, res) {
+
                     utils.assertIsNull(err);
                     const resp = JSON.parse(res.text);
-                    let posts = resp.data;
-                    assert.strictEqual(posts.length, [postsFixtures.POST_1, postsFixtures.POST_2, postsFixtures.POST_3].length);
+                    let posts = resp.data.items;
+                    let totalCount = await Post.collection.countDocuments();
+
+                    assert.strictEqual(posts.length, constants.POST_ITEMS_LIMIT);
+                    assert.strictEqual(resp.data.total_count, totalCount);
                     assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.OK);
                     done();
                 });

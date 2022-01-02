@@ -12,6 +12,8 @@ module.exports.TOKEN_MODEL_NAME = 'Token';
 module.exports.USERS_BASE_URL = '/api/v1/users';
 module.exports.POSTS_BASE_URL = '/api/v1/posts';
 
+module.exports.POST_ITEMS_LIMIT = 10;
+
 module.exports.RESPONSE_CODE = {
     UNPROCESSABLE_ENTITY: 422,
     OK: 200,
