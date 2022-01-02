@@ -8,6 +8,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[hash].bundle.js',
+        publicPath: '/',
     },
     performance: {
         hints: false,

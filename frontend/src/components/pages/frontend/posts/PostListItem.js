@@ -3,7 +3,7 @@ import './style.scss'
 import moment from "moment";
 import {postsListRoute} from "../../../../constants/constants";
 
-class PostItem extends Component {
+class PostListItem extends Component {
     constructor(props) {
         super(props);
     }
@@ -13,7 +13,7 @@ class PostItem extends Component {
         return (
             <li>
                 <div className={'title'}>
-                    <a href={postsListRoute + this.props.item.url}>
+                    <a href={postsListRoute + "/" + this.props.item.url}>
                         {this.props.item.title}
                     </a>
                 </div>
@@ -28,4 +28,4 @@ class PostItem extends Component {
     }
 }
 
-export default PostItem;
+export default PostListItem;

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import './style.scss'
 import {getURL, POSTS_BASE_URL} from "../../../../helpers";
-import PostItem from "./PostItem";
+import PostListItem from "./PostListItem";
 
 class PostsList extends Component {
     constructor(props) {
@@ -44,7 +44,7 @@ class PostsList extends Component {
             return (
                 <ul className={'posts-list'}>
                     {items.map(item => (
-                        <PostItem key={item.uniqueKey} item={item}/>
+                        <PostListItem key={item.uniqueKey} item={item}/>
                     ))}
                 </ul>
             );
