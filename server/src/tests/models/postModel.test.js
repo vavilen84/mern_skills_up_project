@@ -5,11 +5,41 @@ const post3fixture = require('./../fixtures/posts').POST_3;
 const constants = require('./../../constants/constants');
 const utils = require('./../utils');
 const {logAndExit} = require("../utils");
+const {Post} = require("../../models/postModel");
 
 describe('PostModelTest model validation', function () {
 
     beforeEach( function (done) {
          utils.beforeEach(done);
+    });
+
+    describe('validate required fields', function () {
+        it('check auto increment seq prop setup correct', function (done) {
+            (async function () {
+                let totalCount = await Post.collection.countDocuments();
+                let post = new PostModelTest({url: "uniqueUrl", content: "content"});
+                try {
+                    await post.validate();
+                } catch (err) {
+                    logAndExit(err);
+                }
+                assert.equal(post.seq, 0); // default value
+                try {
+                    await post.save();
+                } catch (err) {
+                    logAndExit(err);
+                }
+                assert.equal(post.seq, totalCount+1); // increment
+                let newSeq = post.seq;
+                try {
+                    await post.save();
+                } catch (err) {
+                    logAndExit(err);
+                }
+                assert.equal(post.seq, newSeq); // not changed on update
+                done();
+            })();
+        });
     });
 
     describe('validate required fields', function () {

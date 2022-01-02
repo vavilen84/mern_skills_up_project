@@ -111,7 +111,9 @@ schema.pre('save',function(next) {
         }
         if(error)
             return next(error);
-        doc.seq = counter.seq;
+        if (!doc.seq){
+            doc.seq = counter.seq;
+        }
         next();
     });
 });
