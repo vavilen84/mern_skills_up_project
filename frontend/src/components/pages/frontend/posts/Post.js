@@ -26,8 +26,11 @@ function Post() {
 
     return (
         <div className={'post'}>
-            <div className={'title'}>
+            <h1 className={'title'}>
                 {post.title}
+            </h1>
+            <div>
+                <img src={"/"+post.image}/>
             </div>
             <div className={'description'}>
                 {post.description}

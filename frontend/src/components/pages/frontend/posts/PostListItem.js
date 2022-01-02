@@ -18,7 +18,7 @@ class PostListItem extends Component {
                     </a>
                 </div>
                 <div className={'description'}>
-                    {this.props.item.description}
+                    Description: {this.props.item.description}
                 </div>
                 <div className={'created-at'}>
                     Created: {moment(this.props.item.createdAt).format('YYYY-MM-DD')}
