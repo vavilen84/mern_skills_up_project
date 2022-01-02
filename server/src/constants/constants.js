@@ -6,6 +6,7 @@ module.exports.POSTS_COLLECTION_NAME = 'posts';
 
 module.exports.USER_MODEL_NAME = 'User';
 module.exports.POST_MODEL_NAME = 'Post';
+module.exports.COUNTER_MODEL_NAME = 'Counter';
 module.exports.TOKEN_MODEL_NAME = 'Token';
 
 module.exports.USERS_BASE_URL = '/api/v1/users';

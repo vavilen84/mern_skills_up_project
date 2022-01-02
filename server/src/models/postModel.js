@@ -3,6 +3,9 @@ const mongoose = require('../utils/mongoose').Mongoose,
 const errorSerializer = require('../utils/modelErrorSerializer').errorSerializer;
 const enums = require('../enum/enum');
 const constants = require('../constants/constants');
+const {POST_MODEL_NAME} = require("../constants/constants");
+const {Counter} = require("./countersModel");
+const logger = require('./../utils/logger')(module);
 
 async function uniqueKeyUniqueValidator(v) {
     if (v) {
@@ -92,9 +95,26 @@ const schemaObj = {
         type: Date,
         default: Date.now
     },
+    seq: {
+        type: Number,
+        default: 0
+    }
 };
 
 const schema = new Schema(schemaObj)
+
+schema.pre('save',function(next) {
+    let doc = this;
+    Counter.findByIdAndUpdate({_id: POST_MODEL_NAME}, {$inc: { seq: 1} }, async function(error, counter)   {
+        if (!counter) {
+            counter = await new Counter({_id:POST_MODEL_NAME, seq: 1}).save()
+        }
+        if(error)
+            return next(error);
+        doc.seq = counter.seq;
+        next();
+    });
+});
 
 exports.Post = getModel();
 

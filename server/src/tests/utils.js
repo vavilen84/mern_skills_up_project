@@ -5,6 +5,8 @@ const enums = require('./../enum/enum');
 const {SetEnv} = require("./../utils/env");
 const mongoose = require("mongoose");
 const config = require("./../config/db");
+const {Counter} = require("../models/countersModel");
+const {POST_MODEL_NAME} = require("../constants/constants");
 const User = require('./../models/userModel').User;
 const Post = require('./../models/postModel').Post;
 const user1fixture = require('./fixtures/users').USER_1;
@@ -45,6 +47,15 @@ async function createTokens() {
     }
 }
 
+async function createCounters(){
+    let postCounter = new Counter({_id:POST_MODEL_NAME, seq: 1});
+    try {
+        await postCounter.save();
+    } catch (err) {
+        logAndExit(err);
+    }
+}
+
 async function createPosts() {
     let post1 = new Post(post1fixture);
     let post2 = new Post(post2fixture);
@@ -80,6 +91,8 @@ async function prepareDatabaseBeforeTest() {
     db.set('debug', true);
     log.info("DB ready state: " + db.readyState);
     try {
+        await db.collections.counters.deleteMany({});
+        await createCounters();
         await db.collections.users.deleteMany({});
         await createUsers();
         await db.collections.posts.deleteMany({});
