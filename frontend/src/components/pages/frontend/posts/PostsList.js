@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import './style.scss'
 import {getURL, POSTS_BASE_URL} from "../../../../helpers";
 import PostListItem from "./PostListItem";
+import Paginator from "./Paginator";
 
 class PostsList extends Component {
     constructor(props) {
@@ -9,7 +10,8 @@ class PostsList extends Component {
         this.state = {
             error: null,
             isLoaded: false,
-            items: []
+            items: [],
+            totalPagesCount: 0
         };
     }
     componentDidMount() {
@@ -20,7 +22,8 @@ class PostsList extends Component {
                     console.log(res);
                     this.setState({
                         isLoaded: true,
-                        items: res.data
+                        items: res.data.items,
+                        totalPagesCount: res.data.total_pages_count
                     });
                 },
                 // Note: it is important to handle errors here, and not in the catch () block,
@@ -35,18 +38,22 @@ class PostsList extends Component {
     }
 
     render() {
-        const { error, isLoaded, items } = this.state;
+        const { error, isLoaded, items, totalPagesCount } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
             return (
-                <ul className={'posts-list'}>
-                    {items.map(item => (
-                        <PostListItem key={item.uniqueKey} item={item}/>
-                    ))}
-                </ul>
+                <>
+                    <ul className={'posts-list'}>
+                        {items.map(item => (
+                            <PostListItem key={item.uniqueKey} item={item}/>
+                        ))}
+                    </ul>
+                    <Paginator totalPagesCount={totalPagesCount}/>
+                </>
+
             );
         }
     }
