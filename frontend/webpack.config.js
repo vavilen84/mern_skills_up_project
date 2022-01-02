@@ -17,9 +17,14 @@ module.exports = {
     },
     devServer: {
         historyApiFallback: true,
-        static: {
-            directory: path.join(__dirname, 'public'),
-        },
+        static: [
+            {
+                directory: path.join(__dirname, 'public'),
+            },
+            {
+                directory: path.join(__dirname, '../uploads'),
+            }
+        ],
         compress: true,
         port: 9001,
     },
