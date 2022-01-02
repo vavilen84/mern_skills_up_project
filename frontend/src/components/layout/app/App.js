@@ -1,4 +1,3 @@
-import '../../../static/App.css';
 import React, {useEffect} from "react";
 import Footer from "../footer/Footer";
 import {BrowserRouter} from "react-router-dom";

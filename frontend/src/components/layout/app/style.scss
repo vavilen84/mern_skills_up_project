@@ -1,13 +1,51 @@
-.wrapper {
-  position: relative;
-  min-height: 100%;
+* {
+  margin: 0;
+  padding: 0;
+}
 
-  .content {
-    padding-bottom: 90px;
+html,
+body {
+  height: 100%;
+  font-size: 17px;
+  min-width: 350px;
+}
 
-    .container{
-      margin-top: 50px;
+#root {
+  height: 100%;
+
+  .wrapper {
+    position: relative;
+    min-height: 100%;
+
+    .content {
+      padding-bottom: 90px;
+
+      .container {
+        margin-top: 50px;
+      }
     }
   }
 }
+
+.fl-left {
+  float: left;
+}
+
+.fl-right {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+.ml20p {
+  margin-left: 20px;
+}
+
+.pl20p {
+  padding-left: 20px;
+}
+
+
 
