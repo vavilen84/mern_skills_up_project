@@ -9,12 +9,14 @@ module.exports = function (app) {
         let page = parseInt(req.query.page) || 1;
         let skip = page === 1 ? 0 : (page - 1) * POST_ITEMS_LIMIT;
         let posts = [];
-        let totalCount = 0;
+        let totalItemsCount = 0;
+        let totalPagesCount = 0;
 
         try {
             posts = await Post.find().sort({seq: -1}).skip(skip).limit(POST_ITEMS_LIMIT).exec();
             logger.info(posts);
-            totalCount = await Post.collection.countDocuments();
+            totalItemsCount = await Post.collection.countDocuments();
+            totalPagesCount = Math.ceil(totalItemsCount/POST_ITEMS_LIMIT);
         } catch (err) {
             logger.info(err);
             response.sendServerError(res);
@@ -23,7 +25,8 @@ module.exports = function (app) {
 
         let data = {
             items: posts,
-            total_count: totalCount
+            total_items_count: totalItemsCount,
+            total_pages_count: totalPagesCount
         };
         logger.info(posts);
 

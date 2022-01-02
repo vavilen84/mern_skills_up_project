@@ -25,7 +25,7 @@ describe(constants.USERS_BASE_URL, function () {
                     let totalCount = await Post.collection.countDocuments();
 
                     assert.strictEqual(posts.length, constants.POST_ITEMS_LIMIT);
-                    assert.strictEqual(resp.data.total_count, totalCount);
+                    assert.strictEqual(resp.data.total_items_count, totalCount);
                     assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.OK);
                     done();
                 });
