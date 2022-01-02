@@ -11,6 +11,14 @@ const user1fixture = require('./fixtures/users').USER_1;
 const post1fixture = require('./fixtures/posts').POST_1;
 const post2fixture = require('./fixtures/posts').POST_2;
 const post3fixture = require('./fixtures/posts').POST_3;
+const post4fixture = require('./fixtures/posts').POST_4;
+const post5fixture = require('./fixtures/posts').POST_5;
+const post6fixture = require('./fixtures/posts').POST_6;
+const post7fixture = require('./fixtures/posts').POST_7;
+const post8fixture = require('./fixtures/posts').POST_8;
+const post9fixture = require('./fixtures/posts').POST_9;
+const post10fixture = require('./fixtures/posts').POST_10;
+const post11fixture = require('./fixtures/posts').POST_11;
 const Token = require('./../models/tokenModel').Token;
 const token1fixture = require('./fixtures/tokens').TOKEN_1;
 
@@ -41,11 +49,27 @@ async function createPosts() {
     let post1 = new Post(post1fixture);
     let post2 = new Post(post2fixture);
     let post3 = new Post(post3fixture);
+    let post4 = new Post(post4fixture);
+    let post5 = new Post(post5fixture);
+    let post6 = new Post(post6fixture);
+    let post7 = new Post(post7fixture);
+    let post8 = new Post(post8fixture);
+    let post9 = new Post(post9fixture);
+    let post10 = new Post(post10fixture);
+    let post11 = new Post(post11fixture);
 
     try {
         await post1.save();
         await post2.save();
         await post3.save();
+        await post4.save();
+        await post5.save();
+        await post6.save();
+        await post7.save();
+        await post8.save();
+        await post9.save();
+        await post10.save();
+        await post11.save();
     } catch (err) {
         logAndExit(err);
     }

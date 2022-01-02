@@ -7,5 +7,6 @@ server_combined.log
 server_error.log
 docker/bitnami/*
 uploads/*
+!uploads/example_image.png
 !uploads/.gitignore
 frontend/node_modules
