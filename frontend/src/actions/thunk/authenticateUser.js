@@ -25,8 +25,11 @@ export function authenticateUserThunkAction(username, password) {
                     localStorage.setItem(accessToken, accessTokenData.token);
                     localStorage.setItem(refreshToken, refreshTokenData.token);
                     dispatch(loginAction(accessTokenData.token, refreshTokenData.token));
+                } else if (json.code === 404) {
+                    dispatch(showAlertAction(json.code, json.data, "User not found"));
+                } else {
+                    dispatch(showAlertAction(json.code, json.data, json.message));
                 }
-                dispatch(showAlertAction(json.code, json.data, json.message));
             })
             .catch(err => {
                 console.log(err);

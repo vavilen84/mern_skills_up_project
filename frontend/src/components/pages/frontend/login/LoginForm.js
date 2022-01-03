@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux'
 import {authenticateUserThunkAction} from "../../../../actions/thunk/authenticateUser";
+import {showAlertAction} from "../../../../actions";
 
 class LoginForm extends React.Component {
 
@@ -26,9 +27,19 @@ class LoginForm extends React.Component {
         this.setState({password: event.target.value});
     }
 
+    validateOnSubmit() {
+        if(!this.state.username || !this.state.password){
+            this.props.showAlert(400, {}, "Username & Password are required!");
+            return false;
+        }
+        return true;
+    }
+
     handleSubmit(event) {
         event.preventDefault();
-        this.props.authenticateUser(this.state.username, this.state.password);
+        if (this.validateOnSubmit()) {
+            this.props.authenticateUser(this.state.username, this.state.password);
+        }
     }
 
     render() {
@@ -37,7 +48,9 @@ class LoginForm extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="">Username</label>
-                        <input type="text" className="form-control" placeholder="Enter username" onChange={this.handleChangeUsername}/>
+                        <input type="text" className="form-control"
+                               placeholder="Enter username" onChange={this.handleChangeUsername}
+                               ref={this.usernameField}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Password</label>
@@ -52,6 +65,7 @@ class LoginForm extends React.Component {
 
 const mapDispatchToProps = dispatch => (
     {
+        showAlert: (code, data, message) => dispatch(showAlertAction(code, data, message)),
         authenticateUser: (username, password) => dispatch(authenticateUserThunkAction(username, password))
     }
 )
