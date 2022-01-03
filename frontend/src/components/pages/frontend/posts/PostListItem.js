@@ -9,7 +9,6 @@ class PostListItem extends Component {
     }
 
     render() {
-        console.log(this.props.item);
         return (
             <li>
                 <div className={'title'}>

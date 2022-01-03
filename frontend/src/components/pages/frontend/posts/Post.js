@@ -16,7 +16,6 @@ function Post() {
                     if (res.code === 200) {
                         setPost(res.data);
                     }
-                    console.log(res);
                 },
                 (error) => {
                     console.log(error);

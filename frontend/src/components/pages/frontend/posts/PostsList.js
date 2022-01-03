@@ -11,11 +11,30 @@ class PostsList extends Component {
             error: null,
             isLoaded: false,
             items: [],
-            totalPagesCount: 0
+            totalPagesCount: 0,
+            page: 1
         };
+
+        this.handleSetPage = this.handleSetPage.bind(this);
+        this.handleGetCurrentPage = this.handleGetCurrentPage.bind(this);
     }
-    componentDidMount() {
-        fetch(getURL(POSTS_BASE_URL))
+
+    handleSetPage(page){
+        this.setState({page: parseInt(page)});
+    }
+
+    handleGetCurrentPage(){
+        return parseInt(this.state.page);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.page !== this.state.page){
+            this.fetchPosts();
+        }
+    }
+
+    fetchPosts() {
+        fetch(getURL(POSTS_BASE_URL+"?page="+this.state.page))
             .then(res => res.json())
             .then(
                 (res) => {
@@ -37,6 +56,10 @@ class PostsList extends Component {
             )
     }
 
+    componentDidMount() {
+        this.fetchPosts();
+    }
+
     render() {
         const { error, isLoaded, items, totalPagesCount } = this.state;
         if (error) {
@@ -51,7 +74,7 @@ class PostsList extends Component {
                             <PostListItem key={item.uniqueKey} item={item}/>
                         ))}
                     </ul>
-                    <Paginator totalPagesCount={totalPagesCount}/>
+                    <Paginator setPage={this.handleSetPage} getPage={this.handleGetCurrentPage} totalPagesCount={totalPagesCount}/>
                 </>
 
             );
