@@ -1,17 +1,17 @@
 import {loginAction} from "../index";
+import {accessToken, refreshToken} from "../../constants/constants";
 
 export function loginOnAppInitThunkAction() {
     return (dispatch) => {
         if (storageAvailable('localStorage')) {
-            let accessToken = localStorage.getItem('accessToken');
-            let refreshToken = localStorage.getItem('refreshToken');
-            if (accessToken && refreshToken) {
-                dispatch(loginAction(accessToken, refreshToken))
+            let accessTok = localStorage.getItem(accessToken);
+            let refreshTok = localStorage.getItem(refreshToken);
+            if (accessTok && refreshTok) {
+                dispatch(loginAction(accessTok, refreshTok))
             }
         } else {
             console.log('localStorage is not available');
         }
-
     }
 }
 
