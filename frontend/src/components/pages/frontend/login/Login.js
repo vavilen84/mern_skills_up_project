@@ -3,16 +3,18 @@ import LoginForm from "./LoginForm";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {changeRouteAction} from "../../../../actions";
+import {useLocation} from "react-router";
 
 const Login = (props) => {
-
+    let location = useLocation();
     useEffect(()=>{
         if (props.isLoggedIn) {
             props.onChangeRoute();
         }
     });
     if (props.isLoggedIn) {
-        return <Navigate to={'/'} replace={true}/>;
+        let from = location.state?.from?.pathname || "/";
+        return <Navigate to={from} replace={true}/>;
     }
     return (
         <div>

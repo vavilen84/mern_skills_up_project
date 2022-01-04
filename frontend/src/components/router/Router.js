@@ -16,6 +16,7 @@ import PostsCreate from "../pages/admin/posts/create/PostsCreate";
 import PostsIndex from "../pages/frontend/posts/PostsIndex";
 import AdminPostsIndex from "../pages/admin/posts/index/PostsIndex";
 import Post from "../posts/Post";
+import RequireAuth from "../auth/RequireAuth";
 
 
 const Router = () => (
@@ -25,9 +26,9 @@ const Router = () => (
         <Route exact path={postRoute} element={<Post/>}/>
         <Route exact path={loginRoute} element={<Login/>}/>
         <Route exact path={logoutRoute} element={<Logout/>}/>
-        <Route exact path={adminRoute} element={<Admin/>}/>
-        <Route exact path={adminPostsIndexRoute} element={<AdminPostsIndex/>}/>
-        <Route exact path={adminPostsCreateRoute} element={<PostsCreate/>}/>
+        <Route exact path={adminRoute} element={<RequireAuth><Admin/></RequireAuth>}/>
+        <Route exact path={adminPostsIndexRoute} element={<RequireAuth><AdminPostsIndex/></RequireAuth>}/>
+        <Route exact path={adminPostsCreateRoute} element={<RequireAuth><PostsCreate/></RequireAuth>}/>
     </Routes>
 )
 
