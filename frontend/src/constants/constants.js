@@ -19,7 +19,3 @@ export const adminPostsCreateRoute = '/admin/posts/create';
 // auth rotes
 export const loginRoute = '/login';
 export const logoutRoute = '/logout';
-
-// auth credentials
-export const accessToken = 'accessToken';
-export const refreshToken = 'refreshToken';

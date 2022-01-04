@@ -1,6 +1,6 @@
 import {getURL, USERS_BASE_URL} from "../../helpers";
 import {loginAction, showAlertAction} from "../index";
-import {accessToken, defaultErr, refreshToken, tokensEmptyErr} from "../../constants/constants";
+import {defaultErr, tokensEmptyErr} from "../../constants/constants";
 
 export function authenticateUserThunkAction(username, password) {
     return (dispatch) => {
@@ -22,8 +22,8 @@ export function authenticateUserThunkAction(username, password) {
                     if (!accessTokenData || !refreshTokenData) {
                         return Promise.reject(tokensEmptyErr);
                     }
-                    localStorage.setItem(accessToken, accessTokenData.token);
-                    localStorage.setItem(refreshToken, refreshTokenData.token);
+                    localStorage.setItem('accessToken', accessTokenData.token);
+                    localStorage.setItem('refreshToken', refreshTokenData.token);
                     dispatch(loginAction(accessTokenData.token, refreshTokenData.token));
                 } else if (json.code === 404) {
                     dispatch(showAlertAction(json.code, json.data, "User not found"));

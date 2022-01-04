@@ -4,7 +4,7 @@ import "./style.scss";
 import {adminPostsCreateRoute} from "../../../../../constants/constants";
 import PostsList from "../../../../posts/PostsList";
 
-const PostsIndex = (props) => {
+const PostsIndex = () => {
     return (
         <div>
             <PostsList/>
