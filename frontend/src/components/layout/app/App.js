@@ -3,7 +3,7 @@ import Footer from "../footer/Footer";
 import {BrowserRouter} from "react-router-dom";
 import "./style.scss";
 import Nav from "../nav/Nav";
-import Router from "../router/Router";
+import Router from "../../router/Router";
 import Holder from "../holder/Holder";
 import Alert from "../alert/Alert";
 import {connect} from "react-redux";
