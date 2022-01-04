@@ -12,15 +12,15 @@ import {
     logoutRoute, postRoute, postsListRoute
 } from "../../../constants/constants";
 import Admin from "../../pages/admin/index/Admin";
-import PostsIndex from "../../pages/admin/posts/index/PostsIndex";
 import PostsCreate from "../../pages/admin/posts/create/PostsCreate";
-import PostsList from "../../pages/frontend/posts/PostsList";
-import Post from "../../pages/frontend/posts/Post";
+import PostsIndex from "../../pages/frontend/posts/PostsIndex";
+import Post from "../../posts/Post";
+
 
 const Router = () => (
     <Routes>
         <Route exact path={homeRoute} element={<Home/>}/>
-        <Route exact path={postsListRoute} element={<PostsList/>}/>
+        <Route exact path={postsListRoute} element={<PostsIndex/>}/>
         <Route exact path={postRoute} element={<Post/>}/>
         <Route exact path={loginRoute} element={<Login/>}/>
         <Route exact path={logoutRoute} element={<Logout/>}/>

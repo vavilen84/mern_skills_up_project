@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import './style.scss'
 import moment from "moment";
-import {postsListRoute} from "../../../../constants/constants";
+import {postsListRoute} from "../../constants/constants";
 
 class PostListItem extends Component {
     constructor(props) {

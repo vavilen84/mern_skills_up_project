@@ -2,7 +2,7 @@ import React, {Component, useEffect, useState} from "react";
 import './style.scss'
 import moment from "moment";
 import {useParams} from "react-router";
-import {getURL, POSTS_BASE_URL} from "../../../../helpers";
+import {getURL, POSTS_BASE_URL} from "../../helpers";
 
 function Post() {
     const [post, setPost] = useState(0);

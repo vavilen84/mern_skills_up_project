@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import './style.scss'
-import {getURL, POSTS_BASE_URL} from "../../../../helpers";
+import {getURL, POSTS_BASE_URL} from "../../helpers";
 import PostListItem from "./PostListItem";
 import Paginator from "./Paginator";
 
@@ -38,7 +38,6 @@ class PostsList extends Component {
             .then(res => res.json())
             .then(
                 (res) => {
-                    console.log(res);
                     this.setState({
                         isLoaded: true,
                         items: res.data.items,
