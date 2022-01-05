@@ -28,6 +28,7 @@ class PostsCreateForm extends React.Component {
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeUrl = this.handleChangeUrl.bind(this);
         this.handleChangeContent = this.handleChangeContent.bind(this);
+        this.handleChangeUniqueKey = this.handleChangeUniqueKey.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 

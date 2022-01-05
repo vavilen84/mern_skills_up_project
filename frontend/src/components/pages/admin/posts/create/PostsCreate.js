@@ -24,6 +24,8 @@ class PostsCreate extends React.Component {
         let formData = new FormData();
         formData.append('url', post.url);
         formData.append('image', post.image);
+        formData.append('title', post.title);
+        formData.append('uniqueKey', post.uniqueKey);
         formData.append('content', post.content);
 
         await fetch(getURL(POSTS_BASE_URL), {
