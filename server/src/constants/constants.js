@@ -41,3 +41,11 @@ module.exports.VALIDATION_ERRORS = {
     UNIQUE: "field should be unique",
     REQUIRED: "field is required"
 };
+
+module.exports.POST_STATUS_ACTIVE = 1;
+module.exports.POST_STATUS_INACTIVE = 2;
+
+module.exports.POST_STATUSES = {
+    POST_STATUS_ACTIVE: "Active",
+    POST_STATUS_INACTIVE: "Inactive",
+};

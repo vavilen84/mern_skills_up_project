@@ -1,4 +1,5 @@
 import React from "react";
+import {POST_STATUS_ACTIVE} from "../../../../../../../server/src/constants/constants";
 
 class PostsCreateForm extends React.Component {
 
@@ -7,19 +8,39 @@ class PostsCreateForm extends React.Component {
         super(props);
 
         this.state = {
-            url: '',
-            content: ''
+            image: "",
+            uniqueKey: "",
+            url: "",
+            title: "",
+            relatedPostIds: [], // TODO
+            tags: [], // TODO
+            keywords: "", // TODO
+            description: "", // TODO
+            greeting: "", // TODO
+            content: "",
+            status: POST_STATUS_ACTIVE,
+            created: null,
+            updated: null
         };
 
         this.fileInput = React.createRef();
 
+        this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeUrl = this.handleChangeUrl.bind(this);
         this.handleChangeContent = this.handleChangeContent.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    handleChangeTitle(event) {
+        this.setState({title: event.target.value});
+    }
+
     handleChangeUrl(event) {
         this.setState({url: event.target.value});
+    }
+
+    handleChangeUniqueKey(event) {
+        this.setState({uniqueKey: event.target.value});
     }
 
     handleChangeContent(event) {
@@ -29,7 +50,9 @@ class PostsCreateForm extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         let post = {
+            title: this.state.title,
             url: this.state.url,
+            uniqueKey: this.state.uniqueKey,
             content: this.state.content,
             image: this.fileInput.current.files[0] || null,
         };
@@ -41,9 +64,19 @@ class PostsCreateForm extends React.Component {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
+                        <label htmlFor="">Title</label>
+                        <input required type="text" className="form-control" placeholder="Title"
+                               onChange={this.handleChangeTitle}/>
+                    </div>
+                    <div className="form-group">
                         <label htmlFor="">URL</label>
-                        <input required type="text" className="form-control" placeholder="URL ex: /react-hooks"
+                        <input required type="text" className="form-control" placeholder="URL ex: react-hooks"
                                onChange={this.handleChangeUrl}/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="">Unique Key</label>
+                        <input required type="text" className="form-control" placeholder="react_hooks"
+                               onChange={this.handleChangeUniqueKey}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Content</label>
