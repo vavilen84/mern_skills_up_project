@@ -85,7 +85,9 @@ class PostsCreateForm extends React.Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Image</label>
-                        <input type="file" ref={this.fileInput} />
+                        <div>
+                            <input type="file" ref={this.fileInput} />
+                        </div>
                     </div>
                     <input type="submit" value="Submit" className="btn btn-success"/>
                 </form>
