@@ -1,27 +1,34 @@
 import Holder from "../holder/Holder";
-import React from "react";
 import {changeRouteAction} from "../../../actions";
 import {connect} from "react-redux";
 import "./style.scss";
-import {frontendMode} from "../../../constants/constants";
-import FrontendNav from "./frontend/FrontendNav";
-import BackendNav from "./admin/BackendNav";
+import {Link} from "react-router-dom";
+import {homeRoute, postsListRoute} from "../../../constants/constants";
+import AuthLinks from "./authLinks/AuthLinks";
+import React from "react";
 
-const Nav = (props) => {
+class Nav extends React.Component  {
 
-    let nav = props.isFrontendMode
-        ? <FrontendNav onChangeRoute={props.onChangeRoute} isLoggedIn={props.isLoggedIn}/>
-        : <BackendNav onChangeRoute={props.onChangeRoute}/>;
+    constructor(props) {
+        super(props);
+    }
 
-    return (
-        <div className="navbar">
-            <Holder>
-                <div className="nav-collapse">
-                    {nav}
-                </div>
-            </Holder>
-        </div>
-    )
+    render(){
+        return (
+            <div className="navbar">
+                <Holder>
+                    <div className="nav-collapse">
+                        <ul className="navigation">
+                            <li><Link to={homeRoute} onClick={this.props.onChangeRoute}>Home</Link></li>
+                            <li><Link to={postsListRoute} onClick={this.props.onChangeRoute}>Blog</Link></li>
+                            <li><AuthLinks isLoggedIn={this.props.isLoggedIn} onChangeRoute={this.props.onChangeRoute}/></li>
+                        </ul>
+                    </div>
+                </Holder>
+            </div>
+        )
+    }
+
 }
 
 const mapDispatchToProps = dispatch => (
@@ -32,10 +39,8 @@ const mapDispatchToProps = dispatch => (
 
 const mapStateToProps = (state) => {
     let auth = state.rootReducer.auth;
-    let mode = state.rootReducer.mode;
 
     return {
-        isFrontendMode: mode === frontendMode,
         isLoggedIn: auth.accessToken !== null,
     };
 }

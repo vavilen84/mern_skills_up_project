@@ -9,6 +9,7 @@ const Login = (props) => {
     let location = useLocation();
     useEffect(()=>{
         if (props.isLoggedIn) {
+            console.log(2);
             props.onChangeRoute();
         }
     });

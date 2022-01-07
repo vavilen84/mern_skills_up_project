@@ -1,9 +1,6 @@
-import {frontendMode} from "../constants/constants";
-
 export const defaultState = {
     type: null,
     showAlert: false,
-    mode: frontendMode,
     alert: {
         code: null,
         data: [],
@@ -51,10 +48,5 @@ export function logout(state) {
         refreshToken: null
     };
 
-    return state;
-}
-
-export function switchMode(state, action) {
-    state.mode = action.mode;
     return state;
 }

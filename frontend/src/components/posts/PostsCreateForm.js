@@ -1,5 +1,5 @@
 import React from "react";
-import {POST_STATUS_ACTIVE} from "../../../../../../../server/src/constants/constants";
+import {POST_STATUS_ACTIVE} from "../../../../server/src/constants/constants";
 
 class PostsCreateForm extends React.Component {
 

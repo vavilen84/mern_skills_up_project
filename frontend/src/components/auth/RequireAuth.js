@@ -7,11 +7,13 @@ import {useLocation} from "react-router";
 
 const RequireAuth = (props) => {
     let location = useLocation();
-    useEffect(() => {
-        if (props.isLoggedIn) {
-            props.onChangeRoute();
-        }
-    });
+    // TODO: do we need this?
+    // useEffect(() => {
+    //     if (props.isLoggedIn) {
+    //         console.log(1);
+    //         //props.onChangeRoute();
+    //     }
+    // });
     if (!props.isLoggedIn) {
         // Redirect them to the /login page, but save the current location they were
         // trying to go to when they were redirected. This allows us to send them

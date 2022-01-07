@@ -28,10 +28,3 @@ export function changeRouteAction() {
         type: CHANGE_ROUTE
     };
 }
-
-export function switchModeAction(mode) {
-    return {
-        type: SWITCH_MODE,
-        mode: mode
-    };
-}

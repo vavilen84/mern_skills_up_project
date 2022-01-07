@@ -8,34 +8,41 @@ import Holder from "../holder/Holder";
 import Alert from "../alert/Alert";
 import {connect} from "react-redux";
 import {loginOnAppInitThunkAction} from "../../../actions/thunk/loginOnAppInit";
+import {switchModeThunkAction} from "../../../actions/thunk/switchMode";
+import {setDisplayModeOnAppInit} from "../../../actions/thunk/setDisplayModeOnAppInit";
+import {List} from "../common/List";
 
-function App(props) {
-
-    useEffect(() => {
+class App extends React.Component {
+    constructor(props) {
+        super(props);
         props.loginOnAppInit();
-    });
+        //props.setDisplayModeOnAppInit();
+    }
 
-    return (
-        <BrowserRouter>
-            <div className={'wrapper'}>
-                <div className={'content'}>
-                    <Nav/>
-                    <Holder>
-                        <div className={'container'}>
-                            <Alert />
-                            <Router />
-                        </div>
-                    </Holder>
+    render() {
+        return (
+            <BrowserRouter>
+                <div className={'wrapper'}>
+                    <div className={'content'}>
+                        <Nav/>
+                        <Holder>
+                            <div className={'container'}>
+                                <Alert />
+                                <Router />
+                            </div>
+                        </Holder>
+                    </div>
+                    <Footer/>
                 </div>
-                <Footer/>
-            </div>
-        </BrowserRouter>
-    );
+            </BrowserRouter>
+        )
+    }
 }
 
 const mapDispatchToProps = dispatch => (
     {
-        loginOnAppInit: () => dispatch(loginOnAppInitThunkAction())
+        loginOnAppInit: () => dispatch(loginOnAppInitThunkAction()),
+        setDisplayModeOnAppInit:  () => dispatch(setDisplayModeOnAppInit()),
     }
 )
 

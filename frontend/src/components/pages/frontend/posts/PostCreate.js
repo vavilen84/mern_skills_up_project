@@ -1,12 +1,12 @@
 import React from "react";
 import {connect} from 'react-redux'
 import {Navigate} from "react-router";
-import {adminPostsIndexRoute, defaultErr} from "../../../../../constants/constants";
-import PostsCreateForm from "./PostsCreateForm";
-import {getURL, POSTS_BASE_URL} from "../../../../../helpers";
-import {showAlertAction} from "../../../../../actions";
+import {adminPostsIndexRoute, defaultErr} from "../../../../constants/constants";
+import PostsCreateForm from "../../../posts/PostsCreateForm";
+import {getURL, POSTS_BASE_URL} from "../../../../helpers";
+import {showAlertAction} from "../../../../actions";
 
-class PostsCreate extends React.Component {
+class PostCreate extends React.Component {
 
     constructor(props) {
 
@@ -73,4 +73,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostsCreate);
+export default connect(mapStateToProps, mapDispatchToProps)(PostCreate);
