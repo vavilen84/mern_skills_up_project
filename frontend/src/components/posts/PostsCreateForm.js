@@ -1,5 +1,6 @@
 import React from "react";
 import {POST_STATUS_ACTIVE} from "../../../../server/src/constants/constants";
+import Alert from "../layout/alert/Alert";
 
 class PostsCreateForm extends React.Component {
 
@@ -63,25 +64,26 @@ class PostsCreateForm extends React.Component {
     render() {
         return (
             <div>
+                <Alert/>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="">Title</label>
-                        <input required type="text" className="form-control" placeholder="Title"
+                        <input type="text" className="form-control" placeholder="Title"
                                onChange={this.handleChangeTitle}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">URL</label>
-                        <input required type="text" className="form-control" placeholder="URL ex: react-hooks"
+                        <input type="text" className="form-control" placeholder="URL ex: react-hooks"
                                onChange={this.handleChangeUrl}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Unique Key</label>
-                        <input required type="text" className="form-control" placeholder="react_hooks"
+                        <input type="text" className="form-control" placeholder="react_hooks"
                                onChange={this.handleChangeUniqueKey}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Content</label>
-                        <textarea required className="form-control" placeholder="Content" onChange={this.handleChangeContent}/>
+                        <textarea className="form-control" placeholder="Content" onChange={this.handleChangeContent}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Image</label>
