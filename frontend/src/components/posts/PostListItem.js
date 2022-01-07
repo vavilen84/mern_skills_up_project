@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import './style.scss'
 import moment from "moment";
-import {backendMode, postsListRoute} from "../../constants/constants";
+import {postsListRoute} from "../../constants/constants";
 import {connect} from "react-redux";
 import PostUpdateDeleteButtons from "./PostUpdateDeleteButtons";
 
@@ -36,10 +36,8 @@ class PostListItem extends Component {
 
 const mapStateToProps = (state) => {
     let auth = state.rootReducer.auth;
-    let mode = state.rootReducer.mode;
 
     return {
-        isBackendMode: mode === backendMode,
         isLoggedIn: auth.accessToken !== null,
     };
 }

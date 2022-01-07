@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import LoginForm from "./LoginForm";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
-import {changeRouteAction} from "../../../../actions";
+import {changeRouteAction} from "../../../actions";
 import {useLocation} from "react-router";
 
 const Login = (props) => {

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Footer from "../footer/Footer";
 import {BrowserRouter} from "react-router-dom";
 import "./style.scss";
@@ -8,15 +8,11 @@ import Holder from "../holder/Holder";
 import Alert from "../alert/Alert";
 import {connect} from "react-redux";
 import {loginOnAppInitThunkAction} from "../../../actions/thunk/loginOnAppInit";
-import {switchModeThunkAction} from "../../../actions/thunk/switchMode";
-import {setDisplayModeOnAppInit} from "../../../actions/thunk/setDisplayModeOnAppInit";
-import {List} from "../common/List";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         props.loginOnAppInit();
-        //props.setDisplayModeOnAppInit();
     }
 
     render() {
@@ -42,7 +38,6 @@ class App extends React.Component {
 const mapDispatchToProps = dispatch => (
     {
         loginOnAppInit: () => dispatch(loginOnAppInitThunkAction()),
-        setDisplayModeOnAppInit:  () => dispatch(setDisplayModeOnAppInit()),
     }
 )
 

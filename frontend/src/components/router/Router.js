@@ -1,6 +1,6 @@
 import {Route, Routes} from "react-router-dom";
-import Home from "../pages/frontend/home/Home";
-import Login from "../pages/frontend/login/Login";
+import Home from "../pages/home/Home";
+import Login from "../pages/login/Login";
 import React from "react";
 import Logout from "../Logout";
 import {
@@ -8,9 +8,9 @@ import {
     loginRoute,
     logoutRoute, postCreateRoute, postRoute, postsListRoute
 } from "../../constants/constants";
-import PostsIndex from "../pages/frontend/posts/PostsIndex";
+import PostsIndex from "../pages/posts/PostsIndex";
 import Post from "../posts/Post";
-import PostCreate from "../pages/frontend/posts/PostCreate";
+import PostCreate from "../pages/posts/PostCreate";
 
 
 const Router = () => (

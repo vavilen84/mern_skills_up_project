@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux'
-import {authenticateUserThunkAction} from "../../../../actions/thunk/authenticateUser";
-import {showAlertAction} from "../../../../actions";
+import {authenticateUserThunkAction} from "../../../actions/thunk/authenticateUser";
+import {showAlertAction} from "../../../actions";
 
 class LoginForm extends React.Component {
 
