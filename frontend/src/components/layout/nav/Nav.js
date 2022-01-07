@@ -9,8 +9,10 @@ class Nav extends React.Component  {
 
     constructor(props) {
         super(props);
+    }
 
-        this.authLinks = props.isLoggedIn
+    getAuthLink(){
+        return this.props.isLoggedIn
             ? <Link to={logoutRoute}>Logout</Link>
             : <Link to={loginRoute}>Login</Link>;
     }
@@ -23,7 +25,7 @@ class Nav extends React.Component  {
                         <ul className="navigation">
                             <li><Link to={homeRoute}>Home</Link></li>
                             <li><Link to={postsListRoute}>Posts</Link></li>
-                            <li>{this.authLinks}</li>
+                            <li>{this.getAuthLink()}</li>
                         </ul>
                     </div>
                 </Holder>
