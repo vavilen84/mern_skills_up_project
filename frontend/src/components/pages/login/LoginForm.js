@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from 'react-redux'
 import {authenticateUserThunkAction} from "../../../actions/thunk/authenticateUser";
 import {showAlertAction} from "../../../actions";
+import Alert from "../../layout/alert/Alert";
 
 class LoginForm extends React.Component {
 
@@ -45,6 +46,7 @@ class LoginForm extends React.Component {
     render() {
         return (
             <div>
+                <Alert />
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="">Username</label>

@@ -23,16 +23,6 @@ export function showAlert(state, action) {
     return state;
 }
 
-export function clearAlert(state) {
-    state.showAlert = false;
-    state.alert.code = null;
-    state.alert.visible = false;
-    state.alert.data = [];
-    state.alert.message = null;
-
-    return state;
-}
-
 export function login(state, action) {
     state.auth = {
         accessToken: action.accessToken,

@@ -6,7 +6,6 @@ import Paginator from "./Paginator";
 import {Link} from "react-router-dom";
 import {postCreateRoute} from "../../constants/constants";
 import {connect} from "react-redux";
-import {changeRouteAction} from "../../actions";
 
 class PostsList extends Component {
     constructor(props) {
@@ -23,7 +22,7 @@ class PostsList extends Component {
         this.handleGetCurrentPage = this.handleGetCurrentPage.bind(this);
 
         this.createNewPostBtn = (props.isLoggedIn)
-            ?  <Link className={'btn btn-success'} to={postCreateRoute} onClick={this.props.onChangeRoute}>Create New Post</Link>
+            ?  <Link className={'btn btn-success'} to={postCreateRoute}>Create New Post</Link>
             : '';
     }
 
@@ -90,12 +89,6 @@ class PostsList extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => (
-    {
-        onChangeRoute: () => dispatch(changeRouteAction())
-    }
-)
-
 const mapStateToProps = (state) => {
     let auth = state.rootReducer.auth;
 
@@ -104,4 +97,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostsList);
+export default connect(mapStateToProps, null)(PostsList);

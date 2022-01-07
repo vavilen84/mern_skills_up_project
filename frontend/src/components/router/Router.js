@@ -15,7 +15,7 @@ import PostCreate from "../pages/posts/PostCreate";
 
 const Router = () => (
     <Routes>
-        <Route exact path={homeRoute} element={<Home/>}/>
+        <Route exact path={homeRoute} element={<Home/>} />
         <Route exact path={postsListRoute} element={<PostsIndex/>}/>
         <Route exact path={postRoute} element={<Post/>}/>
         <Route exact path={postCreateRoute} element={<PostCreate/>}/>

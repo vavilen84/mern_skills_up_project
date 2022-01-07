@@ -1,4 +1,4 @@
-import {CHANGE_ROUTE, SHOW_ALERT, LOGIN, LOGOUT, SWITCH_MODE} from "../actionTypes";
+import {SHOW_ALERT, LOGIN, LOGOUT} from "../actionTypes";
 
 export function showAlertAction(code, data, message) {
     return {
@@ -20,11 +20,5 @@ export function loginAction(accessToken, refreshToken) {
 export function logoutAction() {
     return {
         type: LOGOUT,
-    };
-}
-
-export function changeRouteAction() {
-    return {
-        type: CHANGE_ROUTE
     };
 }

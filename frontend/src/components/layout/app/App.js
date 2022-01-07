@@ -23,7 +23,6 @@ class App extends React.Component {
                         <Nav/>
                         <Holder>
                             <div className={'container'}>
-                                <Alert />
                                 <Router />
                             </div>
                         </Holder>
