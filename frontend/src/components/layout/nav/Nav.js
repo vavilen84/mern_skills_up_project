@@ -20,7 +20,7 @@ class Nav extends React.Component  {
                     <div className="nav-collapse">
                         <ul className="navigation">
                             <li><Link to={homeRoute} onClick={this.props.onChangeRoute}>Home</Link></li>
-                            <li><Link to={postsListRoute} onClick={this.props.onChangeRoute}>Blog</Link></li>
+                            <li><Link to={postsListRoute} onClick={this.props.onChangeRoute}>Posts</Link></li>
                             <li><AuthLinks isLoggedIn={this.props.isLoggedIn} onChangeRoute={this.props.onChangeRoute}/></li>
                         </ul>
                     </div>

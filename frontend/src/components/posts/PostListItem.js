@@ -9,7 +9,7 @@ class PostListItem extends Component {
 
     constructor(props) {
         super(props);
-        this.postUpdateDeleteButtons = (props.isBackendMode && props.isLoggedIn)
+        this.postUpdateDeleteButtons = (props.isLoggedIn)
             ? <PostUpdateDeleteButtons/>
             : "";
     }

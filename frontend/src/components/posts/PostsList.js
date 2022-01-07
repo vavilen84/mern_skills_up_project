@@ -3,6 +3,10 @@ import './style.scss'
 import {getURL, POSTS_BASE_URL} from "../../helpers";
 import PostListItem from "./PostListItem";
 import Paginator from "./Paginator";
+import {Link} from "react-router-dom";
+import {postCreateRoute} from "../../constants/constants";
+import {connect} from "react-redux";
+import {changeRouteAction} from "../../actions";
 
 class PostsList extends Component {
     constructor(props) {
@@ -17,6 +21,10 @@ class PostsList extends Component {
 
         this.handleSetPage = this.handleSetPage.bind(this);
         this.handleGetCurrentPage = this.handleGetCurrentPage.bind(this);
+
+        this.createNewPostBtn = (props.isLoggedIn)
+            ?  <Link className={'btn btn-success'} to={postCreateRoute} onClick={this.props.onChangeRoute}>Create</Link>
+            : '';
     }
 
     handleSetPage(page){
@@ -68,6 +76,7 @@ class PostsList extends Component {
         } else {
             return (
                 <>
+                    {this.createNewPostBtn}
                     <ul className={'posts-list'}>
                         {items.map(item => (
                             <PostListItem key={item.uniqueKey} item={item}/>
@@ -81,4 +90,18 @@ class PostsList extends Component {
     }
 }
 
-export default PostsList;
+const mapDispatchToProps = dispatch => (
+    {
+        onChangeRoute: () => dispatch(changeRouteAction())
+    }
+)
+
+const mapStateToProps = (state) => {
+    let auth = state.rootReducer.auth;
+
+    return {
+        isLoggedIn: auth.accessToken !== null,
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostsList);
