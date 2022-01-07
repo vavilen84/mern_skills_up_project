@@ -23,7 +23,7 @@ class PostsList extends Component {
         this.handleGetCurrentPage = this.handleGetCurrentPage.bind(this);
 
         this.createNewPostBtn = (props.isLoggedIn)
-            ?  <Link className={'btn btn-success'} to={postCreateRoute} onClick={this.props.onChangeRoute}>Create</Link>
+            ?  <Link className={'btn btn-success'} to={postCreateRoute} onClick={this.props.onChangeRoute}>Create New Post</Link>
             : '';
     }
 

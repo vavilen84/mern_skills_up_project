@@ -1,7 +1,7 @@
 .posts-list {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 50px;
+  margin-top: 25px;
 
   & > li {
     list-style: none;
@@ -11,6 +11,10 @@
     border: 1px solid #cecece;
     padding: 20px;
     border-radius: 5px;
+
+    .btn-danger{
+      margin-left: 5px;
+    }
 
     .title {
       font-weight: bold;
