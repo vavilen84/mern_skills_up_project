@@ -3,7 +3,7 @@ const assert = require('assert');
 const request = require('supertest');
 const constants = require('./../../../constants/constants');
 const post3fixture = require('../../fixtures/posts').POST_3;
-const {findPostByUniqueKey} = require('./base');
+const {findPostByUrl} = require('./base');
 const {App} = require("../../../utils/server");
 const log = require('./../../../utils/logger')(module);
 
@@ -15,7 +15,7 @@ describe(constants.USERS_BASE_URL, function () {
 
     describe('GET ' + constants.POSTS_BASE_URL, function () {
         it('get 200 on get post', function (done) {
-            findPostByUniqueKey(post3fixture.uniqueKey)
+            findPostByUrl(post3fixture.url)
                 .then(function (postFromDb) {
                     request(App)
                         .get(constants.POSTS_BASE_URL + "/" + postFromDb.url)

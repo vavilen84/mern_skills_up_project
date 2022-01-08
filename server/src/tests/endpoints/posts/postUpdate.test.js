@@ -3,8 +3,9 @@ const assert = require('assert');
 const request = require('supertest');
 const constants = require('./../../../constants/constants');
 const {TOKEN_1_UUID} = require("../../fixtures/tokens");
-const {findPostByUniqueKey} = require('./base');
+const {findPostByUniqueKey, findPostByUrl} = require('./base');
 const {App} = require("../../../utils/server");
+const {logAndExit} = require("../../utils");
 const post3fixture = require('../../fixtures/posts').POST_3;
 
 describe(constants.USERS_BASE_URL, function () {
@@ -15,7 +16,7 @@ describe(constants.USERS_BASE_URL, function () {
 
     describe('POST ' + constants.POSTS_BASE_URL, function () {
         it('endpoints/posts/get 401 on not authorized request', function (done) {
-            findPostByUniqueKey(post3fixture.uniqueKey)
+            findPostByUrl(post3fixture.url)
                 .then(function (post) {
                     request(App)
                         .post(constants.POSTS_BASE_URL+"/"+post.id)
@@ -33,7 +34,7 @@ describe(constants.USERS_BASE_URL, function () {
         });
 
         it('endpoints/posts/get 200 on update post',  function (done) {
-            findPostByUniqueKey(post3fixture.uniqueKey)
+            findPostByUrl(post3fixture.url)
                 .then( function (post) {
                     let postId = post._id.toString();
                     post._id = null;
@@ -53,8 +54,15 @@ describe(constants.USERS_BASE_URL, function () {
                             assert.strictEqual(resp.code, constants.RESPONSE_CODE.OK);
                             assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.OK);
                             assert.strictEqual(updatedPost.url, updatedUrl);
-                            await findPostByUniqueKey(post3fixture.uniqueKey)
-                                .then(post => assert.strictEqual(post.url, updatedUrl));
+                            let post = null;
+                            try {
+                                post = await findPostByUrl(post3fixture.url);
+                            } catch(err){
+                                logAndExit(err);
+                            }
+                            utils.assertIsNotNull(post);
+                            assert.strictEqual(post.url, updatedUrl)
+
                             done();
                         });
                 });

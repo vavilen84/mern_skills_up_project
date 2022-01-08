@@ -4,8 +4,9 @@ const request = require('supertest');
 const constants = require('./../../../constants/constants');
 const {TOKEN_1_UUID} = require("../../fixtures/tokens");
 const post3fixture = require('../../fixtures/posts').POST_3;
-const {ensurePageDoesNotExistsByUniqueKey, findPostByUniqueKey} = require('./base');
+const {findPostByUrl, ensurePostNotExists} = require('./base');
 const {App} = require("../../../utils/server");
+const {logAndExit} = require("../../utils");
 
 describe(constants.USERS_BASE_URL, function () {
 
@@ -15,10 +16,10 @@ describe(constants.USERS_BASE_URL, function () {
 
     describe('DELETE ' + constants.POSTS_BASE_URL, function () {
         it('endpoints/posts/get 401 on not authorized request', function (done) {
-            findPostByUniqueKey(post3fixture.uniqueKey)
+            findPostByUrl(post3fixture.url)
                 .then(function (post) {
                     request(App)
-                        .delete(constants.POSTS_BASE_URL + "/" + post.id)
+                        .delete(constants.POSTS_BASE_URL + "/" + post._id)
                         .expect('Content-Type', /json/)
                         .expect(constants.RESPONSE_CODE.UNAUTHORIZED)
                         .end(async function (err, res) {
@@ -32,10 +33,10 @@ describe(constants.USERS_BASE_URL, function () {
         });
 
         it('get 200 on delete post', function (done) {
-            findPostByUniqueKey(post3fixture.uniqueKey)
+            findPostByUrl(post3fixture.url)
                 .then(function (post) {
                     request(App)
-                        .delete(constants.POSTS_BASE_URL + "/" + post.id)
+                        .delete(constants.POSTS_BASE_URL + "/" + post._id)
                         .set('Authorization', 'Bearer ' + TOKEN_1_UUID)
                         .expect('Content-Type', /json/)
                         .expect(constants.RESPONSE_CODE.OK)
@@ -44,7 +45,11 @@ describe(constants.USERS_BASE_URL, function () {
                             const resp = JSON.parse(res.text);
                             assert.strictEqual(resp.code, constants.RESPONSE_CODE.OK);
                             assert.strictEqual(resp.message, constants.RESPONSE_MESSAGE.OK);
-                            await ensurePageDoesNotExistsByUniqueKey(post3fixture);
+                            try {
+                                await ensurePostNotExists(post3fixture);
+                            } catch(err){
+                                logAndExit(err);
+                            }
                             done();
                         });
                 });

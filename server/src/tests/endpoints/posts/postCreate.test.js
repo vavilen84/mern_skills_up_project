@@ -8,7 +8,8 @@ const post1fixture = require('../../fixtures/posts').POST_1;
 const path = require('path');
 const fs = require('fs');
 const {App} = require("../../../utils/server");
-const {ensurePostNotExists, findPostById, findPostBUrl} = require("./base");
+const {ensurePostNotExists, findPostByUrl} = require("./base");
+const {logAndExit} = require("../../utils");
 
 describe(constants.USERS_BASE_URL, function () {
 
@@ -51,9 +52,9 @@ describe(constants.USERS_BASE_URL, function () {
                             assert.strictEqual(post.url, post12fixture.url);
                             let postFromDb = null;
                             try {
-                                postFromDb = await findPostBUrl(post12fixture.url);
+                                postFromDb = await findPostByUrl(post12fixture.url);
                             } catch (err) {
-                                utils.assertIsNull(err);
+                                logAndExit(err);
                             }
                             utils.assertIsNotNull(postFromDb);
                             assert.strictEqual(postFromDb.url, post12fixture.url);
@@ -100,5 +101,4 @@ describe(constants.USERS_BASE_URL, function () {
                 });
         });
     });
-
 });

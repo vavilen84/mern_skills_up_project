@@ -4,6 +4,7 @@ const request = require('supertest');
 const constants = require('./../../../constants/constants');
 const {App} = require("../../../utils/server");
 const {Post} = require("../../../models/postModel");
+const {logAndExit} = require("../../utils");
 
 describe(constants.USERS_BASE_URL, function () {
 
@@ -22,7 +23,12 @@ describe(constants.USERS_BASE_URL, function () {
                     utils.assertIsNull(err);
                     const resp = JSON.parse(res.text);
                     let posts = resp.data.items;
-                    let totalCount = await Post.collection.countDocuments();
+                    let totalCount = 0;
+                    try {
+                        totalCount = await Post.collection.countDocuments();
+                    } catch (err) {
+                        logAndExit(err);
+                    }
 
                     assert.strictEqual(posts.length, constants.POST_ITEMS_LIMIT);
                     assert.strictEqual(resp.data.total_items_count, totalCount);

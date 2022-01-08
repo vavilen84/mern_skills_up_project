@@ -17,9 +17,9 @@ async function findPostById(id) {
     return await Post.findOne({_id: id}).exec();
 }
 
-async function findPostBUrl(url) {
+async function findPostByUrl(url) {
     return await Post.findOne({url: url}).exec();
 }
 
 module.exports.findPostById = findPostById;
-module.exports.findPostBUrl = findPostBUrl;
+module.exports.findPostByUrl = findPostByUrl;
