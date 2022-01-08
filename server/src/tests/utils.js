@@ -57,32 +57,27 @@ async function createCounters(){
 }
 
 async function createPosts() {
-    let post1 = new Post(post1fixture);
-    let post2 = new Post(post2fixture);
-    let post3 = new Post(post3fixture);
-    let post4 = new Post(post4fixture);
-    let post5 = new Post(post5fixture);
-    let post6 = new Post(post6fixture);
-    let post7 = new Post(post7fixture);
-    let post8 = new Post(post8fixture);
-    let post9 = new Post(post9fixture);
-    let post10 = new Post(post10fixture);
-    let post11 = new Post(post11fixture);
+    let posts = [
+        post1fixture,
+        post2fixture,
+        post3fixture,
+        post4fixture,
+        post5fixture,
+        post6fixture,
+        post7fixture,
+        post8fixture,
+        post9fixture,
+        post10fixture,
+        post11fixture
+    ];
 
-    try {
-        await post1.save();
-        await post2.save();
-        await post3.save();
-        await post4.save();
-        await post5.save();
-        await post6.save();
-        await post7.save();
-        await post8.save();
-        await post9.save();
-        await post10.save();
-        await post11.save();
-    } catch (err) {
-        logAndExit(err);
+    for (let i in posts) {
+        let post = new Post(posts[i]);
+        try {
+            await post.save();
+        } catch (err) {
+            logAndExit(err);
+        }
     }
 }
 
@@ -104,10 +99,6 @@ async function prepareDatabaseBeforeTest() {
     }
 }
 
-exports.prepareDatabaseBeforeTest = function () {
-    return prepareDatabaseBeforeTest();
-}
-
 function assertIsNull(obj) {
     if (obj) {
         logAndExit(obj);
@@ -115,21 +106,21 @@ function assertIsNull(obj) {
     assert.strictEqual(obj, null)
 }
 
-exports.assertIsNull = assertIsNull;
+function assertIsNotNull(obj) {
+    if (!obj) {
+        logAndExit(obj);
+    }
+}
 
 function assertIsObject(obj) {
     assert.strictEqual(typeof obj === 'object', true)
 }
-
-exports.assertIsObject = assertIsObject;
 
 function logAndExit(obj) {
     console.log(obj);
     console.trace();
     process.exit(1);
 }
-
-exports.logAndExit = logAndExit;
 
 async function beforeEach(done) {
     let dbState = db.readyState;
@@ -146,13 +137,9 @@ async function beforeEach(done) {
     }
 }
 
-exports.beforeEach = beforeEach;
-
 function assertObjIsEmpty(obj) {
     assert.strictEqual(Object.keys(obj).length === 0, true);
 }
-
-exports.assertObjIsEmpty = assertObjIsEmpty;
 
 function assertStringIsNotEmpty(string) {
     if ((typeof string) !== 'string') {
@@ -161,10 +148,19 @@ function assertStringIsNotEmpty(string) {
     assert.strictEqual(string.length !== 0, true);
 }
 
-exports.assertStringIsNotEmpty = assertStringIsNotEmpty;
-
 function assertObjHasProp(obj, prop) {
     assert.strictEqual(obj.hasOwnProperty(prop), true);
 }
 
 exports.assertObjHasProp = assertObjHasProp;
+exports.assertStringIsNotEmpty = assertStringIsNotEmpty;
+exports.assertObjIsEmpty = assertObjIsEmpty;
+exports.beforeEach = beforeEach;
+exports.logAndExit = logAndExit;
+exports.assertIsNull = assertIsNull;
+exports.assertIsNotNull = assertIsNotNull;
+exports.assertIsObject = assertIsObject;
+
+exports.prepareDatabaseBeforeTest = function () {
+    return prepareDatabaseBeforeTest();
+}

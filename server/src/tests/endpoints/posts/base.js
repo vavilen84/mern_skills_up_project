@@ -1,26 +1,25 @@
 const Post = require('./../../../models/postModel').Post;
-const {assertTrue, assertFalse, assertIsNull, assertIsObject} = require('./../../utils');
+const {assertIsNull, assertIsObject} = require('./../../utils');
 
-module.exports.ensurePageDoesNotExistsByUniqueKey = async function (page) {
-    if (!page.uniqueKey) {
-        throw 'uniqueKey is empty!';
-    }
-    await Post.findOne({uniqueKey: page.uniqueKey}).exec()
+module.exports.ensurePostNotExists = async function (post) {
+    await findPostById(post._id)
         .then(post => assertIsNull(post))
         .catch(err => assertIsNull(err));
 }
 
-module.exports.ensurePageExistsByUniqueKey = async function (page) {
-    if (!page.uniqueKey) {
-        throw 'uniqueKey is empty!';
-    }
-    await findPostByUniqueKey(page.uniqueKey)
+module.exports.ensurePostExists = async function (post) {
+    await findPostById(post._id)
         .then(post => assertIsObject(post))
         .catch(err => assertIsNull(err))
 }
 
-async function findPostByUniqueKey(uk){
-    return await Post.findOne({uniqueKey: uk}).exec();
+async function findPostById(id) {
+    return await Post.findOne({_id: id}).exec();
 }
 
-module.exports.findPostByUniqueKey = findPostByUniqueKey;
+async function findPostBUrl(url) {
+    return await Post.findOne({url: url}).exec();
+}
+
+module.exports.findPostById = findPostById;
+module.exports.findPostBUrl = findPostBUrl;

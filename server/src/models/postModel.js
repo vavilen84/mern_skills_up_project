@@ -6,19 +6,7 @@ const constants = require('../constants/constants');
 const {POST_MODEL_NAME} = require("../constants/constants");
 const {Counter} = require("./countersModel");
 const logger = require('./../utils/logger')(module);
-
-async function uniqueKeyUniqueValidator(v) {
-    if (v) {
-        let model = getModel();
-        let doc = await model.findOne({uniqueKey: v}).exec();
-        if (doc) {
-            if (doc.id !== this._id.toString()) {
-                return false;
-            }
-        }
-    }
-    return true;
-}
+const { v4: uuidv4 } = require('uuid');
 
 async function urlUniqueValidator(v) {
     let model = getModel();
@@ -31,24 +19,18 @@ async function urlUniqueValidator(v) {
     return true;
 }
 
-const uniqueKeyCustomValidators = [
-    {validator: uniqueKeyUniqueValidator, msg: constants.VALIDATION_ERRORS.UNIQUE}
-]
-
 const urlCustomValidators = [
     {validator: urlUniqueValidator, msg: constants.VALIDATION_ERRORS.UNIQUE}
 ]
 
 const schemaObj = {
+    _id: {
+        type: String,
+        default: () => uuidv4()
+    },
     image: {
         type: String,
         max: 255,
-    },
-    uniqueKey: {
-        type: String,
-        max: 255,
-        index: {unique: true},
-        validate: uniqueKeyCustomValidators,
     },
     url: {
         type: String,
@@ -103,15 +85,15 @@ const schemaObj = {
 
 const schema = new Schema(schemaObj)
 
-schema.pre('save',function(next) {
+schema.pre('save', function (next) {
     let doc = this;
-    Counter.findByIdAndUpdate({_id: POST_MODEL_NAME}, {$inc: { seq: 1} }, async function(error, counter)   {
+    Counter.findByIdAndUpdate({_id: POST_MODEL_NAME}, {$inc: {seq: 1}}, async function (error, counter) {
         if (!counter) {
-            counter = await new Counter({_id:POST_MODEL_NAME, seq: 1}).save()
+            counter = await new Counter({_id: POST_MODEL_NAME, seq: 1}).save()
         }
-        if(error)
+        if (error)
             return next(error);
-        if (!doc.seq){
+        if (!doc.seq) {
             doc.seq = counter.seq;
         }
         next();
@@ -131,7 +113,6 @@ exports.ValidationErrorResponseSerializer = function (err) {
 exports.populateFromRequestOnCreate = function (formDataFields, imageFilename) {
     return {
         image: imageFilename || null,
-        uniqueKey: formDataFields.uniqueKey || null,
         url: formDataFields.url || null,
         title: formDataFields.title || null,
         relatedPostIds: formDataFields.relatedPostIds || [],
@@ -146,7 +127,6 @@ exports.populateFromRequestOnCreate = function (formDataFields, imageFilename) {
 
 exports.populateFromRequestOnUpdate = function (req, post) {
     post.image = req.body.image || post.image;
-    post.uniqueKey = req.body.uniqueKey || post.uniqueKey;
     post.url = req.body.url || post.url;
     post.title = req.body.title || post.title;
     post.relatedPostIds = req.body.relatedPostIds || post.relatedPostIds;
