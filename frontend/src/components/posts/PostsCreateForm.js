@@ -10,7 +10,6 @@ class PostsCreateForm extends React.Component {
 
         this.state = {
             image: "",
-            uniqueKey: "",
             url: "",
             title: "",
             relatedPostIds: [], // TODO
@@ -29,7 +28,6 @@ class PostsCreateForm extends React.Component {
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeUrl = this.handleChangeUrl.bind(this);
         this.handleChangeContent = this.handleChangeContent.bind(this);
-        this.handleChangeUniqueKey = this.handleChangeUniqueKey.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -54,7 +52,6 @@ class PostsCreateForm extends React.Component {
         let post = {
             title: this.state.title,
             url: this.state.url,
-            uniqueKey: this.state.uniqueKey,
             content: this.state.content,
             image: this.fileInput.current.files[0] || null,
         };
@@ -75,11 +72,6 @@ class PostsCreateForm extends React.Component {
                         <label htmlFor="">URL</label>
                         <input type="text" className="form-control" placeholder="URL ex: react-hooks"
                                onChange={this.handleChangeUrl}/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="">Unique Key</label>
-                        <input type="text" className="form-control" placeholder="react_hooks"
-                               onChange={this.handleChangeUniqueKey}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Content</label>
