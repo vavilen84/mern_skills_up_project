@@ -76,16 +76,15 @@ describe('PostModelTest model validation', function () {
     });
 
     describe('unique', function () {
-        it('postModel/error on not unique uniqueKey/url', function (done) {
+        it('postModel/error on not unique url', function (done) {
             (async function () {
-                let post = new PostModelTest({uniqueKey: post3fixture.uniqueKey, url: post3fixture.url});
+                let post = new PostModelTest({url: post3fixture.url});
                 await post.validate()
                     .then(() => {
                         logAndExit('no validation error')
                     })
                     .catch(function (err) {
                         err = ValidationErrorResponseSerializer(err);
-                        assert.strictEqual(err.errors['uniqueKey'], constants.VALIDATION_ERRORS.UNIQUE);
                         assert.strictEqual(err.errors['url'], constants.VALIDATION_ERRORS.UNIQUE);
                         done();
                     })

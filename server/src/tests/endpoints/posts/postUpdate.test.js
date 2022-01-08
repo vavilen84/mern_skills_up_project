@@ -56,7 +56,7 @@ describe(constants.USERS_BASE_URL, function () {
                             assert.strictEqual(updatedPost.url, updatedUrl);
                             let post = null;
                             try {
-                                post = await findPostByUrl(post3fixture.url);
+                                post = await findPostByUrl(updatedUrl);
                             } catch(err){
                                 logAndExit(err);
                             }
