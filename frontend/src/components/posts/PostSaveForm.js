@@ -53,7 +53,7 @@ class PostSaveForm extends React.Component {
         formData.append('title', post.title);
         formData.append('content', post.content);
 
-        await fetch(getPost(), {
+        await fetch(this.props.endpointURL, {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + this.props.accessToken
@@ -64,8 +64,10 @@ class PostSaveForm extends React.Component {
             .then(json => {
                 if (json.code === 200) {
                     this.props.handleSuccess();
+                    this.props.showAlert(null, null, this.props.successMessage);
+                } else {
+                    this.props.showAlert(json.code, json.data, json.message);
                 }
-                this.props.showAlert(null, null, this.props.successMessage);
             })
             .catch(err => {
                 console.log(err);

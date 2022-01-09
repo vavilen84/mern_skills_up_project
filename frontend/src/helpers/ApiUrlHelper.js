@@ -21,3 +21,7 @@ export const getAuthURL = (username) => {
 export const getPostsListURL = (page) => {
     return getServerAPIURL(POSTS_BASE_URL+"?page="+page);
 }
+
+export const getCreatePostURL = () => {
+    return getServerAPIURL(POSTS_BASE_URL);
+}

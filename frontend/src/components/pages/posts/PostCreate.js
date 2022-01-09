@@ -3,6 +3,7 @@ import {Navigate} from "react-router";
 import {postsListRoute} from "../../../constants/constants";
 import PostSaveForm from "../../posts/PostSaveForm";
 import Alert from "../../layout/alert/Alert";
+import {getCreatePostURL} from "../../../helpers/ApiUrlHelper";
 
 class PostCreate extends React.Component {
 
@@ -27,7 +28,7 @@ class PostCreate extends React.Component {
             :
             <>
                 <Alert/>
-                <PostSaveForm handleSuccess={this.handleSuccess} successMessage={'Created!'} endpointURL={getPostCreateURL}/>
+                <PostSaveForm handleSuccess={this.handleSuccess} successMessage={'Created!'} endpointURL={getCreatePostURL()}/>
             </>
 
         return (content);
