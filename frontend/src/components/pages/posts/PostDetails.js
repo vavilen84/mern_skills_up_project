@@ -1,10 +1,10 @@
-import React, {Component, useEffect, useState} from "react";
-import './style.scss'
+import React, {useEffect, useState} from "react";
+import '../../posts/style.scss'
 import moment from "moment";
 import {useParams} from "react-router";
-import {getURL, POSTS_BASE_URL} from "../../helpers";
+import {getURL, POSTS_BASE_URL} from "../../../helpers";
 
-function Post() {
+function PostDetails() {
     const [post, setPost] = useState(0);
     const {url} = useParams();
 
@@ -23,13 +23,15 @@ function Post() {
             )
     }, []);
 
+    const image = post.image ? <img src={"/"+post.image}/> : '';
+
     return (
         <div className={'post'}>
             <h1 className={'title'}>
                 {post.title}
             </h1>
             <div>
-                <img src={"/"+post.image}/>
+                {image}
             </div>
             <div className={'description'}>
                 {post.description}
@@ -44,4 +46,4 @@ function Post() {
     )
 }
 
-export default Post;
+export default PostDetails;

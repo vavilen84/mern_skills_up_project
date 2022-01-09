@@ -12,7 +12,7 @@ class PostUpdate extends React.Component {
         return (
             <>
                 <Alert/>
-                <PostSaveForm successMessage={'Updated!'}/>
+                <PostSaveForm successMessage={'Updated!'} />
             </>
         );
     }

@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import './style.scss'
 import moment from "moment";
-import {postsListRoute} from "../../constants/constants";
 import {connect} from "react-redux";
 import PostUpdateDeleteButtons from "./PostUpdateDeleteButtons";
+import {getPostDetailsURL} from "../../helpers";
 
 class PostListItem extends Component {
 
@@ -18,7 +18,7 @@ class PostListItem extends Component {
         return (
             <li>
                 <div className={'title'}>
-                    <a href={postsListRoute + "/" + this.props.item.url}>
+                    <a href={getPostDetailsURL(this.props.item.url)}>
                         {this.props.item.title}
                     </a>
                 </div>

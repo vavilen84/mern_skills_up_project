@@ -1,4 +1,4 @@
-import {postUpdateRoute} from "../constants/constants";
+import {postRoute, postUpdateRoute} from "../constants/constants";
 
 export const USERS_BASE_URL = '/api/v1/users';
 
@@ -14,4 +14,8 @@ export const getURL = (url) => (
 
 export const getUpdatePostURL = (url) => {
     return postUpdateRoute.replace(':url', url)
+}
+
+export const getPostDetailsURL = (url) => {
+    return postRoute.replace(':url', url);
 }
