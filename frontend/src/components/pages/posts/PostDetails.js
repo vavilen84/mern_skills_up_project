@@ -21,28 +21,27 @@ function PostDetails() {
 
     const image = post.image ? <img src={"/" + post.image}/> : '';
 
-    const content = !post ? <NotFoundPage/> :
-        <div className={'post'}>
-            <h1 className={'title'}>
-                {post.title}
-            </h1>
-            <div>
-                {image}
-            </div>
-            <div className={'description'}>
-                {post.description}
-            </div>
-            <div className={'created-at'}>
-                Created: {moment(post.createdAt).format('YYYY-MM-DD')}
-            </div>
-            <div className={'content'}>
-                {post.content}
-            </div>
-        </div>
-
-
     return (
-        {content}
+        !post
+            ? <NotFoundPage/>
+            :
+            <div className={'post'}>
+                <h1 className={'title'}>
+                    {post.title}
+                </h1>
+                <div>
+                    {image}
+                </div>
+                <div className={'description'}>
+                    {post.description}
+                </div>
+                <div className={'created-at'}>
+                    Created: {moment(post.createdAt).format('YYYY-MM-DD')}
+                </div>
+                <div className={'content'}>
+                    {post.content}
+                </div>
+            </div>
     )
 }
 

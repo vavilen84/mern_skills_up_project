@@ -1,6 +1,6 @@
 import {loginAction, showAlertAction} from "../index";
 import {accessToken, defaultErr, refreshToken, tokensEmptyErr} from "../../constants/constants";
-import {getAuthURL} from "../../helpers/urlHelper";
+import {getAuthURL} from "../../helpers/ApiUrlHelper";
 
 export function authenticateUserThunkAction(username, password) {
     return (dispatch) => {

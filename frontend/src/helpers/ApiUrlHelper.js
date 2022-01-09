@@ -19,5 +19,5 @@ export const getAuthURL = (username) => {
 }
 
 export const getPostsListURL = (page) => {
-    return POSTS_BASE_URL+"?page="+page;
+    return getServerAPIURL(POSTS_BASE_URL+"?page="+page);
 }

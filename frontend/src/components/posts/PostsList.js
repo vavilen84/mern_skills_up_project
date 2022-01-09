@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import {postCreateRoute} from "../../constants/constants";
 import {connect} from "react-redux";
 import Alert from "../layout/alert/Alert";
+import {fetchPost, fetchPostsList} from "../../helpers/postHelper";
 
 class PostsList extends Component {
     constructor(props) {
@@ -20,28 +21,46 @@ class PostsList extends Component {
 
         this.handleSetPage = this.handleSetPage.bind(this);
         this.handleGetCurrentPage = this.handleGetCurrentPage.bind(this);
+        this.fetchPosts = this.fetchPosts.bind(this);
+
 
         this.createNewPostBtn = (props.isLoggedIn)
-            ?  <Link className={'btn btn-success'} to={postCreateRoute}>Create New Post</Link>
+            ? <Link className={'btn btn-success'} to={postCreateRoute}>Create New Post</Link>
             : '';
     }
 
-    handleSetPage(page){
+    handleSetPage(page) {
         this.setState({page: parseInt(page)});
     }
 
-    handleGetCurrentPage(){
+    handleGetCurrentPage() {
         return parseInt(this.state.page);
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.page !== this.state.page){
+        if (prevState.page !== this.state.page) {
             this.fetchPosts();
         }
     }
 
-    fetchPosts() {
-
+    async fetchPosts() {
+        let result = null;
+        try {
+            result = await fetchPostsList(this.state.page);
+            if (result.items && result.totalPagesCount) {
+                this.setState({
+                    isLoaded: true,
+                    items: result.items,
+                    totalPagesCount: result.totalPagesCount
+                });
+            }
+        } catch (err) {
+            console.log(err);
+            this.setState({
+                isLoaded: false,
+                error: err
+            });
+        }
     }
 
     componentDidMount() {
@@ -49,7 +68,7 @@ class PostsList extends Component {
     }
 
     render() {
-        const { error, isLoaded, items, totalPagesCount } = this.state;
+        const {error, isLoaded, items, totalPagesCount} = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -64,7 +83,8 @@ class PostsList extends Component {
                             <PostListItem key={item.url} item={item}/>
                         ))}
                     </ul>
-                    <Paginator setPage={this.handleSetPage} getPage={this.handleGetCurrentPage} totalPagesCount={totalPagesCount}/>
+                    <Paginator setPage={this.handleSetPage} getPage={this.handleGetCurrentPage}
+                               totalPagesCount={totalPagesCount}/>
                 </>
 
             );

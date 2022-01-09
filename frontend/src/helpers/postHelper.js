@@ -1,12 +1,14 @@
 import {getFetchPostURL, getPostsListURL} from "./ApiUrlHelper";
+import {fetchOptions} from "./apiHelper";
 
 export const fetchPost = async (url) => {
     let post = null;
     let resp = null;
     let json = null;
     try {
-        resp = await fetch(getFetchPostURL(url));
+        resp = await fetch(getFetchPostURL(url), fetchOptions);
         json = await resp.json();
+        console.log(json);
         if (json && json.code === 200) {
             post = json.data;
         }
@@ -17,23 +19,21 @@ export const fetchPost = async (url) => {
 }
 
 export const fetchPostsList = async (page) => {
-    fetch(getPostsListURL(page))
-        .then(res => res.json())
-        .then(
-            (res) => {
-                this.setState({
-                    isLoaded: true,
-                    items: res.data.items,
-                    totalPagesCount: res.data.total_pages_count
-                });
-            },
-            // Note: it is important to handle errors here, and not in the catch () block,
-            // so as not to catch the exception from errors in the component itself.
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
-            }
-        )
+    let result = {
+        list: null,
+        totalPagesCount: null
+    };
+    let resp = null;
+    let json = null;
+    try {
+        resp = await fetch(getPostsListURL(page), fetchOptions);
+        json = await resp.json();
+        if (json && json.code === 200) {
+            result.items = json.data.items;
+            result.totalPagesCount = json.data.total_pages_count;
+        }
+    } catch (err) {
+        console.log(err);
+    }
+    return result;
 }
