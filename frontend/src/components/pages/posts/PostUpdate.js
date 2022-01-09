@@ -1,21 +1,26 @@
 import React from "react";
 import PostSaveForm from "../../posts/PostSaveForm";
 import Alert from "../../layout/alert/Alert";
+import {fetchPost} from "../../../helpers/postHelper";
 
-class PostUpdate extends React.Component {
+const PostUpdate = () => {
 
-    constructor(props) {
-        super(props);
-    }
+    // componentDidMount() {
+    //     let post = null;
+    //     try {
+    //         post = await fetchPost(url);
+    //         setPost(post);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
 
-    render() {
-        return (
-            <>
-                <Alert/>
-                <PostSaveForm successMessage={'Updated!'} />
-            </>
-        );
-    }
+    return (
+        <>
+            <Alert/>
+            <PostSaveForm successMessage={'Updated!'}/>
+        </>
+    );
 }
 
 export default PostUpdate;

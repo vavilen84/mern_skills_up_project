@@ -3,7 +3,7 @@ import './style.scss'
 import moment from "moment";
 import {connect} from "react-redux";
 import PostUpdateDeleteButtons from "./PostUpdateDeleteButtons";
-import {getPostDetailsURL} from "../../helpers";
+import {getPostDetailsURL} from "../../helpers/frontendURLHelper";
 
 class PostListItem extends Component {
 

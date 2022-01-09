@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import './style.scss'
-import {getURL, POSTS_BASE_URL} from "../../helpers";
 import PostListItem from "./PostListItem";
 import Paginator from "./Paginator";
 import {Link} from "react-router-dom";
@@ -42,25 +41,7 @@ class PostsList extends Component {
     }
 
     fetchPosts() {
-        fetch(getURL(POSTS_BASE_URL+"?page="+this.state.page))
-            .then(res => res.json())
-            .then(
-                (res) => {
-                    this.setState({
-                        isLoaded: true,
-                        items: res.data.items,
-                        totalPagesCount: res.data.total_pages_count
-                    });
-                },
-                // Note: it is important to handle errors here, and not in the catch () block,
-                // so as not to catch the exception from errors in the component itself.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+
     }
 
     componentDidMount() {

@@ -1,7 +1,5 @@
 import React from "react";
 import {POST_STATUS_ACTIVE} from "../../../../server/src/constants/constants";
-import Alert from "../layout/alert/Alert";
-import {getURL, POSTS_BASE_URL} from "../../helpers";
 import {defaultErr} from "../../constants/constants";
 import {showAlertAction} from "../../actions";
 import {connect} from "react-redux";
@@ -55,7 +53,7 @@ class PostSaveForm extends React.Component {
         formData.append('title', post.title);
         formData.append('content', post.content);
 
-        await fetch(getURL(POSTS_BASE_URL), {
+        await fetch(getPost(), {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + this.props.accessToken

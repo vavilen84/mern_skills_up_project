@@ -27,7 +27,7 @@ class PostCreate extends React.Component {
             :
             <>
                 <Alert/>
-                <PostSaveForm handleSuccess={this.handleSuccess} successMessage={'Created!'}/>
+                <PostSaveForm handleSuccess={this.handleSuccess} successMessage={'Created!'} endpointURL={getPostCreateURL}/>
             </>
 
         return (content);

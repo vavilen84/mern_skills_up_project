@@ -1,10 +1,10 @@
-import {getURL, USERS_BASE_URL} from "../../helpers";
 import {loginAction, showAlertAction} from "../index";
 import {accessToken, defaultErr, refreshToken, tokensEmptyErr} from "../../constants/constants";
+import {getAuthURL} from "../../helpers/urlHelper";
 
 export function authenticateUserThunkAction(username, password) {
     return (dispatch) => {
-        fetch(getURL(USERS_BASE_URL + "/" + username + "/authenticate"), {
+        fetch(getAuthURL(username), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

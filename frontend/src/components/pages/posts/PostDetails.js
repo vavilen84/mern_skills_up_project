@@ -2,30 +2,26 @@ import React, {useEffect, useState} from "react";
 import '../../posts/style.scss'
 import moment from "moment";
 import {useParams} from "react-router";
-import {getURL, POSTS_BASE_URL} from "../../../helpers";
+import {fetchPost} from "../../../helpers/postHelper";
+import NotFoundPage from "../NotFoundPage";
 
 function PostDetails() {
     const [post, setPost] = useState(0);
     const {url} = useParams();
 
-    useEffect(() => {
-        fetch(getURL(POSTS_BASE_URL+"/"+url))
-            .then(res => res.json())
-            .then(
-                (res) => {
-                    if (res.code === 200) {
-                        setPost(res.data);
-                    }
-                },
-                (error) => {
-                    console.log(error);
-                }
-            )
+    useEffect(async () => {
+        let post = null;
+        try {
+            post = await fetchPost(url);
+            setPost(post);
+        } catch (err) {
+            console.log(err);
+        }
     }, []);
 
-    const image = post.image ? <img src={"/"+post.image}/> : '';
+    const image = post.image ? <img src={"/" + post.image}/> : '';
 
-    return (
+    const content = !post ? <NotFoundPage/> :
         <div className={'post'}>
             <h1 className={'title'}>
                 {post.title}
@@ -43,6 +39,10 @@ function PostDetails() {
                 {post.content}
             </div>
         </div>
+
+
+    return (
+        {content}
     )
 }
 
