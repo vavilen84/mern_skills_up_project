@@ -67,7 +67,7 @@ class PostSaveForm extends React.Component {
                 if (json.code === 200) {
                     this.props.handleSuccess();
                 }
-                this.props.showAlert(null, null, 'Success!');
+                this.props.showAlert(null, null, this.props.successMessage);
             })
             .catch(err => {
                 console.log(err);

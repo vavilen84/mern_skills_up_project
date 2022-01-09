@@ -1,3 +1,5 @@
+import {postUpdateRoute} from "../constants/constants";
+
 export const USERS_BASE_URL = '/api/v1/users';
 
 export const POSTS_BASE_URL = '/api/v1/posts';
@@ -9,3 +11,7 @@ export const SERVER_URL = 'http://localhost:8000'
 export const getURL = (url) => (
     SERVER_URL + url
 )
+
+export const getUpdatePostURL = (url) => {
+    return postUpdateRoute.replace(':url', url)
+}

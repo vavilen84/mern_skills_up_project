@@ -10,7 +10,7 @@ class PostListItem extends Component {
     constructor(props) {
         super(props);
         this.postUpdateDeleteButtons = (props.isLoggedIn)
-            ? <PostUpdateDeleteButtons/>
+            ? <PostUpdateDeleteButtons item={props.item}/>
             : "";
     }
 
