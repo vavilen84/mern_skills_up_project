@@ -11,10 +11,11 @@ class PostSaveForm extends React.Component {
         super(props);
 
         this.state = {
-            image: "",
-            url: "",
-            title: "",
-            content: "",
+            image: null,
+            imageFileName: props.post?.image || "",
+            url: props.post?.url || "",
+            title: props.post?.title || "",
+            content: props.post?.content || "",
             status: POST_STATUS_ACTIVE,
         };
 
@@ -63,10 +64,12 @@ class PostSaveForm extends React.Component {
             .then(res => res.json())
             .then(json => {
                 if (json.code === 200) {
-                    this.props.handleSuccess();
                     this.props.showAlert(null, null, this.props.successMessage);
                 } else {
                     this.props.showAlert(json.code, json.data, json.message);
+                }
+                if (this.props.handleSuccess) {
+                    this.props.handleSuccess();
                 }
             })
             .catch(err => {

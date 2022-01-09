@@ -6,7 +6,7 @@ import {fetchPost} from "../../../helpers/postHelper";
 import NotFoundPage from "../NotFoundPage";
 
 function PostDetails() {
-    const [post, setPost] = useState(0);
+    const [post, setPost] = useState(null);
     const {url} = useParams();
 
     useEffect(async () => {
@@ -19,7 +19,7 @@ function PostDetails() {
         }
     }, []);
 
-    const image = post.image ? <img src={"/" + post.image}/> : '';
+    const image = post?.image ? <img src={"/" + post.image}/> : '';
 
     return (
         !post
