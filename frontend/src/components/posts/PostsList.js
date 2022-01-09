@@ -6,6 +6,7 @@ import Paginator from "./Paginator";
 import {Link} from "react-router-dom";
 import {postCreateRoute} from "../../constants/constants";
 import {connect} from "react-redux";
+import Alert from "../layout/alert/Alert";
 
 class PostsList extends Component {
     constructor(props) {
@@ -75,6 +76,7 @@ class PostsList extends Component {
         } else {
             return (
                 <>
+                    <Alert/>
                     {this.createNewPostBtn}
                     <ul className={'posts-list'}>
                         {items.map(item => (

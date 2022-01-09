@@ -1,8 +1,12 @@
 import React from "react";
 import {POST_STATUS_ACTIVE} from "../../../../server/src/constants/constants";
 import Alert from "../layout/alert/Alert";
+import {getURL, POSTS_BASE_URL} from "../../helpers";
+import {defaultErr} from "../../constants/constants";
+import {showAlertAction} from "../../actions";
+import {connect} from "react-redux";
 
-class PostsCreateForm extends React.Component {
+class PostSaveForm extends React.Component {
 
     constructor(props) {
 
@@ -12,15 +16,8 @@ class PostsCreateForm extends React.Component {
             image: "",
             url: "",
             title: "",
-            relatedPostIds: [], // TODO
-            tags: [], // TODO
-            keywords: "", // TODO
-            description: "", // TODO
-            greeting: "", // TODO
             content: "",
             status: POST_STATUS_ACTIVE,
-            created: null,
-            updated: null
         };
 
         this.fileInput = React.createRef();
@@ -39,15 +36,11 @@ class PostsCreateForm extends React.Component {
         this.setState({url: event.target.value});
     }
 
-    handleChangeUniqueKey(event) {
-        this.setState({uniqueKey: event.target.value});
-    }
-
     handleChangeContent(event) {
         this.setState({content: event.target.value});
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
         let post = {
             title: this.state.title,
@@ -55,13 +48,36 @@ class PostsCreateForm extends React.Component {
             content: this.state.content,
             image: this.fileInput.current.files[0] || null,
         };
-        this.props.handleSubmit(post);
+
+        let formData = new FormData();
+        formData.append('url', post.url);
+        formData.append('image', post.image);
+        formData.append('title', post.title);
+        formData.append('content', post.content);
+
+        await fetch(getURL(POSTS_BASE_URL), {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + this.props.accessToken
+            },
+            body: formData
+        })
+            .then(res => res.json())
+            .then(json => {
+                if (json.code === 200) {
+                    this.props.handleSuccess();
+                }
+                this.props.showAlert(null, null, 'Success!');
+            })
+            .catch(err => {
+                console.log(err);
+                this.props.showAlert(500, null, defaultErr);
+            });
     }
 
     render() {
         return (
             <div>
-                <Alert/>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="">Title</label>
@@ -90,4 +106,19 @@ class PostsCreateForm extends React.Component {
     }
 }
 
-export default PostsCreateForm;
+const mapDispatchToProps = dispatch => (
+    {
+        showAlert: (code, data, message) => dispatch(showAlertAction(code, data, message))
+    }
+)
+
+
+const mapStateToProps = (state) => {
+    let auth = state.rootReducer.auth;
+
+    return {
+        accessToken: auth.accessToken,
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostSaveForm);
