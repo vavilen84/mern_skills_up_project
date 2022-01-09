@@ -2,10 +2,15 @@ import React from "react";
 import {connect} from "react-redux";
 import {List} from "../common/List";
 import "./style.scss";
+import {hideAlertAction} from "../../../actions";
 
 class Alert extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentWillUnmount() {
+        this.props.hideAlert();
     }
 
     render() {
@@ -35,4 +40,11 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps)(Alert);
+const mapDispatchToProps = dispatch => (
+    {
+        hideAlert: () => dispatch(hideAlertAction()),
+    }
+)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Alert);

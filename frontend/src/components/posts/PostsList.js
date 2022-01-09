@@ -78,7 +78,7 @@ class PostsList extends Component {
                     {this.createNewPostBtn}
                     <ul className={'posts-list'}>
                         {items.map(item => (
-                            <PostListItem key={item.uniqueKey} item={item}/>
+                            <PostListItem key={item.url} item={item}/>
                         ))}
                     </ul>
                     <Paginator setPage={this.handleSetPage} getPage={this.handleGetCurrentPage} totalPagesCount={totalPagesCount}/>

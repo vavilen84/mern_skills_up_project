@@ -1,4 +1,4 @@
-import {SHOW_ALERT, LOGIN, LOGOUT} from "../actionTypes";
+import {SHOW_ALERT, LOGIN, LOGOUT, HIDE_ALERT} from "../actionTypes";
 
 export function showAlertAction(code, data, message) {
     return {
@@ -6,6 +6,12 @@ export function showAlertAction(code, data, message) {
         code: code,
         data: data,
         message: message
+    };
+}
+
+export function hideAlertAction() {
+    return {
+        type: HIDE_ALERT,
     };
 }
 
