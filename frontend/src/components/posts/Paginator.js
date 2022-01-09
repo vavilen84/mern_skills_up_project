@@ -4,6 +4,7 @@ import './style.scss'
 const Paginator = function (props) {
     const {totalPagesCount} = props;
     var pageButtons = [];
+    var currentPage = props.getPage();
     const onButtonClick = (e) => {
         let el = e.target;
         let dataType = el.attributes["data-type"].textContent;
@@ -11,7 +12,6 @@ const Paginator = function (props) {
             let pageNumber = el.attributes["data-page_number"].textContent;
             props.setPage(pageNumber);
         } else if (dataType === 'prev'){
-            let currentPage = props.getPage();
             if (currentPage > 1) {
                 props.setPage(currentPage-1);
             }
@@ -24,7 +24,8 @@ const Paginator = function (props) {
     }
 
     for (let i = 1; i < totalPagesCount + 1; i++) {
-        pageButtons.push(<li key={i} data-type={'page'} data-page_number={i} onClick={onButtonClick}>{i}</li>);
+        var activeClass = i === currentPage ? 'active' : '';
+        pageButtons.push(<li key={i} className={activeClass} data-type={'page'} data-page_number={i} onClick={onButtonClick}>{i}</li>);
     }
 
     return (
