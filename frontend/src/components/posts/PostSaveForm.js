@@ -79,25 +79,33 @@ class PostSaveForm extends React.Component {
     }
 
     render() {
+        console.log(this.state.imageFileName);
+        const image = !this.state.imageFileName
+            ? ''
+            : <div className={'image-preview'}>
+                <img src={"/" + this.state.imageFileName}/> : '';
+            </div>
         return (
-            <div>
+            <div id={'save-post-form'}>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="">Title</label>
                         <input type="text" className="form-control" placeholder="Title"
-                               onChange={this.handleChangeTitle}/>
+                               onChange={this.handleChangeTitle} value={this.state.title}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">URL</label>
                         <input type="text" className="form-control" placeholder="URL ex: react-hooks"
-                               onChange={this.handleChangeUrl}/>
+                               onChange={this.handleChangeUrl} value={this.state.url}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Content</label>
-                        <textarea className="form-control" placeholder="Content" onChange={this.handleChangeContent}/>
+                        <textarea className="form-control" placeholder="Content"
+                                  onChange={this.handleChangeContent} value={this.state.content}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Image</label>
+                        {image}
                         <div>
                             <input type="file" ref={this.fileInput} />
                         </div>

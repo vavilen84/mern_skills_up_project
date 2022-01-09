@@ -27,6 +27,7 @@ class PostCreate extends React.Component {
             ? <Navigate to={postsListRoute} replace={true}/>
             :
             <>
+                <h1>Create New Post</h1>
                 <Alert/>
                 <PostSaveForm handleSuccess={this.handleSuccess} successMessage={'Created!'} endpointURL={getCreatePostURL()}/>
             </>

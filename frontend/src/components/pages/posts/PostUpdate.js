@@ -21,13 +21,17 @@ const PostUpdate = () => {
     }, []);
 
     return (
-        <>
-            <Alert/>
-            <PostSaveForm
-                post={post}
-                successMessage={'Created!'}
-                endpointURL={getCreatePostURL()}/>
-        </>
+        !post
+            ? ''
+            :
+            <>
+                <h1>Update Post: {post.title}</h1>
+                <Alert/>
+                <PostSaveForm
+                    post={post}
+                    successMessage={'Created!'}
+                    endpointURL={getCreatePostURL()}/>
+            </>
     );
 }
 
