@@ -83,7 +83,7 @@ console.log(props.endpointURL);
         const image = !this.state.imageFileName
             ? ''
             : <div className={'image-preview'}>
-                <img src={"/" + this.state.imageFileName}/> : '';
+                <img src={"/" + this.state.imageFileName}/>
             </div>
 
         return (

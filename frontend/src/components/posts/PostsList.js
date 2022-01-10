@@ -6,7 +6,9 @@ import {Link} from "react-router-dom";
 import {postCreateRoute} from "../../constants/constants";
 import {connect} from "react-redux";
 import Alert from "../layout/alert/Alert";
-import {fetchPost, fetchPostsList} from "../../helpers/postHelper";
+import {fetchPostsList} from "../../helpers/postHelper";
+import {Modal} from "react-bootstrap";
+import DeletePostModal from "./DeletePostModal";
 
 class PostsList extends Component {
     constructor(props) {
@@ -16,17 +18,27 @@ class PostsList extends Component {
             isLoaded: false,
             items: [],
             totalPagesCount: 0,
-            page: 1
+            page: 1,
+            showDeletePostModal: false
         };
 
         this.handleSetPage = this.handleSetPage.bind(this);
         this.handleGetCurrentPage = this.handleGetCurrentPage.bind(this);
         this.fetchPosts = this.fetchPosts.bind(this);
-
+        this.showDeletePostModal = this.showDeletePostModal.bind(this);
+        this.hideDeletePostModal = this.hideDeletePostModal.bind(this);
 
         this.createNewPostBtn = (props.isLoggedIn)
             ? <Link className={'btn btn-success'} to={postCreateRoute}>Create New Post</Link>
             : '';
+    }
+
+    showDeletePostModal(){
+        this.setState({showDeletePostModal:true});
+    }
+
+    hideDeletePostModal(){
+        this.setState({showDeletePostModal:false});
     }
 
     handleSetPage(page) {
@@ -77,10 +89,13 @@ class PostsList extends Component {
             return (
                 <>
                     <Alert/>
+                    <DeletePostModal
+                        show={this.state.showDeletePostModal}
+                        onHide={this.hideDeletePostModal}/>
                     {this.createNewPostBtn}
                     <ul className={'posts-list'}>
                         {items.map(item => (
-                            <PostListItem key={item.url} item={item}/>
+                            <PostListItem key={item.url} item={item} showDeletePostModal={this.showDeletePostModal}/>
                         ))}
                     </ul>
                     <Paginator setPage={this.handleSetPage} getPage={this.handleGetCurrentPage}
