@@ -1,7 +1,7 @@
-import {postRoute, postUpdateRoute} from "../constants/constants";
+import {postRoute, postAdminUpdateRoute} from "../constants/constants";
 
-export const getUpdatePostURL = (url) => {
-    return postUpdateRoute.replace(':url', url)
+export const getAdminUpdatePostURL = (url) => {
+    return postAdminUpdateRoute.replace(':url', url)
 }
 
 export const getPostDetailsURL = (url) => {

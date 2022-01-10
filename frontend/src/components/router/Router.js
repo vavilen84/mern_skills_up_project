@@ -6,7 +6,7 @@ import Logout from "../Logout";
 import {
     homeRoute,
     loginRoute,
-    logoutRoute, postCreateRoute, postRoute, postsListRoute, postUpdateRoute
+    logoutRoute, postCreateRoute, postRoute, postsListRoute, postAdminUpdateRoute
 } from "../../constants/constants";
 import PostsIndex from "../pages/posts/PostsIndex";
 import PostDetails from "../pages/posts/PostDetails";
@@ -21,7 +21,7 @@ const Router = () => (
         <Route exact path={postsListRoute} element={<PostsIndex/>}/>
         <Route exact path={postRoute} element={<PostDetails/>}/>
         <Route exact path={postCreateRoute} element={<RequireAuth><PostCreate/></RequireAuth>}/>
-        <Route exact path={postUpdateRoute} element={<RequireAuth><PostUpdate/></RequireAuth>}/>
+        <Route exact path={postAdminUpdateRoute} element={<RequireAuth><PostUpdate/></RequireAuth>}/>
         <Route exact path={loginRoute} element={<Login/>}/>
         <Route exact path={logoutRoute} element={<Logout/>}/>
     </Routes>

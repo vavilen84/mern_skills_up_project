@@ -11,6 +11,8 @@ const { v4: uuidv4 } = require('uuid');
 async function urlUniqueValidator(v) {
     let model = getModel();
     let doc = await model.findOne({url: v}).exec();
+    console.log(doc);
+    console.log(this);
     if (doc) {
         if (doc.id !== this._id.toString()) {
             return false;

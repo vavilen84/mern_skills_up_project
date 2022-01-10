@@ -25,3 +25,7 @@ export const getPostsListURL = (page) => {
 export const getCreatePostURL = () => {
     return getServerAPIURL(POSTS_BASE_URL);
 }
+
+export const getUpdatePostURL = (id) => {
+    return getServerAPIURL(POSTS_BASE_URL+"/"+id);
+}

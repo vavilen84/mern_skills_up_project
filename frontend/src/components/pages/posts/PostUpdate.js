@@ -3,7 +3,7 @@ import PostSaveForm from "../../posts/PostSaveForm";
 import Alert from "../../layout/alert/Alert";
 import {fetchPost} from "../../../helpers/postHelper";
 import {useParams} from "react-router";
-import {getCreatePostURL} from "../../../helpers/ApiUrlHelper";
+import {getUpdatePostURL} from "../../../helpers/ApiUrlHelper";
 
 const PostUpdate = () => {
 
@@ -29,8 +29,8 @@ const PostUpdate = () => {
                 <Alert/>
                 <PostSaveForm
                     post={post}
-                    successMessage={'Created!'}
-                    endpointURL={getCreatePostURL()}/>
+                    successMessage={'Updated!'}
+                    endpointURL={getUpdatePostURL(post.id)}/>
             </>
     );
 }

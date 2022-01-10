@@ -79,12 +79,13 @@ class PostSaveForm extends React.Component {
     }
 
     render() {
-        console.log(this.state.imageFileName);
+
         const image = !this.state.imageFileName
             ? ''
             : <div className={'image-preview'}>
                 <img src={"/" + this.state.imageFileName}/> : '';
             </div>
+
         return (
             <div id={'save-post-form'}>
                 <form onSubmit={this.handleSubmit}>
