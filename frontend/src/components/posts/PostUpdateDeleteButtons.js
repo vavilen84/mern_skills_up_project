@@ -8,7 +8,7 @@ const PostUpdateDeleteButtons = function (props) {
     return (
         <div className={'update-delete-buttons'}>
             <Link className={'btn btn-success'} to={getAdminUpdatePostURL(props.item.url)}>Update</Link>
-            <Button variant="danger" onClick={props.showDeletePostModal}>Delete</Button>
+            <Button data-id={props.item._id} variant="danger" onClick={props.showDeletePostModal}>Delete</Button>
         </div>
     )
 }

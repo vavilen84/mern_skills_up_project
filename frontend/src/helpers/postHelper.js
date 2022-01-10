@@ -1,5 +1,6 @@
-import {getFetchPostURL, getPostsListURL} from "./ApiUrlHelper";
+import {getDeletePostURL, getFetchPostURL, getPostsListURL} from "./ApiUrlHelper";
 import {fetchOptions} from "./apiHelper";
+import {defaultErr} from "../constants/constants";
 
 export const fetchPost = async (url) => {
     let post = null;
@@ -36,4 +37,15 @@ export const fetchPostsList = async (page) => {
         console.log(err);
     }
     return result;
+}
+
+export const deletePost = async (id, accessToken) => {
+    await fetch(getDeletePostURL(id), {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + accessToken
+        },
+    }).catch(err => {
+        console.log(err);
+    });
 }

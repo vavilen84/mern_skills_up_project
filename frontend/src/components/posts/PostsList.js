@@ -7,7 +7,6 @@ import {postCreateRoute} from "../../constants/constants";
 import {connect} from "react-redux";
 import Alert from "../layout/alert/Alert";
 import {fetchPostsList} from "../../helpers/postHelper";
-import {Modal} from "react-bootstrap";
 import DeletePostModal from "./DeletePostModal";
 
 class PostsList extends Component {
@@ -19,7 +18,8 @@ class PostsList extends Component {
             items: [],
             totalPagesCount: 0,
             page: 1,
-            showDeletePostModal: false
+            showDeletePostModal: false,
+            postToDeleteId: ""
         };
 
         this.handleSetPage = this.handleSetPage.bind(this);
@@ -33,12 +33,15 @@ class PostsList extends Component {
             : '';
     }
 
-    showDeletePostModal(){
-        this.setState({showDeletePostModal:true});
+    showDeletePostModal(e) {
+        this.setState({
+            showDeletePostModal: true,
+            postToDeleteId: e.target.attributes['data-id'].value
+        });
     }
 
-    hideDeletePostModal(){
-        this.setState({showDeletePostModal:false});
+    hideDeletePostModal() {
+        this.setState({showDeletePostModal: false});
     }
 
     handleSetPage(page) {
@@ -90,6 +93,8 @@ class PostsList extends Component {
                 <>
                     <Alert/>
                     <DeletePostModal
+                        onPostDelete={this.fetchPosts}
+                        postToDeleteId={this.state.postToDeleteId}
                         show={this.state.showDeletePostModal}
                         onHide={this.hideDeletePostModal}/>
                     {this.createNewPostBtn}

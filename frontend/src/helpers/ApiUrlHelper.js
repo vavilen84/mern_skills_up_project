@@ -29,3 +29,7 @@ export const getCreatePostURL = () => {
 export const getUpdatePostURL = (id) => {
     return getServerAPIURL(POSTS_BASE_URL+"/"+id);
 }
+
+export const getDeletePostURL = (id) => {
+    return getServerAPIURL(POSTS_BASE_URL+"/"+id);
+}

@@ -1,7 +1,20 @@
 import React from "react";
 import {Button, Modal} from "react-bootstrap";
+import {deletePost} from "../../helpers/postHelper";
+import {connect} from "react-redux";
 
 const DeletePostModal = (props) => {
+
+    const handleDeletePost = async () => {
+        try {
+            await deletePost(props.postToDeleteId, props.accessToken)
+        } catch(err){
+            console.log(err);
+        }
+        props.onPostDelete();
+        props.onHide();
+    }
+
     return (
         <>
             <Modal
@@ -20,11 +33,19 @@ const DeletePostModal = (props) => {
                     <Button variant="secondary" onClick={props.onHide}>
                         Close
                     </Button>
-                    <Button variant="primary">Understood</Button>
+                    <Button variant="danger" onClick={handleDeletePost}>Delete</Button>
                 </Modal.Footer>
             </Modal>
         </>
     );
 }
 
-export default DeletePostModal;
+const mapStateToProps = (state) => {
+    let auth = state.rootReducer.auth;
+
+    return {
+        accessToken: auth.accessToken,
+    };
+}
+
+export default connect(mapStateToProps, null)(DeletePostModal);
