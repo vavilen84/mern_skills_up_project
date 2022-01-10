@@ -45,7 +45,7 @@ module.exports = function (app) {
             return;
         }
 
-        post = populateFromRequestOnUpdate(body.fields, post);
+        post = populateFromRequestOnUpdate(body.fields, post, image);
         try {
             await post.validate();
         } catch (err) {
