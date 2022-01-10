@@ -21,7 +21,9 @@ describe(constants.USERS_BASE_URL, function () {
         it('endpoints/posts/get 401 on not authorized request', function (done) {
             request(App)
                 .post(constants.POSTS_BASE_URL)
-                .send(post1fixture)
+                .field('url', post1fixture.url)
+                .field('content', post1fixture.content)
+                .field('title', post1fixture.title)
                 .expect('Content-Type', /json/)
                 .expect(constants.RESPONSE_CODE.UNAUTHORIZED)
                 .end(async function (err, res) {

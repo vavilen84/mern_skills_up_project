@@ -6,6 +6,7 @@ const {TOKEN_1_UUID} = require("../../fixtures/tokens");
 const {findPostByUniqueKey, findPostByUrl} = require('./base');
 const {App} = require("../../../utils/server");
 const {logAndExit} = require("../../utils");
+const {POST_1: post1fixture} = require("../../fixtures/posts");
 const post3fixture = require('../../fixtures/posts').POST_3;
 
 describe(constants.USERS_BASE_URL, function () {
@@ -20,7 +21,9 @@ describe(constants.USERS_BASE_URL, function () {
                 .then(function (post) {
                     request(App)
                         .post(constants.POSTS_BASE_URL+"/"+post.id)
-                        .send(post)
+                        .field('url', post.url)
+                        .field('content', post.content)
+                        .field('title', post.title)
                         .expect('Content-Type', /json/)
                         .expect(constants.RESPONSE_CODE.UNAUTHORIZED)
                         .end(async function (err, res) {
@@ -37,13 +40,10 @@ describe(constants.USERS_BASE_URL, function () {
             findPostByUrl(post3fixture.url)
                 .then( function (post) {
                     let postId = post._id.toString();
-                    post._id = null;
-                    post = post.toObject();
                     const updatedUrl = 'updated_url';
-                    post.url = updatedUrl;
                     request(App)
                         .post(constants.POSTS_BASE_URL+"/"+postId)
-                        .send(post)
+                        .field('url', updatedUrl)
                         .set('Authorization', 'Bearer ' + TOKEN_1_UUID)
                         .expect('Content-Type', /json/)
                         .expect(constants.RESPONSE_CODE.OK)

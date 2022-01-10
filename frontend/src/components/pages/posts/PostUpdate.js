@@ -30,7 +30,7 @@ const PostUpdate = () => {
                 <PostSaveForm
                     post={post}
                     successMessage={'Updated!'}
-                    endpointURL={getUpdatePostURL(post.id)}/>
+                    endpointURL={getUpdatePostURL(post._id)}/>
             </>
     );
 }

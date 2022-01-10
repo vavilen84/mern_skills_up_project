@@ -11,8 +11,6 @@ const { v4: uuidv4 } = require('uuid');
 async function urlUniqueValidator(v) {
     let model = getModel();
     let doc = await model.findOne({url: v}).exec();
-    console.log(doc);
-    console.log(this);
     if (doc) {
         if (doc.id !== this._id.toString()) {
             return false;
@@ -127,17 +125,17 @@ exports.populateFromRequestOnCreate = function (formDataFields, imageFilename) {
     }
 }
 
-exports.populateFromRequestOnUpdate = function (req, post) {
-    post.image = req.body.image || post.image;
-    post.url = req.body.url || post.url;
-    post.title = req.body.title || post.title;
-    post.relatedPostIds = req.body.relatedPostIds || post.relatedPostIds;
-    post.tags = req.body.tags || post.tags;
-    post.keywords = req.body.keywords || post.keywords;
-    post.description = req.body.description || post.description;
-    post.greeting = req.body.greeting || post.greeting;
-    post.content = req.body.content || post.content;
-    post.status = req.body.status || post.status;
+exports.populateFromRequestOnUpdate = function (formDataFields, post, imageFilename) {
+    post.image = imageFilename || post.image;
+    post.url = formDataFields.url || post.url;
+    post.title = formDataFields.title || post.title;
+    post.relatedPostIds = formDataFields.relatedPostIds || post.relatedPostIds;
+    post.tags = formDataFields.tags || post.tags;
+    post.keywords = formDataFields.keywords || post.keywords;
+    post.description = formDataFields.description || post.description;
+    post.greeting = formDataFields.greeting || post.greeting;
+    post.content = formDataFields.content || post.content;
+    post.status = formDataFields.status || post.status;
     post.updatedAt = Date.now();
 
     return post;

@@ -9,7 +9,7 @@ class PostSaveForm extends React.Component {
     constructor(props) {
 
         super(props);
-
+console.log(props.endpointURL);
         this.state = {
             image: null,
             imageFileName: props.post?.image || "",
