@@ -69,7 +69,7 @@ console.log(props.endpointURL);
                     this.props.showAlert(json.code, json.data, json.message);
                 }
                 if (this.props.handleSuccess) {
-                    this.props.handleSuccess();
+                    this.props.handleSuccess(json.data);
                 }
             })
             .catch(err => {

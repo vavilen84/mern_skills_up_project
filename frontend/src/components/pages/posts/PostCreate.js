@@ -18,7 +18,7 @@ class PostCreate extends React.Component {
         this.handleSuccess = this.handleSuccess.bind(this);
     }
 
-    handleSuccess() {
+    handleSuccess(post) {
         this.setState({created: true})
     }
 
