@@ -19,3 +19,5 @@ run-all-endpoints-tests:
 db-cmd:
 	NODE_ENV=test node server/src/commands/db/$(cmd).js
 
+load-fixtures:
+	NODE_ENV=test server/./node_modules/mocha/bin/mocha server/src/tests/fixtures/loadFixtures.test.js --exit
