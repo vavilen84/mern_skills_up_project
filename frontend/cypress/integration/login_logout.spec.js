@@ -25,5 +25,14 @@ describe('Login', () => {
         cy.get('.container').contains('Create New Post');
         cy.get('.posts-list li').first().contains('Update');
         cy.get('.posts-list li').first().contains('Delete');
+
+        // logout
+        cy.get('.navigation').contains('Logout').click();
+        cy.get('.navigation').should('include.text', 'Login');
+        cy.get('.navigation').should('not.include.text', 'Logout');
+        cy.visit('/posts');
+        cy.get('.container').should('not.include.text', 'Create New Post');
+        cy.get('.posts-list li').first().should('not.include.text', 'Update');
+        cy.get('.posts-list li').first().should('not.include.text', 'Delete');
     });
 });
