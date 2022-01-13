@@ -65,11 +65,11 @@ console.log(props.endpointURL);
             .then(json => {
                 if (json.code === 200) {
                     this.props.showAlert(null, null, this.props.successMessage);
+                    if (this.props.handleSuccess) {
+                        this.props.handleSuccess(json.data);
+                    }
                 } else {
                     this.props.showAlert(json.code, json.data, json.message);
-                }
-                if (this.props.handleSuccess) {
-                    this.props.handleSuccess(json.data);
                 }
             })
             .catch(err => {
@@ -91,24 +91,24 @@ console.log(props.endpointURL);
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="">Title</label>
-                        <input type="text" className="form-control" placeholder="Title"
+                        <input name="title" type="text" className="form-control" placeholder="Title"
                                onChange={this.handleChangeTitle} value={this.state.title}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">URL</label>
-                        <input type="text" className="form-control" placeholder="URL ex: react-hooks"
+                        <input name="url" type="text" className="form-control" placeholder="URL ex: react-hooks"
                                onChange={this.handleChangeUrl} value={this.state.url}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Content</label>
-                        <textarea className="form-control" placeholder="Content"
+                        <textarea name="content" className="form-control" placeholder="Content"
                                   onChange={this.handleChangeContent} value={this.state.content}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Image</label>
                         {image}
                         <div>
-                            <input type="file" ref={this.fileInput} />
+                            <input name="image" type="file" ref={this.fileInput} />
                         </div>
                     </div>
                     <input type="submit" value="Submit" className="btn btn-success"/>

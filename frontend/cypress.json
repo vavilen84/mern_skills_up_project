@@ -1,5 +1,4 @@
 {
   "baseUrl": "http://localhost:9001",
-  "fixturesFolder": false,
   "experimentalInteractiveRunEvents": true
 }

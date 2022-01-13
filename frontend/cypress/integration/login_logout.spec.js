@@ -1,10 +1,10 @@
-describe('Login', () => {
+describe('Login/Logout', () => {
 
     beforeEach(() => {
         cy.loadFixtures();
     });
 
-    it('Login', () => {
+    it('Login/Logout', () => {
         cy.visit('/');
 
         // I can not see logout btn before login
