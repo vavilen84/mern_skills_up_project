@@ -1,15 +1,33 @@
-MERN stack blog
+#Skills-up MERN stack application.
 
-# local env
+### Implemented functionality
+1) OAuth2 
+2) Post CRUD 
+3) Test coverage
+4) Fixtures
 
-run frontend
+### Run application
+
+Run frontend
 ```
-cd frontend
+cd /prject/root/folder/frontend
 npm run dev
 ```
 
-run server
+Run server
 ```
-cd server
+cd /prject/root/folder/server
 npm run dev
+```
+
+Run server Mocha tests
+```
+cd /prject/root/folder/server
+make run-all-tests
+```
+
+Run frontend Cypress tests
+```
+cd /prject/root/folder/frontend
+npm run cypress:open
 ```
