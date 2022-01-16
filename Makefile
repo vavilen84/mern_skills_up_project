@@ -37,4 +37,8 @@ docker-stop-all:
 	docker-compose down
 
 docker-load-fixtures:
-	docker exec -it server ./node_modules/mocha/bin/mocha  src/tests/fixtures/loadFixtures.test.js --exit
+	docker exec server ./node_modules/mocha/bin/mocha  src/tests/fixtures/loadFixtures.test.js --exit
+
+docker-run-all-server-tests:
+	docker exec server ./node_modules/mocha/bin/mocha src/tests/models/*.test.js --exit
+	docker exec server ./node_modules/mocha/bin/mocha src/tests/endpoints/**/*.test.js --exit

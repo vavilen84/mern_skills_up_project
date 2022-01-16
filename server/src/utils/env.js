@@ -23,9 +23,7 @@ exports.SetEnv = function () {
         }
     }
 
-    console.log(envFilePath);
     require('dotenv').config({path: envFilePath});
-    console.log(process.env);
 
     if (!process.env.MONGODB_CONN_STRING) {
         throw new Error('Env is not loaded!');

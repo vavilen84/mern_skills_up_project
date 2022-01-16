@@ -4,8 +4,7 @@ const path = require('path');
 module.exports.uploadImage = (file) => {
 
     return new Promise((resolve, reject) => {
-        console.log(file);
-console.log(file.filepath);
+
         if (!fs.existsSync(file.filepath)) {
             reject('image file is not saved');
         }

@@ -1,5 +1,5 @@
 Cypress.Commands.add('loadFixtures', () => {
-    let cmd = "cd .. && make load-fixtures";
+    let cmd = Cypress.env('docker') ? "cd .. && make docker-load-fixtures" : "cd .. && make load-fixtures";
     cy.exec(cmd).then((result) => {
         cy.log(result);
     });

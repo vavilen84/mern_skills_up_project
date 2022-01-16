@@ -6,9 +6,6 @@ module.exports = (env) => {
 
     const uploadsFolder = env.docker ? "/uploads" : path.join(__dirname, '../uploads');
 
-    console.log(env.docker);
-    console.log(uploadsFolder);
-
     return {
         entry: './src/index.js',
         watch: true,
