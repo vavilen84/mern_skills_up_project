@@ -1,5 +1,4 @@
 import React from "react";
-import {POST_STATUS_ACTIVE} from "../../../../server/src/constants/constants";
 import {defaultErr} from "../../constants/constants";
 import {showAlertAction} from "../../actions";
 import {connect} from "react-redux";
@@ -9,14 +8,14 @@ class PostSaveForm extends React.Component {
     constructor(props) {
 
         super(props);
-console.log(props.endpointURL);
+
         this.state = {
             image: null,
             imageFileName: props.post?.image || "",
             url: props.post?.url || "",
             title: props.post?.title || "",
             content: props.post?.content || "",
-            status: POST_STATUS_ACTIVE,
+            status: 1,
         };
 
         this.fileInput = React.createRef();

@@ -9,7 +9,7 @@ export const fetchPost = async (url) => {
     try {
         resp = await fetch(getFetchPostURL(url), fetchOptions);
         json = await resp.json();
-        console.log(json);
+
         if (json && json.code === 200) {
             post = json.data;
         }
