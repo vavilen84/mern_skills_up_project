@@ -3,7 +3,7 @@ exports.SetEnv = function () {
     let envFilePath = '';
 
     let currentFolder = process.env.PWD;
-    if (!currentFolder){
+    if (!currentFolder) {
         // it is assumed, that we have run docker env
         let serverWorkingDir = process.env.SERVER_WORKING_DIR;
         if (!serverWorkingDir) {
@@ -11,7 +11,10 @@ exports.SetEnv = function () {
         }
         envFilePath = serverWorkingDir + "/" + envFileName;
     } else {
-        if (currentFolder.includes('server') === false) {
+        if (process.env.SERVER_WORKING_DIR && (process.env.SERVER_WORKING_DIR === currentFolder)) {
+            // it is assumed, that we have run docker env
+            envFilePath = currentFolder + "/" + envFileName;
+        } else if (currentFolder.includes('server') === false) {
             // it is assumed, that we have run tests using Makefile in project root folder
             envFilePath = currentFolder + "/server/" + envFileName;
         } else {
