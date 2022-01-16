@@ -1,8 +1,6 @@
-FROM node:12
+FROM node:16.13.0
 
+WORKDIR /usr/src/app/
 COPY ./server/package*.json ./
-RUN npm install -g nodemon
 RUN npm install
-COPY ./server/ .
-
-ENTRYPOINT nodemon src/app.js
+CMD ["npm","run", "dev"]
