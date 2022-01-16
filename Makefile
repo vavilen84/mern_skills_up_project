@@ -1,12 +1,12 @@
 # server test env
 
-run-models-test:
+run-server-models-test:
 	NODE_ENV=test server/./node_modules/mocha/bin/mocha server/src/tests/models/$(test) --exit
 
-run-endpoints-test:
+run-server-endpoints-test:
 	NODE_ENV=test server/./node_modules/mocha/bin/mocha server/src/tests/endpoints/$(test) --exit
 
-run-all-tests:
+run-all-server-tests:
 	NODE_ENV=test server/./node_modules/mocha/bin/mocha server/src/tests/models/*.test.js --exit
 	NODE_ENV=test server/./node_modules/mocha/bin/mocha server/src/tests/endpoints/**/*.test.js --exit
 
@@ -16,7 +16,7 @@ run-all-models-tests:
 run-all-endpoints-tests:
 	NODE_ENV=test server/./node_modules/mocha/bin/mocha server/src/tests/endpoints/**/*.test.js --exit
 
-db-cmd:
+run-db-cmd:
 	NODE_ENV=test node server/src/commands/db/$(cmd).js
 
 load-fixtures:
