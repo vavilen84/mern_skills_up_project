@@ -1,10 +1,7 @@
 exports.SetEnv = function () {
-    let envFileName = '.env.local.test';
+    let envFileName = '.env';
     let envFilePath = '';
 
-    if (process.env.ENV_FILE) {
-        envFileName = process.env.ENV_FILE;
-    }
     let currentFolder = process.env.PWD;
     if (currentFolder.includes('server') === false) {
         // it is assumed, that we have run tests using Makefile in project root folder

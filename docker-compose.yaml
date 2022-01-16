@@ -48,7 +48,7 @@ services:
     expose:
       - "8000"
     ports:
-      - 8000:8000
+      - "8000:8000"
 
   frontend:
     container_name: frontend

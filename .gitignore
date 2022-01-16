@@ -1,8 +1,7 @@
 .idea
 server/node_modules
 .env
-.env.local
-.env.test
+server/.env
 server_combined.log
 server_error.log
 docker/bitnami/*
