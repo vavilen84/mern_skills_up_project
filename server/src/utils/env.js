@@ -1,8 +1,20 @@
 exports.SetEnv = function () {
-    if (process.env.NODE_ENV === 'test') {
-        require('dotenv').config({path: '.env.test'});
+    let envFileName = '.env.local.test';
+    let envFilePath = '';
+
+    if (process.env.ENV_FILE) {
+        envFileName = process.env.ENV_FILE;
+    }
+    let currentFolder = process.env.PWD;
+    if (currentFolder.includes('server') === false) {
+        // it is assumed, that we have run tests using Makefile in project root folder
+        envFilePath = currentFolder + "/server/" + envFileName;
     } else {
-        // used to run tests from IDE
-        require('dotenv').config({path: process.env.PWD + '/../.env.test'});
+        // it is assumed, that we have run tests using IDE debug with breakpoints tool
+        envFilePath = currentFolder + "/" + envFileName;
+    }
+    require('dotenv').config({path: envFilePath});
+    if (!process.env.MONGODB_CONN_STRING) {
+        throw new Error('Env is not loaded!');
     }
 }
