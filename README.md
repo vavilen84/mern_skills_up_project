@@ -1,6 +1,6 @@
 # Skills-up Mongo/Express/React/Node stack application
 
-## React FE application
+## React frontend application
 
 ### Implemented functionality
 1) Home page
@@ -18,56 +18,6 @@
 - Redux/Redux-thunk
 - Cypress
 
-### Run application
-
-Run frontend
-```
-cd /prject/root/folder/frontend
-npm run dev
-```
-
-### Tests
-
-Both BE & FE tests use predefined test fixtures data, which is restored before each Cypress test
-```
-beforeEach(() => {
-    cy.loadFixtures();
-});
-```
-```
-// see frontend/cypress/support/commands.js
-
-Cypress.Commands.add('loadFixtures', () => {
-    let cmd = "cd .. && make load-fixtures";
-    cy.exec(cmd).then((result) => {
-        cy.log(result);
-    });
-});
-```
-'make load-fixtures' will run fake server test, in order to restore DB
-```
-// see Makefile
-
-load-fixtures:
-	NODE_ENV=test server/./node_modules/mocha/bin/mocha server/src/tests/fixtures/loadFixtures.test.js --exit
-```
-
-In order to run Cypress tests FE & BE applications should be started like this
-```
-cd /prject/root/folder/frontend
-npm run dev
-```
-```
-cd /prject/root/folder/server
-npm run dev
-```
-
-Run Cypress tests outside the Docker env
-```
-cd /prject/root/folder/frontend
-npm run cypress:open
-```
-
 ## Express REST API server application
 
 ### Implemented functionality
@@ -81,51 +31,6 @@ npm run cypress:open
 - Mongoose ORM
 - Mocha
 
-### Run server
-```
-cd /prject/root/folder/server
-npm run dev
-```
-
-### Tests
-
-Run one model test
-```
-cd /prject/root/folder
-make run-server-models-test test=postModel.test.js
-```
-
-Run all models tests
-```
-cd /prject/root/folder
-make run-all-models-tests
-```
-
-Run one endpoint test
-```
-cd /prject/root/folder
-make run-server-endpoints-test test=posts/postCreate.test.js
-```
-
-Run all endpoints tests
-```
-cd /prject/root/folder
-make run-all-endpoints-tests
-```
-
-### Run server 
-```
-cd /prject/root/folder/server
-make run-all-tests
-```
-
-### CLI commands
-
-Run DB cli command
-```
-cd /prject/root/folder
-make run-db-cmd cmd=create_db_user
-```
 
 ### Env file
 
