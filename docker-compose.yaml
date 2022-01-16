@@ -41,6 +41,7 @@ services:
       - local
     volumes:
       - "./server:/usr/src/app"
+      - "./uploads:/uploads"
     depends_on:
       - mongodb
     env_file:
@@ -49,6 +50,7 @@ services:
       - "8000"
     ports:
       - "8000:8000"
+    command: "npm run dev"
 
   frontend:
     container_name: frontend
@@ -61,13 +63,13 @@ services:
       - '9001:9001'
     volumes:
       - "./frontend:/usr/src/app"
+      - "./uploads:/uploads"
     depends_on:
       - server
       - mongodb
     networks:
       - local
-    env_file:
-      - .env
+    command: "npm run docker-dev"
 
 networks:
   local:

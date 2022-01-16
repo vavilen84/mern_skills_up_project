@@ -98,7 +98,7 @@ describe(constants.USERS_BASE_URL, function () {
                     assert.strictEqual(post.url === 'uniqueURL', true);
                     assert.strictEqual(post.content === 'uniqueContent', true);
                     assert.strictEqual(post.image.length > 0, true);
-                    assert.strictEqual(fs.existsSync(path.join(process.env.UPLOADS_PATH, post.image)), true);
+                    assert.strictEqual(fs.existsSync(path.join(process.env.UPLOADS_FOLDER, post.image)), true);
                     done();
                 });
         });

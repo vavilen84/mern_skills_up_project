@@ -66,7 +66,7 @@ describe(constants.USERS_BASE_URL, function () {
                             assert.strictEqual(postFromResponse.title, updatedTitle);
                             assert.strictEqual(postFromResponse.content, updatedContent);
                             assert.strictEqual(postFromResponse.image.length > 0, true);
-                            assert.strictEqual(fs.existsSync(path.join(process.env.UPLOADS_PATH, postFromResponse.image)), true);
+                            assert.strictEqual(fs.existsSync(path.join(process.env.UPLOADS_FOLDER, postFromResponse.image)), true);
 
                             let postFromDb = null;
                             try {
@@ -79,7 +79,7 @@ describe(constants.USERS_BASE_URL, function () {
                             assert.strictEqual(postFromDb.title, updatedTitle)
                             assert.strictEqual(postFromDb.content, updatedContent)
                             assert.strictEqual(postFromDb.image.length > 0, true);
-                            assert.strictEqual(fs.existsSync(path.join(process.env.UPLOADS_PATH, postFromDb.image)), true);
+                            assert.strictEqual(fs.existsSync(path.join(process.env.UPLOADS_FOLDER, postFromDb.image)), true);
 
                             done();
                         });

@@ -4,7 +4,8 @@ const path = require('path');
 module.exports.uploadImage = (file) => {
 
     return new Promise((resolve, reject) => {
-
+        console.log(file);
+console.log(file.filepath);
         if (!fs.existsSync(file.filepath)) {
             reject('image file is not saved');
         }
@@ -16,7 +17,7 @@ module.exports.uploadImage = (file) => {
             dt.getDate().toString()
         );
         let newFileFolder = path.join(
-            process.env.UPLOADS_PATH,
+            process.env.UPLOADS_FOLDER,
             relativePath
         );
         fs.mkdirSync(newFileFolder, {recursive: true})

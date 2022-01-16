@@ -2,7 +2,7 @@ const formidable = require('formidable');
 
 module.exports.parseMultipartDataRequest = (req) => {
     return new Promise((resolve, reject) => {
-        const form = formidable({multiples: true, uploadDir: process.env.UPLOADS_PATH});
+        const form = formidable({multiples: true, uploadDir: process.env.UPLOADS_FOLDER});
         form.parse(req, (err, fields, files) => {
             if (err) {
                 reject(err);
