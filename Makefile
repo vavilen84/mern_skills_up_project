@@ -1,3 +1,5 @@
+# outside of docker commands
+
 run-server-models-test:
 	server/./node_modules/mocha/bin/mocha server/src/tests/models/$(test) --exit
 
@@ -19,3 +21,20 @@ run-db-cmd:
 
 load-fixtures:
 	server/./node_modules/mocha/bin/mocha server/src/tests/fixtures/loadFixtures.test.js --exit
+
+# docker env related commands
+
+fix_permissions:
+	sudo chmod 777 -R docker/bitnami
+
+docker-up-build-all: fix_permissions
+	docker-compose up --build
+
+docker-up-all: fix_permissions
+	docker-compose up
+
+docker-stop-all:
+	docker-compose down
+
+docker-load-fixtures:
+	docker exec -it server ./node_modules/mocha/bin/mocha  src/tests/fixtures/loadFixtures.test.js --exit
