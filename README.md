@@ -1,4 +1,4 @@
-# Skills-up Mongo/Express/React/Node stack application.
+# Skills-up Mongo/Express/React/Node stack application
 
 ## React FE application
 
@@ -52,7 +52,17 @@ load-fixtures:
 	NODE_ENV=test server/./node_modules/mocha/bin/mocha server/src/tests/fixtures/loadFixtures.test.js --exit
 ```
 
-Run Cypress tests
+In order to run Cypress tests FE & BE applications should be started like this
+```
+cd /prject/root/folder/frontend
+npm run dev
+```
+```
+cd /prject/root/folder/server
+npm run dev
+```
+
+Run Cypress tests outside the Docker env
 ```
 cd /prject/root/folder/frontend
 npm run cypress:open
@@ -70,7 +80,7 @@ npm run cypress:open
 ### Used tools
 - Mongoose ORM
 - Mocha
-- 
+
 ### Run server
 ```
 cd /prject/root/folder/server
@@ -103,7 +113,7 @@ cd /prject/root/folder
 make run-all-endpoints-tests
 ```
 
-### Run server
+### Run server 
 ```
 cd /prject/root/folder/server
 make run-all-tests
@@ -116,4 +126,8 @@ Run DB cli command
 cd /prject/root/folder
 make run-db-cmd cmd=create_db_user
 ```
+
+### Env file
+
+Create .env & .env.test files from .env.dist. If NODE_ENV=test - .env.test will be included respectively. 
 
