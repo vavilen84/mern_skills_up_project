@@ -31,8 +31,12 @@
 - Mongoose ORM
 - Mocha
 
+### Env files & Docker environment
 
-### Env file
+There are 2 possible ways to run applications & tests - using Docker or without it:
+- [Non Docker way](docs/run_outside_of_docker.md)
+- [Docker way](docs/docker_env.md)
 
-Create .env & .env.test files from .env.dist. If NODE_ENV=test - .env.test will be included respectively. 
+For both ways need to create server/.env file from server/.env.dist and set correct values. 
+
 
