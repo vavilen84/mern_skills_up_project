@@ -2,7 +2,7 @@ const security = require('crypto');
 const secret = 'secret';
 
 exports.checkPassword = function (password, salt, hashedPassword) {
-    return this.encryptPassword(password, salt) === hashedPassword;
+    return security.timingSafeEqual(this.encryptPassword(password, salt), hashedPassword);
 }
 
 exports.encryptPassword = function (password, salt) {
